@@ -1,0 +1,66 @@
+.UsefulLinksDropdown {
+  position: relative;
+  height: 40px;
+  border: 1px solid #c4c4c4;
+  box-sizing: border-box;
+  border-radius: 4px;
+  margin-bottom: 24px;
+  padding: 0 10px;
+  background-color: #fff;
+  z-index: 4;
+
+  .Title {
+    display: flex;
+    align-items: center;
+    height: 100%;
+
+    > svg {
+      &:nth-child(1) {
+        margin-right: 10px;
+      }
+
+      &:nth-child(3) {
+        transition: 0.2s;
+      }
+    }
+
+    > span {
+      width: 100%;
+    }
+
+    + div {
+      display: none;
+      top: calc(100% + 4px);
+      width: 100%;
+      z-index: 4;
+    }
+  }
+}
+
+.Opened {
+  border-color: #5b88bd;
+
+  .Title {
+    > svg {
+      &:nth-child(1) > path {
+        fill: #5b88bd;
+      }
+
+      &:nth-child(3) {
+        transform: rotate(180deg);
+
+        > path {
+          stroke: #5b88bd;
+        }
+      }
+    }
+
+    > span {
+      color: #5b88bd;
+    }
+
+    & + div {
+      display: block;
+    }
+  }
+}

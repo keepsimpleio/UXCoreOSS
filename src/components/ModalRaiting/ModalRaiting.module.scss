@@ -1,0 +1,170 @@
+.ModalRaiting {
+  height: 75px;
+  padding: 15px 20px;
+  color: #28587b;
+  font-size: 12px;
+  display: flex;
+
+  & .Rating {
+    text-align: center;
+    flex-direction: column;
+    width: 100%;
+
+    & .Question {
+      margin-bottom: 15px;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    & .Table {
+      display: flex;
+      flex-direction: row;
+
+      & .Label {
+        width: calc((100% - 310px) / 2);
+        padding: 0 10px;
+        box-sizing: border-box;
+        text-align: right;
+        font-size: 14px;
+
+        &.Mobile {
+          display: none;
+        }
+
+        &:nth-of-type(4) {
+          text-align: left;
+        }
+      }
+
+      & .Range {
+        display: flex;
+        flex-direction: row;
+        width: 310px;
+
+        & .RangeItem {
+          width: 30px;
+          border-right: 1px solid transparent;
+          display: flex;
+          flex-direction: column;
+          cursor: pointer;
+
+          & .Block {
+            height: 16px;
+            background-color: #28587b;
+            opacity: 0.1;
+          }
+
+          & .Number {
+            margin-top: 3px;
+          }
+
+          &.Hovered .Block {
+            opacity: 1;
+          }
+        }
+      }
+    }
+
+    &.Hidden {
+      display: none;
+    }
+  }
+
+  & .ThankYou {
+    display: flex;
+    font-size: 16px;
+    width: 100%;
+    padding-bottom: 15px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+
+    &.Hidden {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 1440px) {
+  .ModalRaiting {
+    & .Rating {
+      & .Question {
+        font-size: 12px;
+      }
+
+      & .Table {
+        & .Label {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 800px) {
+  .ModalRaiting {
+    padding: 14px 20px 10px !important;
+
+    & .Rating {
+      display: flex;
+
+      & .Table {
+        flex-wrap: wrap;
+
+        & .Range {
+          width: 100% !important;
+        }
+
+        & .Label {
+          display: none;
+        }
+
+        & .Label.Mobile,
+        & .Label.Mobile + .Label {
+          display: block !important;
+          width: 50% !important;
+          margin-top: 4px;
+          padding: 0 !important;
+          font-size: 14px;
+        }
+
+        & .Label.Mobile {
+          text-align: left !important;
+        }
+
+        & .Label.Mobile + .Label {
+          text-align: right !important;
+        }
+      }
+
+      & .RangeItem {
+        position: relative;
+        width: calc((100% - 10px) / 10) !important;
+
+        & .Block {
+          height: 24px !important;
+        }
+
+        & .Number {
+          position: absolute;
+          width: 100%;
+          top: 2px;
+          font-weight: 700;
+        }
+
+        &.Hovered .Number {
+          color: #fff;
+        }
+      }
+
+      & .Question {
+        margin-bottom: 10px;
+        font-size: 14px;
+      }
+    }
+
+    & .ThankYou {
+      font-size: 22px;
+    }
+  }
+}
