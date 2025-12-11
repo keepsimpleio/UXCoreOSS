@@ -174,24 +174,24 @@ const UXCGModal: FC<TUXCGModal> = ({
 
     if (isOpen) {
       handleHeightCalc();
-
       if (modalBodyRef.current) {
         modalBodyRef.current.scrollTo(0, 0);
       }
       setActiveTooltipId(null);
 
       document.documentElement.style.overflowY = 'hidden';
+      document.body.classList.add('hide-body-move');
     } else {
       document.documentElement.style.overflowY = overflowDefaultValue;
+      document.body.classList.remove('hide-body-move');
     }
 
-    // @ts-ignore
-    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('keydown', handleKeyDown as any);
 
     return () => {
       document.documentElement.style.overflowY = overflowDefaultValue;
-      // @ts-ignore
-      document.removeEventListener('keydown', handleKeyDown);
+      document.body.classList.remove('hide-body-move');
+      document.removeEventListener('keydown', handleKeyDown as any);
     };
   }, [questionId, isOpen]);
 

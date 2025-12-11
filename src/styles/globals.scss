@@ -41,7 +41,6 @@ html.scroll-style-articles::-webkit-scrollbar-thumb {
 body {
   background: linear-gradient(180deg, #f9fafb 0%, #e8e8e8 100%), #f9fafb;
   color: #252626;
-  transition: 0.3s;
 
   ol {
     & li {
@@ -49,6 +48,11 @@ body {
       margin-bottom: 0.5rem;
     }
   }
+}
+
+.hide-body-move {
+  margin-right: 8px;
+  background-color: rgba(0, 0, 0, 0.35);
 }
 
 .Toastify__toast-container {
