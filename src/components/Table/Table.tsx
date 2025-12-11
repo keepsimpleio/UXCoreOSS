@@ -1,16 +1,19 @@
 import { FC, memo, useCallback, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import cn from 'classnames';
+import Link from 'next/link';
 
 import Tag, { TTag } from '@components/Tag';
 import Button from '@components/Button';
+import Search from './TableSearch';
+
 import type { QuestionType, TagType } from '@local-types/data';
+
 import { TRouter } from '@local-types/global';
+
 import tableIntl from '@data/table';
 
-import Search from './TableSearch';
 import styles from './Table.module.scss';
-import Link from 'next/link';
 
 type TableProps = {
   data: QuestionType[];
@@ -51,9 +54,21 @@ const Table: FC<TableProps> = ({
   setSearchValue,
   setIsQuestionHovered,
 }) => {
+  const router = useRouter();
+  const { locale } = router as TRouter;
+  const tableBodyRef = useRef(null);
+
   const [data, setData] = useState(incomingData);
   const [displayedItems, setDisplayedItems] = useState(data.length);
   const [isActive, setIsActive] = useState(false);
+
+  const {
+    allQuestionsButtonLabel,
+    showMoreText,
+    showLessText,
+    noResultsText,
+    labelText,
+  } = tableIntl[locale];
 
   const formatName = (number, title) => {
     return `#${number}. ${title}`;
@@ -71,20 +86,6 @@ const Table: FC<TableProps> = ({
     return () => clearInterval(interval);
   }, []);
 
-  const router = useRouter();
-  const { locale } = router as TRouter;
-  const tableBodyRef = useRef(null);
-  const labelEn = 'Select your product stage';
-  const labelRu = 'Выберите стадию вашего проекта';
-  const labelHy = 'Ընտրեք ձեր պրոդուկտի փուլը';
-
-  const labelLocales = {
-    en: labelEn,
-    ru: labelRu,
-    hy: labelHy,
-  };
-  const label = labelLocales[locale];
-
   const sortData = useCallback(dataToSort => {
     const newData = [...dataToSort];
     newData.sort((a: any, b: any) => {
@@ -95,19 +96,6 @@ const Table: FC<TableProps> = ({
 
     return newData;
   }, []);
-
-  const showMoreTxts = {
-    en: 'Show more',
-    ru: 'Показать больше',
-    hy: 'Ցույց տալ ավելին',
-  };
-  const showLessTxts = {
-    en: 'Show less',
-    ru: 'Показать меньше',
-    hy: 'Ցույց տալ պակաս',
-  };
-  const showMoreText = showMoreTxts[locale];
-  const showLessText = showLessTxts[locale];
 
   const handleChange = useCallback(
     (value: string) => {
@@ -131,7 +119,6 @@ const Table: FC<TableProps> = ({
 
   const findAnswerIndexByBiasNumber = useCallback(
     (biasNumber: number, questionIndex: number) => {
-      // HYTranslation TODO
       const answers = data[questionIndex]?.attributes?.answers.split('\n');
       return answers.findIndex((item: string) => {
         return item.includes(`{{${biasNumber}}}`);
@@ -171,7 +158,6 @@ const Table: FC<TableProps> = ({
     }
   }, [showMoreButton, data.length]);
 
-  const { allQuestionsButtonLabel } = tableIntl[locale];
   return (
     <>
       {withSearch && (
@@ -200,7 +186,7 @@ const Table: FC<TableProps> = ({
                 [styles.LabelWrapperAnimation]: isActive,
               })}
             >
-              <span className={styles.SelectionTxt}> {label} </span>
+              <span className={styles.SelectionTxt}> {labelText} </span>
             </div>
             <Tag
               dataId="all"
@@ -233,10 +219,9 @@ const Table: FC<TableProps> = ({
         >
           {noResults && (
             <div className={styles.NoResults} data-cy={'No Results Found'}>
-              No results found
+              {noResultsText}
             </div>
           )}
-          {/*HYTranslation TODO*/}
           {data.slice(0, displayedItems).map(({ attributes }, index) => {
             const { slug } = attributes;
             const itemTags = JSON.parse(attributes?.tags || '[]');
@@ -249,7 +234,6 @@ const Table: FC<TableProps> = ({
 
             return (
               <div
-                // style={{ display: isHidden ? 'none' : 'block' }}
                 data-cy="open-question"
                 key={index}
                 className={cn(styles.TableRow, {

@@ -108,6 +108,7 @@ const ScorePanel: FC<ScorePanelProps> = ({
                 width={110}
                 height={100}
                 alt={'Enlightened'}
+                unoptimized
               />
             </div>
           ) : null
