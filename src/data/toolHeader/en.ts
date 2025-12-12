@@ -14,7 +14,7 @@ const en = {
       items: [
         {
           title: 'Cognitive biases in education',
-          link: '/uxeducation',
+          link: '/articles/uxeducation',
         },
       ],
     },

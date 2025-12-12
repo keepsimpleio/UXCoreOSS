@@ -14,7 +14,7 @@ const ru = {
       items: [
         {
           title: 'Использование проекта в образовательной системе',
-          link: '/ru/uxeducation',
+          link: '/ru/articles/uxeducation',
         },
       ],
     },
