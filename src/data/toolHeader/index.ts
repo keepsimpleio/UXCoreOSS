@@ -17,7 +17,7 @@ interface TUsefulLinks {
 }
 
 interface TToolHeaderData {
-  usefulLinksLabel: string;
+  ourProjects: string;
   usernameIsTaken: string;
   settingsTxt: string;
   myProfileTxt: string;
@@ -25,6 +25,7 @@ interface TToolHeaderData {
   awarenessTest: string;
   usefulLinks: TUsefulLinks[];
   podcast: string;
+  done: string;
   findSolutions: string;
   learnAboutUXCore: string;
 }

@@ -127,6 +127,20 @@
   :nth-child(10) {
     margin: -16px -16px 0;
   }
+
+  .OurProjectsLabel {
+    box-sizing: border-box;
+    width: -webkit-fill-available;
+    height: 40px;
+    border: 1px solid #c4c4c4;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    cursor: default;
+    margin-right: 5px;
+    gap: 8px;
+  }
 }
 
 .MobileLegendBlock {

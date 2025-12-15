@@ -11,7 +11,6 @@ import Image from 'next/image';
 import cn from 'classnames';
 import dynamic from 'next/dynamic';
 
-import type { TagType } from '@local-types/data';
 import type { TRouter } from '@local-types/global';
 import { UserTypes } from '@local-types/uxcat-types/types';
 
@@ -19,9 +18,8 @@ import Link from '@components/NextLink';
 import PageSwitcher from '@components/PageSwitcher';
 import UserDropdown from '@components/UserDropdown';
 import MobileHeader from '@components/_biases/MobileHeader';
-import UsfulLinksDropdown from '@components/UsfulLinksDropdown';
-import UsefulLinksContent from '@components/UsefulLinksContent';
 import { GlobalContext } from '@components/Context/GlobalContext';
+import OurProjectsModal from '@components/OurProjectsModal';
 import LanguageSwitcher from '@components/LanguageSwitcher';
 
 import { navItems } from './navItems';
@@ -50,7 +48,6 @@ const SettingsModal = dynamic(() => import('@components/SettingsModal'), {
 type TToolHeader = {
   page?: 'uxcp' | 'uxcg' | 'uxcore' | 'uxeducation' | 'uxcat';
   homepageLinkTarget?: '_blank' | '_self';
-  tags: TagType[];
   openPodcast?: boolean;
   showSavedPersonas?: boolean;
   setOpenPodcast?: (updater: (prev: boolean) => boolean) => void;
@@ -62,13 +59,13 @@ type TToolHeader = {
   setUserInfo?: (data: UserTypes) => void;
   setUpdatedUsername?: (username: string) => void;
   blockLanguageSwitcher?: boolean;
+  tags?: any; // TODO - Added temporarily, will be removed in the next tasks
 };
 
 const ToolHeader: FC<TToolHeader> = ({
   page,
   homepageLinkTarget = '_self',
   openPodcast,
-  tags,
   setOpenPodcast,
   openPersonaModal,
   showSavedPersonas = true,
@@ -83,11 +80,12 @@ const ToolHeader: FC<TToolHeader> = ({
   const router = useRouter();
   const { isMobile } = useMobile()[1];
   const [, { isCoreView }] = useUXCoreGlobals();
-  const { accountData, setAccountData } = useContext(GlobalContext);
+  const { accountData, setAccountData, ourProjectsModalData } =
+    useContext(GlobalContext);
   const { locale, asPath } = router as TRouter;
 
   const {
-    usefulLinksLabel,
+    ourProjects,
     usernameIsTaken,
     settingsTxt,
     myProfileTxt,
@@ -96,20 +94,19 @@ const ToolHeader: FC<TToolHeader> = ({
     podcast,
     findSolutions,
     learnAboutUXCore,
+    done,
   } = toolHeaderData[locale];
+
   const imageSrc = useMemo(() => accountData?.picture, [accountData]);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [openOurProjects, setOpenOurProjects] = useState(false);
   const [showUxcoreTooltip, toggleUxcoreHeaderTooltip] = useState(true);
   const [showUxcgTooltip, toggleUxcgHeaderTooltip] = useState(true);
   const [openSettings, setOpenSettings] = useState(false);
   const [token, setToken] = useState<string | null>(null);
   const [usernameIsTakenError, setUsernameIsTakenError] = useState('');
   const [changedTitle, setChangedTitle] = useState(false);
-
-  const currentUsername = accountData
-    ? accountData.username
-    : accountData?.username;
-
+  const currentUsername = !!accountData && accountData.username;
   const currentEmail = accountData && accountData.email;
 
   const publicEmail = accountData && accountData.publicEmail;
@@ -234,8 +231,16 @@ const ToolHeader: FC<TToolHeader> = ({
         />
         {!disablePageSwitcher && (
           <div className={styles.PageSwitcherContainer}>
-            <UsfulLinksDropdown tags={tags} page={page} />
             <PageSwitcher page={page} />
+            <span className={styles.PageSwitcherItem}>
+              <DiamondIcon />
+              <span
+                className={styles.Description}
+                onClick={() => setOpenOurProjects(true)}
+              >
+                {ourProjects}
+              </span>
+            </span>
           </div>
         )}
       </div>
@@ -358,10 +363,10 @@ const ToolHeader: FC<TToolHeader> = ({
               className={cn(styles.MenuItem, {
                 [styles.MenuItemHy]: locale === 'hy',
               })}
+              onClick={() => setOpenOurProjects(true)}
             >
               <DiamondIcon />
-              <span className={styles.Description}>{usefulLinksLabel}</span>
-              <UsefulLinksContent tags={tags} page={page} />
+              <span className={styles.Description}>{ourProjects}</span>
             </span>
             <div
               className={cn(styles.actions, {
@@ -410,6 +415,18 @@ const ToolHeader: FC<TToolHeader> = ({
             }
             changeTitlePermission={changeTitlePermission}
             setChangedTitle={setChangedTitle}
+          />
+        )}
+        {openOurProjects && (
+          <OurProjectsModal
+            projects={
+              !!ourProjectsModalData && ourProjectsModalData?.aboutProject
+            }
+            title={!!ourProjectsModalData && ourProjectsModalData?.title}
+            onClose={() => setOpenOurProjects(false)}
+            github={!!ourProjectsModalData && ourProjectsModalData.github}
+            api={!!ourProjectsModalData && ourProjectsModalData.api}
+            doneTxt={done}
           />
         )}
       </>

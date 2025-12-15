@@ -20,6 +20,7 @@ $active-color: #359eff;
     &:link {
       text-decoration: none;
     }
+
     .bob {
       opacity: 85%;
       width: 23px !important;
@@ -29,6 +30,7 @@ $active-color: #359eff;
         opacity: 100%;
       }
     }
+
     & svg,
     .bob {
       width: 18px;
@@ -61,8 +63,9 @@ $active-color: #359eff;
     grid-template-columns: auto auto;
     gap: 6px;
     width: 100%;
-    margin-bottom: 16px;
+    margin-bottom: 6px;
   }
+
   .GridWrapper > .Button:nth-child(5) {
     grid-column: 1 / -1;
   }

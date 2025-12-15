@@ -22,6 +22,7 @@ import { getStrapiQuestions } from '@api/questions';
 import { getUserInfo } from '@api/uxcat/users-me';
 import { authenticate } from '@api/auth';
 import { getNewUpdate } from '@api/new-updates';
+import { getOurProjects } from '@api/our-projects';
 
 import { mergeQuestionsLocalization } from '@lib/helpers';
 
@@ -66,7 +67,7 @@ function App({ Component, pageProps: { session, ...pageProps } }: TApp) {
   const [isCookieStateLoaded, setIsCookieStateLoaded] = useState(false);
   const [isNewUpdateModalVisible, setIsNewUpdateModalVisible] = useState(false);
   const [showLoader, setShowLoader] = useState(false);
-
+  const [ourProjectsModalData, setOurProjectsModalData] = useState(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const router = useRouter();
   const loadingTimer = useRef(null);
@@ -272,19 +273,38 @@ function App({ Component, pageProps: { session, ...pageProps } }: TApp) {
   }, []);
 
   useEffect(() => {
+    if (!router.isReady) return;
+
     const getData = async () => {
       try {
-        const locale = router.locale === '' ? 'en' : 'ru';
+        const locale = router.locale === 'ru' ? 'ru' : 'en';
         const data = await getNewUpdate(locale);
-        if (data) {
-          setNewUpdateModalData(data);
-        }
+
+        if (data) setNewUpdateModalData(data);
       } catch (error) {
         console.error('Error fetching new update data:', error);
       }
     };
+
     getData();
-  }, []);
+  }, [router.isReady, router.locale]);
+
+  useEffect(() => {
+    if (!router.isReady) return;
+
+    const getData = async () => {
+      try {
+        const locale = router.locale === 'ru' ? 'ru' : 'en';
+        const data = await getOurProjects(locale);
+
+        if (data) setOurProjectsModalData(data);
+      } catch (error) {
+        console.error('Error fetching new update data:', error);
+      }
+    };
+
+    getData();
+  }, [router.isReady, router.locale]);
 
   useEffect(() => {
     const hasSeen = document.cookie.includes('updateModalSeen=true');
@@ -380,6 +400,7 @@ function App({ Component, pageProps: { session, ...pageProps } }: TApp) {
           showLoader,
           setShowLoader,
           videoRef,
+          ourProjectsModalData,
         }}
       >
         <Component {...pageProps} />
