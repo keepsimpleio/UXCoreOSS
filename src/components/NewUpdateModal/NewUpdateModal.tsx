@@ -11,6 +11,9 @@ import type { NewUpdateModalProps } from './NewUpdateModal.types';
 import styles from './NewUpdateModal.module.scss';
 
 const NewUpdateModal: FC<NewUpdateModalProps> = ({ data, onClose }) => {
+  const closeText = data?.['Close button text'];
+  const socialLink = data?.['Social media link'];
+
   return (
     <Modal
       onClick={onClose}
@@ -27,7 +30,7 @@ const NewUpdateModal: FC<NewUpdateModalProps> = ({ data, onClose }) => {
           className={styles.img}
           alt={'New Update'}
         />
-        <Link href={data?.socialMediaLink} target={'_blank'}>
+        <Link href={socialLink} target={'_blank'}>
           <Image
             src={'/assets/insta-icon.svg'}
             alt={'Insta Icon'}
@@ -40,7 +43,7 @@ const NewUpdateModal: FC<NewUpdateModalProps> = ({ data, onClose }) => {
       <div className={styles.content}>
         <ReactMarkdown>{data?.description}</ReactMarkdown>
         <Button
-          label={data?.buttonText}
+          label={closeText}
           onClick={onClose}
           className={styles['closeBtn']}
         />

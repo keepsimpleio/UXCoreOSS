@@ -272,32 +272,35 @@ function App({ Component, pageProps: { session, ...pageProps } }: TApp) {
   }, []);
 
   useEffect(() => {
+    if (!router.isReady) return;
+
     const getData = async () => {
       try {
-        const locale = router.locale === '' ? 'en' : 'ru';
+        const locale = router.locale === 'ru' ? 'ru' : 'en';
         const data = await getNewUpdate(locale);
-        if (data) {
-          setNewUpdateModalData(data);
-        }
+
+        if (data) setNewUpdateModalData(data);
       } catch (error) {
         console.error('Error fetching new update data:', error);
       }
     };
+
     getData();
-  }, []);
+  }, [router.isReady, router.locale]);
 
   useEffect(() => {
     const hasSeen = document.cookie.includes('updateModalSeen=true');
     if (hasSeen) return;
 
-    if (!newUpdateModalData?.showModal) return;
+    if (!newUpdateModalData?.['Frontend modal visibility']) return;
+    const appearsAfter = newUpdateModalData['Appears after ... seconds'];
 
     const timeout = setTimeout(() => {
       setIsNewUpdateModalVisible(true);
-    }, newUpdateModalData?.showAfter * 1000);
+    }, appearsAfter * 1000);
 
     return () => clearTimeout(timeout);
-  }, [newUpdateModalData?.showModal, newUpdateModalData?.showAfter]);
+  }, [newUpdateModalData, newUpdateModalData?.['Appears after ... seconds']]);
 
   const handleCloseModal = () => {
     setIsNewUpdateModalVisible(false);
