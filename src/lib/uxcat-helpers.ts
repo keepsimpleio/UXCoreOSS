@@ -73,12 +73,11 @@ export const getNotifiedAchievements = (achievementList, notificationsData) =>
   !!achievementList &&
   achievementList
     ?.filter(achievement => {
-      return (
-        !!notificationsData &&
-        notificationsData?.some(
-          notification => notification.achievementName === achievement?.slug,
-        )
-      );
+      return !!notificationsData
+        ? notificationsData?.some(
+            notification => notification.achievementName === achievement?.slug,
+          )
+        : null;
     })
     ?.map(achievement => {
       const matchingNotificationId = notificationsData?.find(

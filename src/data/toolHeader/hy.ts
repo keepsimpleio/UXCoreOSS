@@ -14,7 +14,7 @@ const hy = {
       items: [
         {
           title: 'Կոգնիտիվ հակումները կրթության մեջ',
-          link: '/uxeducation',
+          link: '/articles/uxeducation',
         },
       ],
     },

@@ -9,7 +9,10 @@ describe('UXCG Armenian', () => {
   });
 
   it('Should open the first question and verify URL and content', () => {
-    cy.get('[data-cy="open-question"]').first().click();
-    cy.url().should('include', '/users-do-not-like-our-customer-support');
+    cy.get('[data-cy="open-question"]:visible').first().click();
+    cy.url({ timeout: 10000 }).should(
+      'include',
+      '/users-do-not-like-our-customer-support',
+    );
   });
 });

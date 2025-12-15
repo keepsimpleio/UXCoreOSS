@@ -221,10 +221,9 @@ const UXCPLayout: FC<UXCPLayoutProps> = ({
         );
       } else {
         biasesToSet = biases.filter(persona =>
-          personaDecisionTable?.some(bias => bias.id === persona._id),
+          personaDecisionTable?.some(bias => bias._id === persona._id),
         );
       }
-
       setSelectedBiases(biasesToSet);
     } else {
       setSelectedBiases(incomingBiases);
@@ -376,19 +375,24 @@ const UXCPLayout: FC<UXCPLayoutProps> = ({
   };
 
   useEffect(() => {
-    const newDetails = mergeSelectedBiasesWithDetails(
-      allLangBiases[locale],
-      selectedBiases,
-      selectedBiasesDetails,
-    );
-    setSelectedBiasesDetails(newDetails);
-  }, [biases, selectedBiases, locale, personaDecisionTable]);
-
-  useEffect(() => {
+    let newDetails = [];
     if (personaDecisionTable) {
       setSelectedBiasesDetails(personaDecisionTable);
+    } else {
+      newDetails = mergeSelectedBiasesWithDetails(
+        allLangBiases[locale],
+        selectedBiases,
+        selectedBiasesDetails,
+      );
+      setSelectedBiasesDetails(newDetails);
     }
-  }, [personaDecisionTable, isSinglePersona]);
+  }, [
+    biases,
+    selectedBiases,
+    locale,
+    personaDecisionTable,
+    temporarySavedData,
+  ]);
 
   useEffect(() => {
     if (accountData) {
@@ -430,8 +434,16 @@ const UXCPLayout: FC<UXCPLayoutProps> = ({
 
   useEffect(() => {
     const referrer = document.referrer;
-    if (referrer.includes('https://accounts.google.com/')) {
-      setIsGoogleReferrer(true);
+
+    try {
+      const url = new URL(referrer);
+      const provider = url.searchParams.get('provider');
+      setIsGoogleReferrer(
+        url.pathname === '/auth' &&
+          (provider === 'google' || provider === 'discord'),
+      );
+    } catch {
+      setIsGoogleReferrer(false);
     }
   }, []);
 
@@ -563,7 +575,7 @@ const UXCPLayout: FC<UXCPLayoutProps> = ({
             temporarySavedData={temporarySavedData}
             setIsChangesUnsaved={setIsChangesUnsaved}
             setShow={setShow}
-            show={show}
+            show={!showLoginModal && show}
             isGoogleRefferer={isGoogleRefferer}
           />
         </section>
