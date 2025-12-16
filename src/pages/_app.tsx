@@ -293,14 +293,13 @@ function App({ Component, pageProps: { session, ...pageProps } }: TApp) {
     if (hasSeen) return;
 
     if (!newUpdateModalData?.['Frontend modal visibility']) return;
-    const appearsAfter = newUpdateModalData['Appears after ... seconds'];
-
+    const appearsAfter = newUpdateModalData?.['Appears after x seconds'];
     const timeout = setTimeout(() => {
       setIsNewUpdateModalVisible(true);
     }, appearsAfter * 1000);
 
     return () => clearTimeout(timeout);
-  }, [newUpdateModalData, newUpdateModalData?.['Appears after ... seconds']]);
+  }, [newUpdateModalData, newUpdateModalData?.['Appears after x seconds']]);
 
   const handleCloseModal = () => {
     setIsNewUpdateModalVisible(false);
