@@ -288,23 +288,39 @@ function App({ Component, pageProps: { session, ...pageProps } }: TApp) {
     getData();
   }, [router.isReady, router.locale]);
 
+  const setUpdateModalSeen = () => {
+    document.cookie = `updateModalSeen=true; path=/; max-age=31536000`;
+  };
+
   useEffect(() => {
+    if (!newUpdateModalData) return;
+
+    const visibility = newUpdateModalData['Frontend modal visibility'];
+    if (visibility == null) return;
+
+    if (visibility === false) {
+      setIsNewUpdateModalVisible(false);
+      document.cookie = `updateModalSeen=; path=/; max-age=0`;
+      return;
+    }
+
     const hasSeen = document.cookie.includes('updateModalSeen=true');
     if (hasSeen) return;
 
-    if (!newUpdateModalData?.['Frontend modal visibility']) return;
-    const appearsAfter = newUpdateModalData?.['Appears after x seconds'];
-    const timeout = setTimeout(() => {
+    const appearsAfter = Number(
+      newUpdateModalData['Appears after x seconds'] ?? 0,
+    );
+
+    const timeout = window.setTimeout(() => {
       setIsNewUpdateModalVisible(true);
     }, appearsAfter * 1000);
 
-    return () => clearTimeout(timeout);
-  }, [newUpdateModalData, newUpdateModalData?.['Appears after x seconds']]);
+    return () => window.clearTimeout(timeout);
+  }, [newUpdateModalData]);
 
   const handleCloseModal = () => {
     setIsNewUpdateModalVisible(false);
-
-    document.cookie = 'updateModalSeen=true; path=/; max-age=31536000';
+    setUpdateModalSeen();
   };
 
   useEffect(() => {

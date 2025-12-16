@@ -42,11 +42,13 @@ const NewUpdateModal: FC<NewUpdateModalProps> = ({ data, onClose }) => {
       </div>
       <div className={styles.content}>
         <ReactMarkdown>{data?.description}</ReactMarkdown>
-        <Button
-          label={closeText}
-          onClick={onClose}
-          className={styles['closeBtn']}
-        />
+        <div className={styles.btnWrapper}>
+          <Button
+            label={closeText}
+            onClick={onClose}
+            className={styles['closeBtn']}
+          />
+        </div>
       </div>
     </Modal>
   );
