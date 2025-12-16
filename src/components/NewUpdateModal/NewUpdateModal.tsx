@@ -41,7 +41,15 @@ const NewUpdateModal: FC<NewUpdateModalProps> = ({ data, onClose }) => {
         </Link>
       </div>
       <div className={styles.content}>
-        <ReactMarkdown>{data?.description}</ReactMarkdown>
+        <ReactMarkdown
+          components={{
+            a: ({ node, ...props }) => (
+              <a {...props} target="_blank" rel="noopener noreferrer" />
+            ),
+          }}
+        >
+          {data.description}
+        </ReactMarkdown>
         <div className={styles.btnWrapper}>
           <Button
             label={closeText}
