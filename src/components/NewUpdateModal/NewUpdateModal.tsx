@@ -24,7 +24,7 @@ const NewUpdateModal: FC<NewUpdateModalProps> = ({ data, onClose }) => {
     >
       <div>
         <Image
-          src={`${process.env.NEXT_PUBLIC_STRAPI}${data?.image?.data.attributes.url}`}
+          src={`${process.env.NEXT_PUBLIC_STRAPI}${data?.image?.data?.attributes?.url}`}
           width={481}
           height={121}
           className={styles.img}
