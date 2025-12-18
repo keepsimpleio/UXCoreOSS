@@ -1,3 +1,30 @@
+@import '@styles/_variables.scss';
+
+.inDevelopment {
+  .projectInfo {
+    .name {
+      opacity: 0.6;
+      filter: grayscale(70%);
+      cursor: default;
+
+      .openLinkIcon {
+        opacity: 0.6;
+        filter: grayscale(70%);
+      }
+    }
+
+    .projectIcon {
+      opacity: 0.6;
+      filter: grayscale(70%);
+    }
+  }
+
+  .description > p {
+    opacity: 0.6;
+    filter: grayscale(70%);
+  }
+}
+
 .projectInfo {
   display: flex;
   gap: 6px;
@@ -56,4 +83,10 @@
 
 .doneBtn {
   text-align: right;
+}
+
+.tooltip {
+  @extend .defaultTooltip;
+  background: #fff !important;
+  color: #0b0921 !important;
 }
