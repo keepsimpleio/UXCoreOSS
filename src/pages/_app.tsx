@@ -5,6 +5,8 @@ import { SessionProvider } from 'next-auth/react';
 import dynamic from 'next/dynamic';
 import mixpanel, { initMixpanel, trackPageView } from '../../lib/mixpanel';
 
+import Layout from '@layouts/Layout';
+
 import FormPopup from '@components/FormPopup';
 import { GlobalContext } from '@components/Context/GlobalContext';
 import Box from 'src/components/Box';
@@ -67,6 +69,8 @@ function App({ Component, pageProps: { session, ...pageProps } }: TApp) {
   const [isCookieStateLoaded, setIsCookieStateLoaded] = useState(false);
   const [isNewUpdateModalVisible, setIsNewUpdateModalVisible] = useState(false);
   const [showLoader, setShowLoader] = useState(false);
+  const [selectedTitle, setSelectedTitle] = useState('');
+  const [updatedUsername, setUpdatedUsername] = useState('');
   const [ourProjectsModalData, setOurProjectsModalData] = useState(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const router = useRouter();
@@ -307,22 +311,38 @@ function App({ Component, pageProps: { session, ...pageProps } }: TApp) {
   }, [router.isReady, router.locale]);
 
   useEffect(() => {
+    if (!newUpdateModalData) return;
+
+    const visibility = newUpdateModalData['Frontend modal visibility'];
+    if (visibility == null) return;
+
+    if (visibility === false) {
+      setIsNewUpdateModalVisible(false);
+      document.cookie = `updateModalSeen=; path=/; max-age=0`;
+      return;
+    }
+
     const hasSeen = document.cookie.includes('updateModalSeen=true');
     if (hasSeen) return;
 
-    if (!newUpdateModalData?.showModal) return;
+    const appearsAfter = Number(
+      newUpdateModalData['Appears after x seconds'] ?? 0,
+    );
 
-    const timeout = setTimeout(() => {
+    const timeout = window.setTimeout(() => {
       setIsNewUpdateModalVisible(true);
-    }, newUpdateModalData?.showAfter * 1000);
+    }, appearsAfter * 1000);
 
-    return () => clearTimeout(timeout);
-  }, [newUpdateModalData?.showModal, newUpdateModalData?.showAfter]);
+    return () => window.clearTimeout(timeout);
+  }, [newUpdateModalData]);
+
+  const setUpdateModalSeen = () => {
+    document.cookie = `updateModalSeen=true; path=/; max-age=31536000`;
+  };
 
   const handleCloseModal = () => {
     setIsNewUpdateModalVisible(false);
-
-    document.cookie = 'updateModalSeen=true; path=/; max-age=31536000';
+    setUpdateModalSeen();
   };
 
   useEffect(() => {
@@ -401,9 +421,15 @@ function App({ Component, pageProps: { session, ...pageProps } }: TApp) {
           setShowLoader,
           videoRef,
           ourProjectsModalData,
+          selectedTitle,
+          setSelectedTitle,
+          updatedUsername,
+          setUpdatedUsername,
         }}
       >
-        <Component {...pageProps} />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
         {feedbackEnabled && (
           <UXCoreFeedbackModal open={openPopup === 'feedback'} />
         )}

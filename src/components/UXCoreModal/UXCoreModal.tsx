@@ -272,6 +272,7 @@ const UXCoreModal: FC<UXCoreModalProps> = ({
         <ModalRaiting id={biasNumber} type="bias" />
         <div className={styles.ModalButtons}>
           <div
+            aria-disabled={!prevBiasName}
             data-cy="arrow-prev"
             className={cn(styles.ModalButton, {
               [styles.Disabled]: !prevBiasName,

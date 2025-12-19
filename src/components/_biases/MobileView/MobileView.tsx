@@ -15,7 +15,7 @@ import cn from 'classnames';
 import Image from 'next/image';
 
 import type { TRouter } from '@local-types/global';
-import type { StrapiBiasType, TagType } from '@local-types/data';
+import type { StrapiBiasType } from '@local-types/data';
 import { UserTypes } from '@local-types/uxcat-types/types';
 
 import { groupFilteredData } from '@lib/helpers';
@@ -47,7 +47,6 @@ const ViewSwitcher = dynamic(() => import('@components/_biases/ViewSwitcher'), {
 
 type MobileViewProps = {
   containerClassName: string;
-  tags: TagType[];
   strapiBiases: StrapiBiasType[];
   isSecondView?: boolean;
   toggleIsCoreView?: () => void;
@@ -78,7 +77,6 @@ const MobileView: FC<MobileViewProps> = ({
   headerPodcastOpen,
   isPodcastOpen,
   handleSnackbarOpening,
-  tags,
   description,
   userInfo,
   setUserInfo,
@@ -276,7 +274,7 @@ const MobileView: FC<MobileViewProps> = ({
         onClick={() => setOpenOurProjects(true)}
       >
         <PageSwitcher page="uxcore" />
-        <div className={styles.OtherProjectsLabel}>
+        <div className={styles.OurProjectsLabel}>
           <DiamondIcon />
           <span> {ourProjects}</span>
         </div>

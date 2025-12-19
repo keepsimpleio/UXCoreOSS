@@ -201,7 +201,6 @@ const Uxcat: FC<UxcatProps> = ({
       <UXCatLayout
         rules={rules}
         isTestUser={uxcatUserInfo?.user?.isTestUser}
-        tags={tags}
         userInfo={!!uxcatUserInfo && userData}
         userDetails={uxcatUserInfo}
         ongoingTest={ongoingTest}

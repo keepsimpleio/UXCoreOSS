@@ -295,7 +295,7 @@ const DecisionTable: FC<DecisionTableProps> = ({
               title={article}
               description={learnHowToUse}
               icon={<InfoIcon />}
-              url={'/uiux'}
+              url={'/articles/uiux'}
             />
             <TabHeader
               title={image}

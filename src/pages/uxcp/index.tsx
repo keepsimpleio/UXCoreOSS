@@ -1,4 +1,4 @@
-import React, { useMemo, FC, useContext } from 'react';
+import React, { useMemo, FC } from 'react';
 import { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 
@@ -6,7 +6,6 @@ import UXCPLayout from '@layouts/UXCPLayout';
 
 import SeoGenerator from '@components/SeoGenerator';
 import Spinner from '@components/Spinner';
-import { GlobalContext } from '@components/Context/GlobalContext';
 
 import { getStrapiQuestions } from '@api/questions';
 import { getStrapiBiases } from '@api/biases';
@@ -25,7 +24,6 @@ interface UXCPProps {
 
 const Index: FC<UXCPProps> = ({ questions, strapiBiases, tags, seo }) => {
   const router = useRouter();
-  const { uxcatUserInfo, setUxcatUserInfo } = useContext(GlobalContext);
   const { locale } = router as TRouter;
   const isRu = locale === 'ru';
   const seoData = useMemo(() => seo[isRu ? 'ru' : 'en'], [seo, locale]);
@@ -61,8 +59,6 @@ const Index: FC<UXCPProps> = ({ questions, strapiBiases, tags, seo }) => {
         allLangBiases={strapiBiases}
         tags={tags}
         biases={strapiBiasesData}
-        userInfo={uxcatUserInfo}
-        setUserInfo={setUxcatUserInfo}
       />
       <Spinner />
     </>

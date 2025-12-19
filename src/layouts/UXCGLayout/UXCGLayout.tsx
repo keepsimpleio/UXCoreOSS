@@ -1,40 +1,26 @@
 import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
-import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 
-import ToolHeader from '@components/ToolHeader';
 import ToolFooter from '@components/ToolFooter';
 import Table from '@components/Table';
 import UXCGDescription from '@components/UXCGDescription';
 
 import type { QuestionType, TagType } from '@local-types/data';
 import { TRouter } from '@local-types/global';
-import { UserTypes } from '@local-types/uxcat-types/types';
 
 import useSpinner from '@hooks/useSpinner';
-
-import decisionTable from '@data/decisionTable';
-
-import { getPersonaList } from '@api/personas';
 
 import styles from './UXCGLayout.module.scss';
 import uxcgDescriptionData from '@data/uxcgDescriptionData';
 import cn from 'classnames';
 
-const SavedPersonas = dynamic(() => import('@components/_uxcp/SavedPersonas'), {
-  ssr: false,
-});
-
 interface UXCGLayoutProps {
-  questions: any; // HYTranslation TODO
+  questions: any;
   tags: TagType[];
   changedHeadingOrder?: boolean;
   searchValue?: string;
   setSearchValue?: (value: string) => void;
-  userInfo?: UserTypes;
-  setUserInfo?: (userInfo: UserTypes) => void;
   allQuestions: any;
-  blockLanguageSwitcher?: boolean;
 }
 
 const UXCGLayout: FC<UXCGLayoutProps> = ({
@@ -43,17 +29,12 @@ const UXCGLayout: FC<UXCGLayoutProps> = ({
   changedHeadingOrder = false,
   searchValue,
   setSearchValue,
-  userInfo,
-  setUserInfo,
   allQuestions,
-  blockLanguageSwitcher,
 }) => {
   const { setIsVisible } = useSpinner()[0];
   const [isAciveSearch, setIsActiveSearch] = useState<boolean>(false);
   const [searchResults, setSearchResults] = useState<QuestionType[]>([]);
   const [activeFilter, setActiveFilter] = useState<string>('1');
-  const [openPersonas, setOpenPersonas] = useState<boolean>(false);
-  const [personas, setPersonas] = useState(null);
 
   const searchDebounce: any = useRef();
 
@@ -63,7 +44,6 @@ const UXCGLayout: FC<UXCGLayoutProps> = ({
   const initialSearchValue = router.query.search as string;
 
   const { subTitle } = uxcgDescriptionData[locale];
-  const { savedPersonasTitles } = decisionTable[locale];
 
   const filterQuestionsBySearchTerm = (
     searchTerm: string,
@@ -163,25 +143,8 @@ const UXCGLayout: FC<UXCGLayoutProps> = ({
     };
   }, [initialSearchValue, router.asPath, locale]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await getPersonaList();
-      setPersonas(result);
-    };
-
-    fetchData().then(r => console.log(r));
-  }, []);
-
   return (
     <div className={styles.body}>
-      <ToolHeader
-        page="uxcg"
-        tags={tags}
-        openPersonaModal={setOpenPersonas}
-        userInfo={userInfo}
-        setUserInfo={setUserInfo}
-        blockLanguageSwitcher={blockLanguageSwitcher}
-      />
       <div
         className={cn(styles.Content, {
           [styles.hyLayout]: locale === 'hy',
@@ -224,16 +187,7 @@ const UXCGLayout: FC<UXCGLayoutProps> = ({
         </section>
         <div className={styles.Motto}>Be Kind. Do Good.</div>
       </div>
-      <ToolFooter page="uxcg" tags={tags} />
-      {openPersonas && (
-        <SavedPersonas
-          personaTableTitles={savedPersonasTitles}
-          savedPersonas={personas}
-          setOpenPersonas={setOpenPersonas}
-          setSavedPersonas={setPersonas}
-          changedUsername={userInfo?.user?.username}
-        />
-      )}
+      <ToolFooter page="uxcg" />
     </div>
   );
 };
