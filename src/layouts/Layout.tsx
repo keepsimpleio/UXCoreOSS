@@ -36,10 +36,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const { isUxcoreMobile } = useUCoreMobile()[1];
 
   const pathName = usePathname() ?? '';
+  const normalizedPath = pathName.replace(/\/+$/, '');
 
-  const pathnameWithBypass = /^\/uxcp\/+$/i.test(pathName)
+  const pathnameWithBypass = /^\/uxcp$/i.test(normalizedPath)
     ? '/uxcp/'
-    : pathName.replace(/\/+$/, '');
+    : normalizedPath;
   const path = pathnameWithBypass.replace(/\/+$/, '');
 
   const isUXCoreRoot = path === '/uxcore';
