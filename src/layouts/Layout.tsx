@@ -61,20 +61,19 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      {!shouldHideToolHeader && (
-        <ToolHeader
-          blockLanguageSwitcher={isUXCoreNested || isUXCGNested}
-          openPersonaModal={setOpenPersonas}
-          openPodcast={headerPodcastOpen}
-          showSavedPersonas={true}
-          setUpdatedUsername={setUpdatedUsername}
-          userInfo={uxcatUserInfo}
-          disablePageSwitcher={isUXCatNested || isUserProfileRoot}
-          setUserInfo={setUxcatUserInfo}
-          setOpenPodcast={setHeaderPodcastOpen}
-          setSelectedTitle={setSelectedTitle}
-        />
-      )}
+      <ToolHeader
+        blockLanguageSwitcher={isUXCoreNested || isUXCGNested}
+        openPersonaModal={setOpenPersonas}
+        openPodcast={headerPodcastOpen}
+        showSavedPersonas={true}
+        setUpdatedUsername={setUpdatedUsername}
+        userInfo={uxcatUserInfo}
+        disablePageSwitcher={isUXCatNested || isUserProfileRoot}
+        setUserInfo={setUxcatUserInfo}
+        setOpenPodcast={setHeaderPodcastOpen}
+        setSelectedTitle={setSelectedTitle}
+        hidden={shouldHideToolHeader}
+      />
       <main>{children}</main>
       {openPersonas && (
         <SavedPersonas

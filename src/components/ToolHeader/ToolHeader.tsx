@@ -59,6 +59,7 @@ type TToolHeader = {
   setUserInfo?: (data: UserTypes) => void;
   setUpdatedUsername?: (username: string) => void;
   blockLanguageSwitcher?: boolean;
+  hidden?: boolean;
 };
 
 const ToolHeader: FC<TToolHeader> = ({
@@ -74,6 +75,7 @@ const ToolHeader: FC<TToolHeader> = ({
   setUserInfo,
   setUpdatedUsername,
   blockLanguageSwitcher,
+  hidden,
 }) => {
   const router = useRouter();
   const { locale, asPath } = router as TRouter;
@@ -232,7 +234,7 @@ const ToolHeader: FC<TToolHeader> = ({
   }, [title, locale, userInfo]);
 
   return (
-    <header className={styles.ToolHeader}>
+    <header className={cn(styles.ToolHeader, { [styles.Hidden]: hidden })}>
       <div className={styles.mobile}>
         <MobileHeader
           disablePageSwitcher={disablePageSwitcher}
