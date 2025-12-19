@@ -2,6 +2,7 @@ import React, { FC, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import cn from 'classnames';
 import dynamic from 'next/dynamic';
+import Snowfall from 'react-snowfall';
 
 import type { TRouter } from '@local-types/global';
 import type { UXCoreLayoutProps } from './UXCoreLayout.types';
@@ -131,7 +132,6 @@ const UXCoreLayout: FC<UXCoreLayoutProps> = ({
   if (!isLoaded) {
     return <Spinner visible={true} />;
   }
-
   return (
     <>
       <section
@@ -171,6 +171,12 @@ const UXCoreLayout: FC<UXCoreLayoutProps> = ({
             {isCoreView && <Search biases={strapiBiases} />}
             {isCoreView && (
               <>
+                <Snowfall
+                  snowflakeCount={250}
+                  radius={[3, 3]}
+                  color={'#ddf0fa'}
+                  style={{ zIndex: 999 }}
+                />
                 <CoreViewLayout biases={strapiBiases} />
                 {locale !== 'hy' && openPodcast && (
                   <UXCorePopup
