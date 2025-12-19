@@ -368,6 +368,10 @@ $headerHeight: 46px;
   }
 }
 
+.Hidden {
+  display: none;
+}
+
 @media (max-width: 1330px) {
   .ToolHeader {
     .UsefulLinksWrapper {
