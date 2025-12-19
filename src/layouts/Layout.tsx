@@ -35,8 +35,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const { savedPersonasTitles } = decisionTable[locale];
   const { isUxcoreMobile } = useUCoreMobile()[1];
 
-  const pathname = usePathname().replace(/\/+$/, '');
-  const path = pathname.replace(/\/+$/, '');
+  const pathName = usePathname() ?? '';
+
+  const pathnameWithBypass = /^\/uxcp\/+$/i.test(pathName)
+    ? '/uxcp/'
+    : pathName.replace(/\/+$/, '');
+  const path = pathnameWithBypass.replace(/\/+$/, '');
 
   const isUXCoreRoot = path === '/uxcore';
   const isUXCoreNested = path.startsWith('/uxcore/');
