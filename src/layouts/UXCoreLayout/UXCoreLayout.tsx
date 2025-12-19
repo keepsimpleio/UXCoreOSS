@@ -9,7 +9,6 @@ import type { UXCoreLayoutProps } from './UXCoreLayout.types';
 import ToolFooter from '@components/ToolFooter';
 import Spinner from '@components/Spinner';
 import Search from '@components/_biases/Search';
-import ToolHeader from '@components/ToolHeader';
 import Logos from '@components/Logos';
 
 import useUXCoreGlobals from '@hooks/useUXCoreGlobals';
@@ -51,7 +50,6 @@ const MobileView = dynamic(() => import('@components/_biases/MobileView'), {
 });
 
 const UXCoreLayout: FC<UXCoreLayoutProps> = ({
-  tags,
   strapiBiases,
   isOpen,
   biasSelected,
@@ -59,12 +57,8 @@ const UXCoreLayout: FC<UXCoreLayoutProps> = ({
   setOpenPodcast,
   userInfo,
   setUserInfo,
-  setOpenPersonas,
-  uxcatUserInfo,
-  setUxcatUserInfo = () => {},
   blockLanguageSwitcher,
   mounted,
-  slug,
 }) => {
   const [{ toggleIsCoreView }, { isCoreView }] = useUXCoreGlobals();
   const [{ toggleIsProductView }, { isProductView }] = useUXCoreGlobals();
@@ -140,18 +134,6 @@ const UXCoreLayout: FC<UXCoreLayoutProps> = ({
 
   return (
     <>
-      {!isUxcoreMobile && (
-        <ToolHeader
-          page="uxcore"
-          tags={tags}
-          openPersonaModal={setOpenPersonas}
-          setOpenPodcast={setOpenPodcast}
-          openPodcast={openPodcast}
-          userInfo={uxcatUserInfo}
-          setUserInfo={setUxcatUserInfo}
-          blockLanguageSwitcher={blockLanguageSwitcher}
-        />
-      )}
       <section
         className={cn(styles.body, {
           [styles.openedModal]: biasSelected,
@@ -211,7 +193,6 @@ const UXCoreLayout: FC<UXCoreLayoutProps> = ({
             toggleIsCoreView={toggleIsProductView}
             defaultViewLabel={'PM'}
             secondViewLabel={'hr'}
-            tags={tags}
             strapiBiases={strapiBiases}
             containerClassName={styles.body}
             setIsSwitched={setIsSwitched}
@@ -227,16 +208,8 @@ const UXCoreLayout: FC<UXCoreLayoutProps> = ({
             setUserInfo={setUserInfo}
             blockLanguageSwitcher={blockLanguageSwitcher}
           />
-          <div>
-            {headerPodcastOpen && (
-              <UXCorePopup
-                setOpenPodcast={setHeaderPodcastOpen}
-                openPodcast={headerPodcastOpen}
-              />
-            )}
-          </div>
         </div>
-        <ToolFooter page="uxcore" tags={tags} />
+        <ToolFooter page="uxcore" />
         {!!snackBarText && (
           <UXCoreSnackbar
             text={snackBarText}

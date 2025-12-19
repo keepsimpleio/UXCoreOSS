@@ -9,7 +9,6 @@ import CustomModal from '@components/CustomModal';
 import toolFooterData from '@data/toolFooter';
 
 import type { TRouter } from '@local-types/global';
-import type { TagType } from '@local-types/data';
 
 import styles from './ToolFooter.module.scss';
 
@@ -22,10 +21,9 @@ const releaseIndexes = {
 
 type TToolFooter = {
   page: 'uxcore' | 'uxcg' | 'uxcp' | 'api';
-  tags: TagType[];
 };
 
-const ToolFooter: FC<TToolFooter> = ({ page, tags }) => {
+const ToolFooter: FC<TToolFooter> = ({ page }) => {
   const router = useRouter();
   const { locale } = router as TRouter;
   const { release, contactUs, contributors, tooltipTxt } =
@@ -84,7 +82,6 @@ const ToolFooter: FC<TToolFooter> = ({ page, tags }) => {
       <CustomModal
         isVisible={!!openedModal}
         contentType={openedModal}
-        tags={tags}
         onClose={() => toggleModal()}
       />
     </Fragment>

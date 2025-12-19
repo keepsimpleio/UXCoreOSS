@@ -14,7 +14,7 @@ type ContentTypes = 'contactUs' | 'addQuestion';
 type CustomModalProps = {
   isVisible: boolean;
   contentType: ContentTypes;
-  tags: TagType[];
+  tags?: TagType[];
   onClose: () => void;
 };
 

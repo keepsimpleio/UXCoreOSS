@@ -1,4 +1,4 @@
-import React, { FC, useContext, useMemo, useState } from 'react';
+import React, { FC, useMemo, useState } from 'react';
 import { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 
@@ -16,7 +16,6 @@ import UXCGLayout from '@layouts/UXCGLayout';
 
 import SeoGenerator from '@components/SeoGenerator';
 import Spinner from '@components/Spinner';
-import { GlobalContext } from '@components/Context/GlobalContext';
 
 import { QuestionType, TagType } from '@local-types/data';
 import { TRouter } from '@local-types/global';
@@ -36,9 +35,8 @@ const Index: FC<UxcgProps> = ({
 }) => {
   const router = useRouter();
   const [searchValue, setSearchValue] = useState<string>('');
-  const { uxcatUserInfo, setUxcatUserInfo } = useContext(GlobalContext);
-
   const { asPath, locale } = router as TRouter;
+
   const seoData = useMemo(() => {
     const seoLocale = locale === 'ru' ? 'ru' : 'en';
     if (asPath === '/uxcg' || '/uxcg?searchTerm=') {
@@ -61,8 +59,6 @@ const Index: FC<UxcgProps> = ({
         allQuestions={allQuestions}
         searchValue={searchValue}
         setSearchValue={setSearchValue}
-        userInfo={uxcatUserInfo}
-        setUserInfo={setUxcatUserInfo}
       />
       <Spinner />
     </>

@@ -1,23 +1,21 @@
-import React, { FC, useCallback, useEffect, useState } from 'react';
+import React, { FC, useCallback, useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Skeleton from 'react-loading-skeleton';
 import ConfettiExplosion from 'react-confetti-explosion';
 
 import Accordion from '@components/Accordion';
-import ToolHeader from '@components/ToolHeader';
 import UXCatFooter from '@components/UXCatFooter';
 
 import UserProfile from '@components/UserProfile';
 import CompletionBar from '@components/CompletionBar';
 import LogInModal from '@components/_uxcp/LogInModal';
 import AchievementContainer from '@components/AchievementContainer';
-import SavedPersonas from '@components/_uxcp/SavedPersonas';
 import ContentParser from '@components/ContentParser';
 import useKonamiCode from '@hooks/useKonamiCode';
 import Toasts from '@components/Toasts';
 import GenderModal from '@components/GenderModal';
+import { GlobalContext } from '@components/Context/GlobalContext';
 
-import { TagType } from '@local-types/data';
 import {
   LevelDetailsTypes,
   userLevels,
@@ -28,16 +26,12 @@ import type { TRouter } from '@local-types/global';
 
 import { isLevelMilestone } from '@lib/uxcat-helpers';
 
-import { getPersonaList } from '@api/personas';
-
 import uxcatData from '@data/uxcat';
-import decisionTable from '@data/decisionTable';
 
 import styles from './UXCatLayout.module.scss';
 import 'react-toastify/dist/ReactToastify.css';
 
 type UXCGLayoutProps = {
-  tags: TagType[];
   userInfo?: UserTypes['user'];
   nextTestTime?: number;
   ongoingTest?: boolean;
@@ -65,7 +59,6 @@ type UXCGLayoutProps = {
 };
 
 const UXCatLayout: FC<UXCGLayoutProps> = ({
-  tags,
   userInfo,
   nextTestTime,
   ongoingTest,
@@ -88,25 +81,19 @@ const UXCatLayout: FC<UXCGLayoutProps> = ({
   notifiedAchievements,
   disableStartTest,
   pageDescription,
-  userDetails,
   matchingLevelDetails,
 }) => {
   const router = useRouter();
   const { locale } = router as TRouter;
   const currentLocale = locale === 'ru' ? 'ru' : 'en';
-
+  const { updatedUsername } = useContext(GlobalContext);
   const [showLoginModal, setShowLoginModal] = useState(false);
-  const [openPersonas, setOpenPersonas] = useState<boolean>(false);
   const [openAccordion, setOpenAccordion] = useState<boolean>(true);
-  const [personas, setPersonas] = useState(null);
   const [codeIsActivated, setCodeIsActivated] = useState(false);
   const [activatedDuration, setActivatedDuration] = useState(0);
-  const [updatedUsername, setUpdatedUsername] = useState('');
-  const { savedPersonasTitles } = decisionTable[locale];
   const [userDataLoaded, setUserDataLoaded] = useState(false);
   const [audioPlayed, setAudioPlayed] = useState(false);
   const [selectedGender, setSelectedGender] = useState('');
-  const [headerUserInfo, setHeaderUserInfo] = useState(null);
   const username = updatedUsername ? updatedUsername : userInfo?.username;
   const activatedBarLine = isLevelMilestone(level, 15) ? 2500 : 1000;
   const {
@@ -122,6 +109,7 @@ const UXCatLayout: FC<UXCGLayoutProps> = ({
     yourPointsTxt,
     zeroLevelUser,
   } = uxcatData[currentLocale];
+
   const userPoints = userInfo?.points;
   const fiveAchievements = achievements?.slice(0, 10);
   const loggedInAchievements = achievements?.slice(0, 15);
@@ -135,15 +123,6 @@ const UXCatLayout: FC<UXCGLayoutProps> = ({
   const openLoginModal = () => {
     setShowLoginModal(true);
   };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await getPersonaList();
-      setPersonas(result);
-    };
-
-    fetchData().then(r => r);
-  }, []);
 
   useEffect(() => {
     const getOpenedUXCatRules = localStorage.getItem('isOpenedUXCatRules');
@@ -218,23 +197,9 @@ const UXCatLayout: FC<UXCGLayoutProps> = ({
     }
   }, [activatedDuration, codeIsActivated]);
 
-  useEffect(() => {
-    if (userInfo) {
-      setHeaderUserInfo(userDetails);
-    }
-  }, [userDetails]);
-
   return (
     <>
       <section className={styles.body}>
-        <ToolHeader
-          page="uxcat"
-          tags={tags}
-          openPersonaModal={setOpenPersonas}
-          setUpdatedUsername={setUpdatedUsername}
-          userInfo={headerUserInfo}
-          setUserInfo={setHeaderUserInfo}
-        />
         <div className={styles.content}>
           <h1 className={styles.title}>{title}</h1>
           <span className={styles.shortTitle}>{shortTitle}</span>
@@ -337,15 +302,6 @@ const UXCatLayout: FC<UXCGLayoutProps> = ({
       )}
       {showLoginModal && (
         <LogInModal setShowModal={setShowLoginModal} source={'UXCat'} />
-      )}
-      {openPersonas && (
-        <SavedPersonas
-          personaTableTitles={savedPersonasTitles}
-          savedPersonas={personas}
-          setOpenPersonas={setOpenPersonas}
-          setSavedPersonas={setPersonas}
-          changedUsername={username}
-        />
       )}
       {!!notifiedAchievements ? (
         <Toasts

@@ -229,7 +229,6 @@ const Slug: FC<UXCGIdProps> = ({
         searchValue={searchValue}
         setSearchValue={setSearchValue}
         allQuestions={allQuestions}
-        blockLanguageSwitcher
       />
     </>
   );

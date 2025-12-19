@@ -9,7 +9,6 @@ import SeoGenerator from '@components/SeoGenerator';
 
 import pageNotFoundData from '@data/404';
 
-import { getTags } from '@api/tags';
 import { getBackgroundImages, getCoverImages } from '@api/strapi';
 import { getPublicUserInfo } from '@api/uxcat/getUser';
 import { getUserInfo } from '@api/uxcat/users-me';
@@ -30,7 +29,6 @@ import {
   findAchievementListBySubType,
 } from '@lib/uxcat-helpers';
 
-import { TagType } from '@local-types/data';
 import {
   AchievementsTypes,
   BoardContentTypes,
@@ -53,14 +51,12 @@ const achievementBoard: BoardContentTypes[] = [
   },
 ];
 type UserIdProps = {
-  tags?: TagType[];
   uxCatLevels: uxCatLevels[];
   allAchievements: AchievementsTypes[];
   killSwitcher: boolean;
 };
 
 const UserId: FC<UserIdProps> = ({
-  tags,
   uxCatLevels,
   allAchievements,
   killSwitcher,
@@ -429,8 +425,6 @@ const UserId: FC<UserIdProps> = ({
       ) : (
         <UserProfile
           headerUserInfo={isOwner && headerUserInfo}
-          setHeaderUserInfo={setHeaderUserInfo}
-          tags={tags}
           nextTestTime={nextTestTime}
           dummyBoardContent={achievementBoard}
           userInfo={userInfo}
@@ -469,7 +463,6 @@ const UserId: FC<UserIdProps> = ({
 export default UserId;
 
 export async function getServerSideProps(context) {
-  const tags = getTags();
   const achievementsEn = await getAllAchievements('en', 40);
   const achievementsRu = await getAllAchievements('ru', 40);
 
@@ -481,7 +474,6 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      tags,
       uxCatLevels,
       allAchievements,
       killSwitcher,

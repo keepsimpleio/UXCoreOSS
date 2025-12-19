@@ -1,5 +1,7 @@
+import { UxCatRoute } from '@api/uxcat/configs';
+
 export const getForceStop = async token => {
-  const url = `https://uxcat.keepsimple.io/tests/force-stop`;
+  const url = `${UxCatRoute}tests/force-stop`;
 
   try {
     const response = await fetch(url, {

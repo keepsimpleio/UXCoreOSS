@@ -103,12 +103,16 @@ const BiasLabel: FC<BiasLabelProps> = ({
           '--x': geometry?.x,
           '--y': geometry?.y,
         }}
+        data-state={
+          searchResults.includes(Number(biasNumber)) ? 'hovered' : 'faded'
+        }
         className={cn(styles.biasLabel, className, {
           [styles.secondRow]: sectionId === 2,
           [styles.searched]:
             searchResults.length > 0 &&
             searchResults.includes(Number(biasNumber)),
           [styles.isLeftSection]: isLeftSection,
+          [styles.biasLabelHy]: locale === 'hy',
           // These are exceptional positions for left-top section labels
           [styles[`bias-label-${biasNumber}`]]: isLeftSection,
           [styles.hovered]:

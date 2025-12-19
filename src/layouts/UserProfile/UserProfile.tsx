@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, { FC, useContext, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
@@ -15,7 +15,6 @@ import type { UserProfileProps } from './UserProfile.types';
 import Toasts from '@components/Toasts';
 import Dropdown from '@components/Dropdown';
 import Statistics from '@components/Statistics';
-import ToolHeader from '@components/ToolHeader';
 import StartTestBtn from '@components/StartTestBtn';
 import LogInModal from '@components/_uxcp/LogInModal';
 import AccountHeader from '@components/AccountHeader';
@@ -35,13 +34,13 @@ import { updateBackgroundImage, updateCoverImage } from '@api/strapi';
 import { sendRef } from '@api/uxcat/sendRef';
 
 import styles from './UserProfile.module.scss';
+import { GlobalContext } from '@components/Context/GlobalContext';
 
 const SelectImageModal = dynamic(() => import('@components/SelectImageModal'), {
   ssr: false,
 });
 
 const UserProfile: FC<UserProfileProps> = ({
-  tags,
   userInfo,
   dummyBoardContent,
   coverImages,
@@ -73,13 +72,13 @@ const UserProfile: FC<UserProfileProps> = ({
   nextTestTime,
   hasSpecialAchievements,
   headerUserInfo,
-  setHeaderUserInfo,
 }) => {
   const { isMobile } = useMobile()[1];
   const router = useRouter();
   const { locale } = router as TRouter;
   const currentLocale = locale === 'ru' ? 'ru' : 'en';
   const scrollToAchievementsRef = useRef(null);
+  const { selectedTitle } = useContext(GlobalContext);
 
   const [openCoverImgModal, setOpenCoverImgModal] = useState<boolean>(false);
   const [openLoginModal, setOpenLoginModal] = useState<boolean>(false);
@@ -89,7 +88,6 @@ const UserProfile: FC<UserProfileProps> = ({
   const [personas, setPersonas] = useState(null);
   const [token, setToken] = useState(undefined);
   const [updatedData, setUpdatedData] = useState(userInfo);
-  const [selectedTitle, setSelectedTitle] = useState('');
 
   const defaultCoverImage =
     matchingLevelDetails?.attributes.bgImage.data.attributes.url;
@@ -199,191 +197,177 @@ const UserProfile: FC<UserProfileProps> = ({
   }, []);
 
   return (
-    <>
-      <ToolHeader
-        page={'uxcat'}
-        tags={tags}
-        openPersonaModal={setOpenPersonas}
-        changeUserUrl={privateMode}
-        setSelectedTitle={setSelectedTitle}
-        disablePageSwitcher
-        userInfo={headerUserInfo}
-        setUserInfo={setHeaderUserInfo}
+    <section>
+      <AccountHeader
+        setOpenLoginModal={setOpenLoginModal}
+        guestMode={!accessToken}
+        awarenessPoints={awarenessPoints}
+        level={level}
+        username={username}
+        setOpenCoverImgModal={setOpenCoverImgModal}
+        linkedIn={linkedIn}
+        email={isValidEmail(userData?.email) ? userData?.email : ''}
+        coverImage={coverImage}
+        nextTestTime={nextTestTime}
+        ongoingTest={ongoingTest}
+        handleStartTestClick={handleStartTestClick}
+        privateMode={privateMode}
+        levelTitle={levelName}
+        userBadge={userBadge}
+        topOf={Math.floor(userInfo?.rankingStatistics?.topOf)}
+        rankPosition={Math.floor(userInfo?.rankingStatistics?.rank)}
+        rankAndTopUpdate={userInfo?.rankingStatistics?.nextUpdateTime}
+        finalTestPermission={finalTestPermission}
+        isLevelMilestone={isLevelMilestone}
+        isFinalTestInProgress={isFinalTestInProgress}
+        title={privateMode ? userTitle : userInfo?.title}
+        lvlShort={lvlShort}
+        shortInfo={shortInfo}
+        achievementTooltipTxt={achievementTooltip}
+        disableStartTest={disableStartTest}
+        yourPointsUserPage={yourPointsUserPage}
+        levelDetails={matchingLevelDetails}
+        isTestUser={userInfo?.isTestUser}
       />
-
-      <section>
-        <AccountHeader
-          setOpenLoginModal={setOpenLoginModal}
-          guestMode={!accessToken}
-          awarenessPoints={awarenessPoints}
-          level={level}
-          username={username}
-          setOpenCoverImgModal={setOpenCoverImgModal}
-          linkedIn={linkedIn}
-          email={isValidEmail(userData?.email) ? userData?.email : ''}
-          coverImage={coverImage}
-          nextTestTime={nextTestTime}
-          ongoingTest={ongoingTest}
-          handleStartTestClick={handleStartTestClick}
-          privateMode={privateMode}
-          levelTitle={levelName}
-          userBadge={userBadge}
-          topOf={Math.floor(userInfo?.rankingStatistics?.topOf)}
-          rankPosition={Math.floor(userInfo?.rankingStatistics?.rank)}
-          rankAndTopUpdate={userInfo?.rankingStatistics?.nextUpdateTime}
-          finalTestPermission={finalTestPermission}
-          isLevelMilestone={isLevelMilestone}
-          isFinalTestInProgress={isFinalTestInProgress}
-          title={privateMode ? userTitle : userInfo?.title}
-          lvlShort={lvlShort}
-          shortInfo={shortInfo}
-          achievementTooltipTxt={achievementTooltip}
-          disableStartTest={disableStartTest}
-          yourPointsUserPage={yourPointsUserPage}
-          levelDetails={matchingLevelDetails}
-          isTestUser={userInfo?.isTestUser}
-        />
-        <div
-          className={styles.userId}
-          style={{
-            backgroundImage: `url(${process.env.NEXT_PUBLIC_STRAPI}${backgroundImage})`,
-          }}
+      <div
+        className={styles.userId}
+        style={{
+          backgroundImage: `url(${process.env.NEXT_PUBLIC_STRAPI}${backgroundImage})`,
+        }}
+      >
+        {privateMode && isLevelMilestone(level, 15) && (
+          <div className={styles.btnWrapper}>
+            <button
+              className={styles.imgUpload}
+              onClick={() => setOpenBgImgModal(true)}
+            >
+              <Image
+                src="/assets/uxcat/image-upload.png"
+                alt="cover image"
+                width={16}
+                height={16}
+              />
+            </button>
+          </div>
+        )}
+        <section
+          className={cn(styles.body, {
+            [styles.withFinalTestBtnBody]: finalTestPermission,
+          })}
         >
-          {privateMode && isLevelMilestone(level, 15) && (
-            <div className={styles.btnWrapper}>
-              <button
-                className={styles.imgUpload}
-                onClick={() => setOpenBgImgModal(true)}
-              >
-                <Image
-                  src="/assets/uxcat/image-upload.png"
-                  alt="cover image"
-                  width={16}
-                  height={16}
-                />
-              </button>
+          <CompletionBar
+            titleBigFont
+            points={userInfo?.points || 0}
+            showTotal={privateMode && true}
+            userLevel={!!level && level}
+            testPoints={0}
+            levelsDetails={levelsDetails}
+            yourPointsTxt={yourPointsTxt}
+            isMilestoneReached={isLevelMilestone(level, level)}
+            userLevels={userLevels}
+            uxCatLevels={uxcatLevels}
+            isUserProfile
+            lvlProgressionTxt={
+              privateMode ? myLevelProgression : lvlProgression
+            }
+          />
+          {privateMode && !!statistics && (
+            <Statistics
+              statistics={!!statistics && statistics}
+              lastTestExisted={isTestResultsAvailable}
+              isPrivateMode={privateMode}
+            />
+          )}
+          <div className={styles.achievementsWrapper}>
+            <UXCatPageTitle
+              title={privateMode ? myAchievements : achievementTxt}
+              bigFont
+            />
+            <div className={styles.dropdownWrapper}>
+              {!isMobile && <span>{showTxt}</span>}
+              <Dropdown
+                selected={allTxt}
+                values={[allTxt, achievedOnlyTxt]}
+                setIsAllSelected={setIsAllSelected}
+              />
+            </div>
+          </div>
+          <div ref={scrollToAchievementsRef}>
+            <AchievementsBoard
+              achievements={achievements}
+              handleOnDragEnd={handleOnDragEnd}
+              generalAchievements={generalAchievements}
+              specialAchievements={specialAchievements}
+              receivedAchievementPercentage={receivedAchievementPercentage}
+              isLoading={isLoading}
+              hiddenAchievement={hiddenAchievement}
+              keepsimpleAchievements={keepsimpleAchievements}
+            />
+          </div>
+
+          {privateMode && (
+            <div className={styles.testBtnWrapper}>
+              <StartTestBtn
+                nextTestTime={nextTestTime}
+                handleOpenTest={handleStartTestClick}
+                ongoingTest={ongoingTest}
+                className={styles['btn']}
+                buttonType={'orange'}
+                disabled={disableStartTest}
+              />
             </div>
           )}
-          <section
-            className={cn(styles.body, {
-              [styles.withFinalTestBtnBody]: finalTestPermission,
-            })}
-          >
-            <CompletionBar
-              titleBigFont
-              points={userInfo?.points || 0}
-              showTotal={privateMode && true}
-              userLevel={!!level && level}
-              testPoints={0}
-              levelsDetails={levelsDetails}
-              yourPointsTxt={yourPointsTxt}
-              isMilestoneReached={isLevelMilestone(level, level)}
-              userLevels={userLevels}
-              uxCatLevels={uxcatLevels}
-              isUserProfile
-              lvlProgressionTxt={
-                privateMode ? myLevelProgression : lvlProgression
-              }
-            />
-            {privateMode && !!statistics && (
-              <Statistics
-                statistics={!!statistics && statistics}
-                lastTestExisted={isTestResultsAvailable}
-                isPrivateMode={privateMode}
-              />
-            )}
-            <div className={styles.achievementsWrapper}>
-              <UXCatPageTitle
-                title={privateMode ? myAchievements : achievementTxt}
-                bigFont
-              />
-              <div className={styles.dropdownWrapper}>
-                {!isMobile && <span>{showTxt}</span>}
-                <Dropdown
-                  selected={allTxt}
-                  values={[allTxt, achievedOnlyTxt]}
-                  setIsAllSelected={setIsAllSelected}
-                />
-              </div>
-            </div>
-            <div ref={scrollToAchievementsRef}>
-              <AchievementsBoard
-                achievements={achievements}
-                handleOnDragEnd={handleOnDragEnd}
-                generalAchievements={generalAchievements}
-                specialAchievements={specialAchievements}
-                receivedAchievementPercentage={receivedAchievementPercentage}
-                isLoading={isLoading}
-                hiddenAchievement={hiddenAchievement}
-                keepsimpleAchievements={keepsimpleAchievements}
-              />
-            </div>
-
-            {privateMode && (
-              <div className={styles.testBtnWrapper}>
-                <StartTestBtn
-                  nextTestTime={nextTestTime}
-                  handleOpenTest={handleStartTestClick}
-                  ongoingTest={ongoingTest}
-                  className={styles['btn']}
-                  buttonType={'orange'}
-                  disabled={disableStartTest}
-                />
-              </div>
-            )}
-            <div className={styles.motto}>Be Kind. Do Good.</div>
-          </section>
-        </div>
-        {openCoverImgModal && privateMode && (
-          <SelectImageModal
-            setCloseModal={setOpenCoverImgModal}
-            title={selectCoverImg}
-            images={coverImages}
-            updateImage={updateCoverImg}
-            imageURLExtractor={item => ({
-              thumbnail:
-                item.attributes.coverImage.data.attributes.formats.thumbnail
-                  .url,
-              image: item.attributes.coverImage.data.attributes.url,
-            })}
-            defaultImage={coverImage}
-          />
-        )}
-        {openBgImgModal && (
-          <SelectImageModal
-            isBgImageModal
-            updateImage={updateBackgroundImg}
-            setCloseModal={setOpenBgImgModal}
-            title={selectBgImg}
-            images={backgroundImages}
-            imageURLExtractor={item => ({
-              thumbnail:
-                item.attributes.bgImage.data.attributes.formats.thumbnail.url,
-              image: item.attributes.bgImage.data.attributes.url,
-            })}
-            defaultImage={backgroundImage}
-          />
-        )}
-        {openPersonas && (
-          <SavedPersonas
-            personaTableTitles={savedPersonasTitles}
-            savedPersonas={personas}
-            setOpenPersonas={setOpenPersonas}
-            setSavedPersonas={setPersonas}
-            changedUsername={username}
-          />
-        )}
-        {!!notifiedAchievements ? (
-          <Toasts
-            accessToken={accessToken}
-            notificationsData={notifiedAchievements}
-          />
-        ) : null}
-        {openLoginModal && (
-          <LogInModal setShowModal={setOpenLoginModal} source={'UXCat'} />
-        )}
-      </section>
-    </>
+          <div className={styles.motto}>Be Kind. Do Good.</div>
+        </section>
+      </div>
+      {openCoverImgModal && privateMode && (
+        <SelectImageModal
+          setCloseModal={setOpenCoverImgModal}
+          title={selectCoverImg}
+          images={coverImages}
+          updateImage={updateCoverImg}
+          imageURLExtractor={item => ({
+            thumbnail:
+              item.attributes.coverImage.data.attributes.formats.thumbnail.url,
+            image: item.attributes.coverImage.data.attributes.url,
+          })}
+          defaultImage={coverImage}
+        />
+      )}
+      {openBgImgModal && (
+        <SelectImageModal
+          isBgImageModal
+          updateImage={updateBackgroundImg}
+          setCloseModal={setOpenBgImgModal}
+          title={selectBgImg}
+          images={backgroundImages}
+          imageURLExtractor={item => ({
+            thumbnail:
+              item.attributes.bgImage.data.attributes.formats.thumbnail.url,
+            image: item.attributes.bgImage.data.attributes.url,
+          })}
+          defaultImage={backgroundImage}
+        />
+      )}
+      {openPersonas && (
+        <SavedPersonas
+          personaTableTitles={savedPersonasTitles}
+          savedPersonas={personas}
+          setOpenPersonas={setOpenPersonas}
+          setSavedPersonas={setPersonas}
+          changedUsername={username}
+        />
+      )}
+      {!!notifiedAchievements ? (
+        <Toasts
+          accessToken={accessToken}
+          notificationsData={notifiedAchievements}
+        />
+      ) : null}
+      {openLoginModal && (
+        <LogInModal setShowModal={setOpenLoginModal} source={'UXCat'} />
+      )}
+    </section>
   );
 };
 

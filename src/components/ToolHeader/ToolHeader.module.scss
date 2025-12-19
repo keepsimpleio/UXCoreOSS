@@ -37,17 +37,73 @@ $headerHeight: 46px;
       display: flex;
       margin-left: 50px;
       align-items: center;
+      position: relative;
+
+      width: -webkit-fill-available;
 
       .Description {
         padding-top: 3px;
       }
+
       .openLink {
         padding-left: 6px;
       }
     }
+
+    .Links.is-uxcore {
+      --pill-w: 96px;
+    }
+
+    .Links.is-uxcg {
+      --pill-w: 79px;
+    }
+
+    .Links.is-uxcp {
+      --pill-w: 101px;
+    }
+
+    .Links.is-uxcat {
+      --pill-w: 157px;
+    }
+
+    .Links.is-uxcore .Indicator {
+      transform: translateX(calc((96px + 8px) * 0));
+      color: #fff;
+    }
+
+    .Links.is-uxcg .Indicator {
+      transform: translateX(calc((94px + 8px) * 1));
+      color: #fff;
+    }
+
+    .Links.is-uxcp .Indicator {
+      transform: translateX(calc((85px + 8px) * 2));
+      color: #fff;
+    }
+
+    .Links.is-uxcat .Indicator {
+      transform: translateX(calc((89px + 8px) * 3));
+      color: #fff;
+    }
+  }
+
+  .Indicator {
+    position: absolute;
+    top: 6px;
+    bottom: 4px;
+    left: 0;
+    width: var(--pill-w, 120px);
+    background-color: #000000d9;
+    border-radius: 4px;
+    transform: translateX(0);
+    transition: transform 450ms cubic-bezier(0.22, 0.95, 0.35, 1);
+    will-change: transform;
+    pointer-events: none;
+    height: 33px;
   }
 
   .MenuItem {
+    position: relative;
     font-size: 14px;
     display: flex;
     cursor: pointer;
@@ -86,10 +142,27 @@ $headerHeight: 46px;
 
     &.Active {
       color: #fafafa;
+      z-index: 2;
+
+      & svg path {
+        z-index: 1;
+        fill: #fafafa;
+      }
+
+      &:hover {
+        background-color: unset;
+      }
+    }
+
+    &.ActivePodcast,
+    &.ActiveProjects {
       background-color: #000000d9;
       border-radius: 4px;
+      color: #fff;
+
       & svg path {
-        fill: #fafafa;
+        z-index: 1;
+        fill: #fff;
       }
     }
   }
@@ -348,6 +421,7 @@ $headerHeight: 46px;
 
     & .PageSwitcherContainer {
       padding: 16px 16px 0;
+
       .PageSwitcherItem {
         box-sizing: border-box;
         width: -webkit-fill-available;

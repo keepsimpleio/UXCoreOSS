@@ -1,5 +1,5 @@
 const en = {
-  idDevTxt: 'ID Development',
+  inDevTxt: 'In Development',
 };
 
 export default en;
