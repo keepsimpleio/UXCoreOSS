@@ -15,18 +15,16 @@ import GenderModal from '@components/GenderModal';
 
 import startTestData from '@data/startTest';
 
-import { getTags } from '@api/tags';
 import { getUXCatData } from '@api/uxcat/uxcat';
 import { getUXCatStatistics } from '@api/uxcat/statistics';
 import { UXCatConfigs } from '@api/uxcat/configs';
 
 type StartTestProps = {
-  tags?: TagType[];
   uxcatData: UXCatDataTypes;
   uxcatConfigs: any;
 };
 
-const StartTest: FC<StartTestProps> = ({ tags, uxcatData, uxcatConfigs }) => {
+const StartTest: FC<StartTestProps> = ({ uxcatData, uxcatConfigs }) => {
   const router = useRouter();
   const { locale } = router as TRouter;
   const currentLocale = locale === 'ru' ? 'ru' : 'en';
@@ -122,13 +120,11 @@ const StartTest: FC<StartTestProps> = ({ tags, uxcatData, uxcatConfigs }) => {
 export default StartTest;
 
 export const getServerSideProps: GetServerSideProps = async context => {
-  const tags = getTags();
   const uxcatData = await getUXCatData();
   const uxcatConfigs = await UXCatConfigs();
 
   return {
     props: {
-      tags,
       uxcatData,
       uxcatConfigs,
     },

@@ -12,7 +12,6 @@ import { GlobalContext } from '@components/Context/GlobalContext';
 
 import uxcatData from '@data/uxcat';
 
-import { getTags } from '@api/tags';
 import { getUXCatLastTest } from '@api/uxcat/last-test';
 import { UXCatConfigs } from '@api/uxcat/configs';
 import { getNotifications } from '@api/uxcat/get-notifications';
@@ -442,7 +441,6 @@ const TestResult: FC<TestResultProps> = ({
 export default TestResult;
 
 export const getServerSideProps: GetServerSideProps = async context => {
-  const tags = getTags();
   const uxcatStrapiData = await getUXCatData();
   const configs = await UXCatConfigs();
 
@@ -455,7 +453,6 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
   return {
     props: {
-      tags,
       uxCatLevels,
       achievements,
       uxcatStrapiData,

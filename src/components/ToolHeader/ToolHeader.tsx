@@ -80,14 +80,14 @@ const ToolHeader: FC<TToolHeader> = ({
   const router = useRouter();
   const { locale, asPath } = router as TRouter;
 
-  const pathname = usePathname();
+  const pathname = usePathname() ?? '';
   const { isMobile } = useMobile()[1];
   const [, { isCoreView }] = useUXCoreGlobals();
   const { accountData, setAccountData, ourProjectsModalData } =
     useContext(GlobalContext);
 
   const isActive = (pathname: string, href: string) =>
-    pathname === href || (href !== '/' && pathname.startsWith(href + '/'));
+    pathname === href || (href !== '/' && pathname?.startsWith(href + '/'));
 
   const imageSrc = useMemo(() => accountData?.picture, [accountData]);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -143,10 +143,16 @@ const ToolHeader: FC<TToolHeader> = ({
 
   const title = changedTitle ? userInfo?.title : userInfo?.user?.title;
 
+  const normalizedPath = pathname.replace(/\/+$/, '');
+  const pathnameWithBypass = /^\/uxcp$/i.test(normalizedPath)
+    ? '/uxcp/'
+    : normalizedPath;
+  const path = pathnameWithBypass.replace(/\/+$/, '');
+
   const getActiveFromPath = (pathname: string) => {
     if (pathname.includes('/uxcore')) return 'uxcore';
     if (pathname.includes('/uxcg')) return 'uxcg';
-    if (pathname.includes('/uxcp')) return 'uxcp';
+    if (path.includes('/uxcp')) return 'uxcp';
     if (pathname.includes('/uxcat') || pathname.includes('/user'))
       return 'uxcat';
     return null;
