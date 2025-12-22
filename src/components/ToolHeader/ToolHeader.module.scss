@@ -293,7 +293,7 @@ $headerHeight: 46px;
 
   .headerTooltipUxCore {
     background-color: #77a34b;
-    margin-left: 218px;
+    margin-left: 210px;
     animation-iteration-count: infinite;
     animation-name: bounce, pulsate;
     animation-duration: 2s, 1.5s;
@@ -368,10 +368,6 @@ $headerHeight: 46px;
   }
 }
 
-.Hidden {
-  display: none;
-}
-
 @media (max-width: 1330px) {
   .ToolHeader {
     .UsefulLinksWrapper {
@@ -440,6 +436,9 @@ $headerHeight: 46px;
         gap: 8px;
       }
     }
+  }
+  .Hidden {
+    display: none;
   }
 }
 

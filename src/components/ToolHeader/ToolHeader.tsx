@@ -100,7 +100,7 @@ const ToolHeader: FC<TToolHeader> = ({
   const [changedTitle, setChangedTitle] = useState(false);
   const [activePage, setActivePage] = useState<
     'uxcore' | 'uxcg' | 'uxcp' | 'uxcat'
-  >('uxcore');
+  >(null);
 
   const {
     ourProjects,
@@ -260,14 +260,12 @@ const ToolHeader: FC<TToolHeader> = ({
         {!disablePageSwitcher && (
           <div className={styles.PageSwitcherContainer}>
             <PageSwitcher page={activePage} />
-            <span className={styles.PageSwitcherItem}>
+            <span
+              className={styles.PageSwitcherItem}
+              onClick={() => setOpenOurProjects(true)}
+            >
               <DiamondIcon />
-              <span
-                className={styles.Description}
-                onClick={() => setOpenOurProjects(true)}
-              >
-                {ourProjects}
-              </span>
+              <span className={styles.Description}>{ourProjects}</span>
             </span>
           </div>
         )}
