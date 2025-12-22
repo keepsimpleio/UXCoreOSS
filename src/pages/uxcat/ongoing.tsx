@@ -7,12 +7,10 @@ import SeoGenerator from '@components/SeoGenerator';
 import OngoingLayout from 'src/layouts/OngoingLayout';
 
 import { TRouter } from '@local-types/global';
-import { TagType } from '@local-types/data';
 import { UXCatDataTypes } from '@local-types/uxcat-types/types';
 
 import { getUXCatStartTest } from '@api/uxcat/start-test';
 import { getUserInfo } from '@api/uxcat/users-me';
-import { getTags } from '@api/tags';
 import { UXCatConfigs } from '@api/uxcat/configs';
 import { getFinalTest } from '@api/uxcat/final-test';
 import { getUXCatData } from '@api/uxcat/uxcat';
@@ -22,14 +20,13 @@ import { achievementSlugs } from '@data/uxcat/ongoingTest/realTimeAchievements';
 import styles from '@layouts/OngoingLayout/OngoingLayout.module.scss';
 
 type OngoingProps = {
-  tags: TagType[];
   configs: {
     testExpirationTime: number;
   };
   uxcatData: UXCatDataTypes;
 };
 
-const Ongoing: FC<OngoingProps> = ({ tags, configs, uxcatData }) => {
+const Ongoing: FC<OngoingProps> = ({ configs, uxcatData }) => {
   const router = useRouter();
   const { locale } = router as TRouter;
   const currentLocale = locale === 'ru' ? 'ru' : 'en';
@@ -192,10 +189,8 @@ export async function getServerSideProps() {
     };
   }
 
-  const tags = getTags();
   return {
     props: {
-      tags,
       configs,
       uxcatData,
     },
