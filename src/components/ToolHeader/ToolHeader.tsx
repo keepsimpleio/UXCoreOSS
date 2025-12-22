@@ -98,6 +98,9 @@ const ToolHeader: FC<TToolHeader> = ({
   const [token, setToken] = useState<string | null>(null);
   const [usernameIsTakenError, setUsernameIsTakenError] = useState('');
   const [changedTitle, setChangedTitle] = useState(false);
+  const [activePage, setActivePage] = useState<
+    'uxcore' | 'uxcg' | 'uxcp' | 'uxcat'
+  >('uxcore');
 
   const {
     ourProjects,
@@ -140,15 +143,14 @@ const ToolHeader: FC<TToolHeader> = ({
 
   const title = changedTitle ? userInfo?.title : userInfo?.user?.title;
 
-  const activePage = pathname.includes('/uxcore')
-    ? 'uxcore'
-    : pathname.includes('/uxcg')
-      ? 'uxcg'
-      : pathname.includes('/uxcp')
-        ? 'uxcp'
-        : pathname.includes('/uxcat') || pathname.includes('/user')
-          ? 'uxcat'
-          : 'uxcore';
+  const getActiveFromPath = (pathname: string) => {
+    if (pathname.includes('/uxcore')) return 'uxcore';
+    if (pathname.includes('/uxcg')) return 'uxcg';
+    if (pathname.includes('/uxcp')) return 'uxcp';
+    if (pathname.includes('/uxcat') || pathname.includes('/user'))
+      return 'uxcat';
+    return null;
+  };
 
   const openPodcastHandler = useCallback(() => {
     setOpenPodcast(prev => !prev);
@@ -232,6 +234,11 @@ const ToolHeader: FC<TToolHeader> = ({
         setSelectedTitle(locale === 'en' ? title : russianTitles(title));
     }
   }, [title, locale, userInfo]);
+
+  useEffect(() => {
+    const next = getActiveFromPath(pathname);
+    if (next) setActivePage(next);
+  }, [pathname]);
 
   return (
     <header className={cn(styles.ToolHeader, { [styles.Hidden]: hidden })}>
