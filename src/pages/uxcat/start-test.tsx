@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
 
 import { TRouter } from '@local-types/global';
-import { TagType } from '@local-types/data';
 import { UXCatDataTypes } from '@local-types/uxcat-types/types';
 
 import StartTestLayout from '@layouts/StartTestLayout';
