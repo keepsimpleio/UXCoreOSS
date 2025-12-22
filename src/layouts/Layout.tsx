@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { usePathname } from 'next/navigation';
-import dynamic from 'next/dynamic';
 
 import { GlobalContext } from '@components/Context/GlobalContext';
 import SavedPersonas from '@components/_uxcp/SavedPersonas';
 import UXCorePopup from '@components/UXCorePopup';
+import ToolHeader from '@components/ToolHeader';
 import decisionTable from '@data/decisionTable';
 
 import { getPersonaList } from '@api/personas';
@@ -13,10 +13,6 @@ import { getPersonaList } from '@api/personas';
 import { TRouter } from '@local-types/global';
 
 import useUCoreMobile from '@hooks/uxcoreMobile';
-
-const ToolHeader = dynamic(() => import('@components/ToolHeader'), {
-  ssr: false,
-});
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
