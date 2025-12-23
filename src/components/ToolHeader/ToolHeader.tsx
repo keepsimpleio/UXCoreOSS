@@ -146,13 +146,10 @@ const ToolHeader: FC<TToolHeader> = ({
   const getActiveFromPath = (pathname: string) => {
     const path = normalizePath(pathname);
 
-    const pathWithBypass = /^\/uxcp$/i.test(path) ? '/uxcp/' : path;
-
-    if (pathWithBypass.includes('/uxcore')) return 'uxcore';
-    if (pathWithBypass.includes('/uxcg')) return 'uxcg';
-    if (pathWithBypass.includes('/uxcp')) return 'uxcp';
-    if (pathWithBypass.includes('/uxcat') || pathWithBypass.includes('/user'))
-      return 'uxcat';
+    if (path.includes('/uxcore')) return 'uxcore';
+    if (path.includes('/uxcg')) return 'uxcg';
+    if (path.includes('/uxcp')) return 'uxcp';
+    if (path.includes('/uxcat') || path.includes('/user')) return 'uxcat';
 
     return null;
   };
