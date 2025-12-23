@@ -46,8 +46,6 @@ const SettingsModal = dynamic(() => import('@components/SettingsModal'), {
   ssr: false,
 });
 
-type ActivePage = 'uxcore' | 'uxcg' | 'uxcp' | 'uxcat' | null;
-
 type TToolHeader = {
   homepageLinkTarget?: '_blank' | '_self';
   openPodcast?: boolean;
@@ -100,7 +98,7 @@ const ToolHeader: FC<TToolHeader> = ({
   const [token, setToken] = useState<string | null>(null);
   const [usernameIsTakenError, setUsernameIsTakenError] = useState('');
   const [changedTitle, setChangedTitle] = useState(false);
-  const [activePage, setActivePage] = useState<ActivePage>(null);
+  const [activePage, setActivePage] = useState<string>(router.asPath);
 
   const {
     ourProjects,
@@ -145,7 +143,7 @@ const ToolHeader: FC<TToolHeader> = ({
   const title = changedTitle ? userInfo?.title : userInfo?.user?.title;
   const normalizePath = (p: string) => p.replace(/\/+$/, '') || '/';
 
-  const getActiveFromPath = (pathname: string): ActivePage => {
+  const getActiveFromPath = (pathname: string) => {
     const path = normalizePath(pathname);
 
     const pathWithBypass = /^\/uxcp$/i.test(path) ? '/uxcp/' : path;
