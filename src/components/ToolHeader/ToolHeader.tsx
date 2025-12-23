@@ -4,6 +4,7 @@ import React, {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from 'react';
 import { useRouter } from 'next/router';
@@ -61,6 +62,18 @@ type TToolHeader = {
   blockLanguageSwitcher?: boolean;
   hidden?: boolean;
 };
+const normalizePath = (p: string) => p.replace(/\/+$/, '') || '/';
+
+const getActiveFromPath = (pathname: string) => {
+  const path = normalizePath(pathname);
+
+  if (path.includes('/uxcore')) return 'uxcore';
+  if (path.includes('/uxcg')) return 'uxcg';
+  if (path.includes('/uxcp')) return 'uxcp';
+  if (path.includes('/uxcat') || path.includes('/user')) return 'uxcat';
+
+  return null;
+};
 
 const ToolHeader: FC<TToolHeader> = ({
   homepageLinkTarget = '_self',
@@ -98,7 +111,9 @@ const ToolHeader: FC<TToolHeader> = ({
   const [token, setToken] = useState<string | null>(null);
   const [usernameIsTakenError, setUsernameIsTakenError] = useState('');
   const [changedTitle, setChangedTitle] = useState(false);
-  const [activePage, setActivePage] = useState<string>(router.asPath);
+  const [activePage, setActivePage] = useState(() =>
+    getActiveFromPath(router.asPath),
+  );
 
   const {
     ourProjects,
@@ -116,6 +131,7 @@ const ToolHeader: FC<TToolHeader> = ({
   const currentUsername = !!accountData && accountData.username;
   const currentEmail = accountData && accountData.email;
   const publicEmail = accountData && accountData.publicEmail;
+  const isRoutingRef = useRef(false);
 
   const linkedIn = userInfo?.user?.linkedin
     ? userInfo?.user?.linkedin
@@ -141,35 +157,36 @@ const ToolHeader: FC<TToolHeader> = ({
   };
 
   const title = changedTitle ? userInfo?.title : userInfo?.user?.title;
-  const normalizePath = (p: string) => p.replace(/\/+$/, '') || '/';
-
-  const getActiveFromPath = (pathname: string) => {
-    const path = normalizePath(pathname);
-
-    if (path.includes('/uxcore')) return 'uxcore';
-    if (path.includes('/uxcg')) return 'uxcg';
-    if (path.includes('/uxcp')) return 'uxcp';
-    if (path.includes('/uxcat') || path.includes('/user')) return 'uxcat';
-
-    return null;
-  };
 
   useEffect(() => {
     if (!router.isReady) return;
 
-    const sync = (url: string) => {
+    const onStart = () => {
+      isRoutingRef.current = true;
+    };
+
+    const onDone = (url: string) => {
+      isRoutingRef.current = false;
+
       const next = getActiveFromPath(url);
       if (next) setActivePage(next);
     };
 
-    sync(router.asPath);
+    router.events.on('routeChangeStart', onStart);
+    router.events.on('routeChangeComplete', onDone);
+    router.events.on('routeChangeError', () => {
+      isRoutingRef.current = false;
+    });
 
-    router.events.on('routeChangeComplete', sync);
+    const initial = getActiveFromPath(router.asPath);
+    if (initial) setActivePage(initial);
 
     return () => {
-      router.events.off('routeChangeComplete', sync);
+      router.events.off('routeChangeStart', onStart);
+      router.events.off('routeChangeComplete', onDone);
+      router.events.off('routeChangeError', onDone as any);
     };
-  }, [router.isReady, router]);
+  }, [router.isReady, router.events, router.asPath]);
 
   const openPodcastHandler = useCallback(() => {
     setOpenPodcast(prev => !prev);
