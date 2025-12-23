@@ -11,7 +11,6 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import cn from 'classnames';
 import dynamic from 'next/dynamic';
-import { usePathname } from 'next/navigation';
 
 import type { TRouter } from '@local-types/global';
 import { UserTypes } from '@local-types/uxcat-types/types';
@@ -93,14 +92,10 @@ const ToolHeader: FC<TToolHeader> = ({
   const router = useRouter();
   const { locale, asPath } = router as TRouter;
 
-  const pathname = usePathname() ?? '';
   const { isMobile } = useMobile()[1];
   const [, { isCoreView }] = useUXCoreGlobals();
   const { accountData, setAccountData, ourProjectsModalData } =
     useContext(GlobalContext);
-
-  const isActive = (pathname: string, href: string) =>
-    pathname === href || (href !== '/' && pathname?.startsWith(href + '/'));
 
   const imageSrc = useMemo(() => accountData?.picture, [accountData]);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -159,34 +154,37 @@ const ToolHeader: FC<TToolHeader> = ({
   const title = changedTitle ? userInfo?.title : userInfo?.user?.title;
 
   useEffect(() => {
-    if (!router.isReady) return;
+    const initial = getActiveFromPath(router.asPath);
+    if (initial) setActivePage(initial);
 
-    const onStart = () => {
+    const onStart = (url: string) => {
       isRoutingRef.current = true;
+
+      const next = getActiveFromPath(url);
+      if (next) setActivePage(next);
     };
 
-    const onDone = (url: string) => {
+    const onComplete = (url: string) => {
       isRoutingRef.current = false;
 
       const next = getActiveFromPath(url);
       if (next) setActivePage(next);
     };
 
-    router.events.on('routeChangeStart', onStart);
-    router.events.on('routeChangeComplete', onDone);
-    router.events.on('routeChangeError', () => {
+    const onError = () => {
       isRoutingRef.current = false;
-    });
+    };
 
-    const initial = getActiveFromPath(router.asPath);
-    if (initial) setActivePage(initial);
+    router.events.on('routeChangeStart', onStart);
+    router.events.on('routeChangeComplete', onComplete);
+    router.events.on('routeChangeError', onError);
 
     return () => {
       router.events.off('routeChangeStart', onStart);
-      router.events.off('routeChangeComplete', onDone);
-      router.events.off('routeChangeError', onDone as any);
+      router.events.off('routeChangeComplete', onComplete);
+      router.events.off('routeChangeError', onError);
     };
-  }, [router.isReady, router.events, router.asPath]);
+  }, [router.events, router.asPath]);
 
   const openPodcastHandler = useCallback(() => {
     setOpenPodcast(prev => !prev);
@@ -326,8 +324,7 @@ const ToolHeader: FC<TToolHeader> = ({
                     >
                       <a
                         className={cn(styles.MenuItem, {
-                          [styles.Active]:
-                            isActive(pathname, href) || activePage === page,
+                          [styles.Active]: activePage === page,
                           [styles[`${page}-MenuItem`]]: !!page,
                         })}
                         target={
