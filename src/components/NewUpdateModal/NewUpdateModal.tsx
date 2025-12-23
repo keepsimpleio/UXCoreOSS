@@ -50,13 +50,7 @@ const NewUpdateModal: FC<NewUpdateModalProps> = ({ data, onClose }) => {
         >
           {data.description}
         </ReactMarkdown>
-        <div className={styles.btnWrapper}>
-          <Button
-            label={closeText}
-            onClick={onClose}
-            className={styles['closeBtn']}
-          />
-        </div>
+        <Button label={closeText} onClick={onClose} type={'orange'} />
       </div>
     </Modal>
   );
