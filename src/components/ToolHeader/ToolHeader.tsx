@@ -100,6 +100,7 @@ const ToolHeader: FC<TToolHeader> = ({
   const [token, setToken] = useState<string | null>(null);
   const [usernameIsTakenError, setUsernameIsTakenError] = useState('');
   const [changedTitle, setChangedTitle] = useState(false);
+  const [activePage, setActivePage] = useState<ActivePage>(null);
 
   const {
     ourProjects,
@@ -158,9 +159,22 @@ const ToolHeader: FC<TToolHeader> = ({
     return null;
   };
 
-  const activePage = useMemo(() => {
-    return getActiveFromPath(pathname);
-  }, [pathname]);
+  useEffect(() => {
+    if (!router.isReady) return;
+
+    const sync = (url: string) => {
+      const next = getActiveFromPath(url);
+      if (next) setActivePage(next);
+    };
+
+    sync(router.asPath);
+
+    router.events.on('routeChangeComplete', sync);
+
+    return () => {
+      router.events.off('routeChangeComplete', sync);
+    };
+  }, [router.isReady, router]);
 
   const openPodcastHandler = useCallback(() => {
     setOpenPodcast(prev => !prev);
