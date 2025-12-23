@@ -19,16 +19,3 @@
   top: 21%;
   cursor: pointer;
 }
-
-.closeBtn {
-  border-radius: 0;
-  background-color: #000;
-  color: #fff;
-  margin-top: 32px;
-  border: 1px solid #000 !important;
-
-  &:hover {
-    border: 1px solid #000 !important;
-    color: #fff !important;
-  }
-}

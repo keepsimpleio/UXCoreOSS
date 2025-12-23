@@ -46,6 +46,8 @@ const SettingsModal = dynamic(() => import('@components/SettingsModal'), {
   ssr: false,
 });
 
+type ActivePage = 'uxcore' | 'uxcg' | 'uxcp' | 'uxcat' | null;
+
 type TToolHeader = {
   homepageLinkTarget?: '_blank' | '_self';
   openPodcast?: boolean;
@@ -98,9 +100,6 @@ const ToolHeader: FC<TToolHeader> = ({
   const [token, setToken] = useState<string | null>(null);
   const [usernameIsTakenError, setUsernameIsTakenError] = useState('');
   const [changedTitle, setChangedTitle] = useState(false);
-  const [activePage, setActivePage] = useState<
-    'uxcore' | 'uxcg' | 'uxcp' | 'uxcat'
-  >(null);
 
   const {
     ourProjects,
@@ -143,21 +142,25 @@ const ToolHeader: FC<TToolHeader> = ({
   };
 
   const title = changedTitle ? userInfo?.title : userInfo?.user?.title;
+  const normalizePath = (p: string) => p.replace(/\/+$/, '') || '/';
 
-  const normalizedPath = pathname.replace(/\/+$/, '');
-  const pathnameWithBypass = /^\/uxcp$/i.test(normalizedPath)
-    ? '/uxcp/'
-    : normalizedPath;
-  const path = pathnameWithBypass.replace(/\/+$/, '');
+  const getActiveFromPath = (pathname: string): ActivePage => {
+    const path = normalizePath(pathname);
 
-  const getActiveFromPath = (pathname: string) => {
-    if (pathname.includes('/uxcore')) return 'uxcore';
-    if (pathname.includes('/uxcg')) return 'uxcg';
-    if (path.includes('/uxcp')) return 'uxcp';
-    if (pathname.includes('/uxcat') || pathname.includes('/user'))
+    const pathWithBypass = /^\/uxcp$/i.test(path) ? '/uxcp/' : path;
+
+    if (pathWithBypass.includes('/uxcore')) return 'uxcore';
+    if (pathWithBypass.includes('/uxcg')) return 'uxcg';
+    if (pathWithBypass.includes('/uxcp')) return 'uxcp';
+    if (pathWithBypass.includes('/uxcat') || pathWithBypass.includes('/user'))
       return 'uxcat';
+
     return null;
   };
+
+  const activePage = useMemo(() => {
+    return getActiveFromPath(pathname);
+  }, [pathname]);
 
   const openPodcastHandler = useCallback(() => {
     setOpenPodcast(prev => !prev);
@@ -241,11 +244,6 @@ const ToolHeader: FC<TToolHeader> = ({
         setSelectedTitle(locale === 'en' ? title : russianTitles(title));
     }
   }, [title, locale, userInfo]);
-
-  useEffect(() => {
-    const next = getActiveFromPath(pathname);
-    if (router.isReady && next) setActivePage(next);
-  }, [pathname, router]);
 
   return (
     <header className={cn(styles.ToolHeader, { [styles.Hidden]: hidden })}>
