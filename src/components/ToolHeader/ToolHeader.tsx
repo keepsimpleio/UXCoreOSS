@@ -130,6 +130,7 @@ const ToolHeader: FC<TToolHeader> = ({
   const level = userInfo?.user?.level ? userInfo?.user?.level : userInfo?.level;
   const changeTitlePermission = isLevelMilestone(level, 13);
   const userTitlesRu = ['Просвещенный', 'Профессор', 'Великий'];
+
   const russianTitles = selectedTitle => {
     if (!selectedTitle) {
       return null;
@@ -243,8 +244,8 @@ const ToolHeader: FC<TToolHeader> = ({
 
   useEffect(() => {
     const next = getActiveFromPath(pathname);
-    if (next) setActivePage(next);
-  }, [pathname]);
+    if (router.isReady && next) setActivePage(next);
+  }, [pathname, router]);
 
   return (
     <header className={cn(styles.ToolHeader, { [styles.Hidden]: hidden })}>
