@@ -8,7 +8,6 @@ const ru = {
   message:
     'Вы собираетесь покинуть страницу, тест продолжится до истечения времени.',
   pickAnswer: 'Выберите ответ',
-  questionLabel: 'Вопрос: ',
 };
 
 export default ru;

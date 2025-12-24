@@ -6,7 +6,6 @@ import UXCatLayout from '@layouts/UXCatLayout';
 
 import SeoGenerator from '@components/SeoGenerator';
 
-import { getTags } from '@api/tags';
 import { getLevels } from '@api/uxcat/get-levels';
 import { getNotifications } from '@api/uxcat/get-notifications';
 import { getAchievement } from '@api/uxcat/get-achievement';
@@ -14,7 +13,6 @@ import { getUXCatData } from '@api/uxcat/uxcat';
 import { UXCatConfigs } from '@api/uxcat/configs';
 import { getAllAchievements } from '@api/uxcat/get-all-achievements';
 
-import { TagType } from '@local-types/data';
 import {
   AchievementsTypes,
   UserTypes,
@@ -34,7 +32,6 @@ import {
 import { getUserInfo } from '@api/uxcat/users-me';
 
 type UxcatProps = {
-  tags: TagType[];
   uxCatLevels: uxCatLevels[];
   allAchievements: AchievementsTypes[];
   seriouslyAchievement: any;
@@ -43,7 +40,6 @@ type UxcatProps = {
 };
 
 const Uxcat: FC<UxcatProps> = ({
-  tags,
   uxCatLevels,
   seriouslyAchievement,
   allAchievements,
@@ -189,9 +185,9 @@ const Uxcat: FC<UxcatProps> = ({
       <SeoGenerator
         strapiSEO={{
           description: uxcatStrapiData?.seoDescription || '',
-          title: uxcatStrapiData?.seoTitle || 'UX Core ',
+          title: uxcatStrapiData?.seoTitle || 'UXCat ',
           keywords: uxcatStrapiData?.keywords || '',
-          pageTitle: uxcatStrapiData?.seoTitle || 'UX Core ',
+          pageTitle: uxcatStrapiData?.seoTitle || 'UXCat ',
         }}
         modifiedDate={uxcatStrapiData?.updatedAt}
         createdDate={'2025-10-28'}
@@ -231,7 +227,6 @@ const Uxcat: FC<UxcatProps> = ({
 export default Uxcat;
 
 export const getServerSideProps: GetServerSideProps = async context => {
-  const tags = getTags();
   const achievementsEn = await getAllAchievements('en', 40);
   const achievementsRu = await getAllAchievements('ru', 40);
   const seriouslyAchievement = await getAchievement('SERIOUSLY', 'en');
@@ -243,7 +238,6 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
   return {
     props: {
-      tags,
       uxCatLevels,
       seriouslyAchievement,
       allAchievements,

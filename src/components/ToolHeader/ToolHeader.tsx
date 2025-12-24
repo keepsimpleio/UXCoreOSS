@@ -306,7 +306,11 @@ const ToolHeader: FC<TToolHeader> = ({
                 />
               </a>
             </Link>
-            <div className={cn(styles.Links, styles[`is-${activePage}`])}>
+            <div
+              className={cn(styles.Links, styles[`is-${activePage}`], {
+                [styles[`is-${activePage}-ru`]]: locale === 'ru',
+              })}
+            >
               <span className={styles.Pill} />
               {navItems.map(({ label, href, page, icon }, index) => {
                 return (

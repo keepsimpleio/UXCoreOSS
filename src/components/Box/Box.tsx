@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { useRouter } from 'next/router';
+import cn from 'classnames';
 
 import Button from '@components/Button';
 
@@ -8,7 +9,6 @@ import cookieData from '@data/cookies';
 import { TRouter } from '@local-types/global';
 
 import styles from './Box.module.scss';
-import cn from 'classnames';
 
 interface CookiesBoxProps {
   setIsSeen?: () => void;

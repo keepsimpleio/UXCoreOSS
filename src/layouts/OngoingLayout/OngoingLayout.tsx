@@ -28,7 +28,23 @@ import styles from './OngoingLayout.module.scss';
 import 'react-loading-skeleton/dist/skeleton.css';
 
 type OngoingProps = {
-  startTest?: any; // TODO  Mary - change thiisss
+  startTest?: {
+    testId: number;
+    questions: {
+      id: number;
+      bodyEn: string;
+      bodyRu: string;
+      questionEn: string;
+      questionRu: string;
+      bias: number;
+      isEaster: boolean;
+      answers: {
+        id: number;
+        bodyEn: string;
+        bodyRu: string;
+      }[];
+    }[];
+  };
   remainingTime?: { hours: number; minutes: number; seconds: number };
   finalTestPermission?: boolean;
   accessToken?: string;
@@ -82,7 +98,6 @@ const OngoingLayout: FC<OngoingProps> = ({
     message,
     pickAnswer,
     skipQuestionTxt,
-    questionLabel,
   } = ongoingTestData[currentLocale];
 
   const questionsLeft = startTest?.questions?.length;
@@ -106,6 +121,27 @@ const OngoingLayout: FC<OngoingProps> = ({
     locale === 'ru'
       ? `${startTest?.questions[currentQuestionIndex]?.questionRu}`
       : `${startTest?.questions[currentQuestionIndex]?.questionEn}`;
+
+  function underlineStandaloneNegation(text: string) {
+    const negationWordRegex =
+      locale === 'ru'
+        ? /(?<!\p{L})не(?!\p{L})/giu
+        : /(?<![A-Za-z])not(?![A-Za-z])/gi;
+
+    const pieces: React.ReactNode[] = [];
+    let cursor = 0;
+    let match: RegExpExecArray | null;
+
+    while ((match = negationWordRegex.exec(text)) !== null) {
+      const startIndex = match.index;
+      pieces.push(text.slice(cursor, startIndex));
+      pieces.push(<u key={startIndex}>{match[0]}</u>);
+      cursor = startIndex + match[0].length;
+    }
+
+    pieces.push(text.slice(cursor));
+    return pieces;
+  }
 
   const hasAchievement = startTest?.questions[currentQuestionIndex]?.isEaster;
 
@@ -409,6 +445,7 @@ const OngoingLayout: FC<OngoingProps> = ({
                     width={20}
                     height={20}
                     alt={'Contains achievement'}
+                    unoptimized
                   />
                 </div>
                 <ReactTooltip
@@ -424,62 +461,74 @@ const OngoingLayout: FC<OngoingProps> = ({
               </>
             )}
           </div>
-        </div>
-        <div className={styles.question}>
           {biasTitle ? (
-            <h2
-              className={cn(styles.biasTitle, {
-                [styles.fadeInBiasTitle]:
-                  fade === false && currentNumber !== 10,
-                [styles.fadeOutBiasTitle]: fade && currentNumber !== 10,
-              })}
-            >
-              {biasTitle}
-            </h2>
-          ) : (
-            <Skeleton count={1} width={200} />
-          )}
-          {biasDescription ? (
             <div
-              className={cn(styles.description, {
-                [styles.fadeInDescription]:
+              className={cn(styles.quizQuestion, {
+                [styles.fadeInquizQuestion]:
                   fade === false && !lastQuestionClicked,
-                [styles.fadeOutDescription]: fade && !lastQuestionClicked,
+                [styles.fadeOutquizQuestion]: fade && !lastQuestionClicked,
               })}
             >
-              <ContentParser data={biasDescription} />
-            </div>
-          ) : (
-            <Skeleton count={4} />
-          )}
-        </div>
-      </div>
-      <div className={styles.answers}>
-        {biasTitle ? (
-          <div
-            className={cn(styles.quizQuestion, {
-              [styles.fadeInquizQuestion]:
-                fade === false && !lastQuestionClicked,
-              [styles.fadeOutquizQuestion]: fade && !lastQuestionClicked,
-            })}
-          >
-            <span className={styles.questionLabel}>
               <Image
                 src={'/assets/uxcat/question-mark.svg'}
                 alt={'Question mark'}
-                width={32}
-                height={32}
+                width={24}
+                height={24}
                 className={styles.questionMark}
+                unoptimized
               />
-              {questionLabel}
-            </span>
-            <p className={styles.questionTxt}> {question}</p>
+              <p className={styles.quizQuestionTxt}>
+                {underlineStandaloneNegation(question)}
+              </p>
+            </div>
+          ) : (
+            <div className={styles.questionSkeleton}>
+              <Skeleton count={1} width={200} className={styles.quizQuestion} />
+            </div>
+          )}
+        </div>
+      </div>
+      <div className={styles.questionAnswers}>
+        <div className={styles.iconAndBias}>
+          <div>
+            <Image
+              src={'/assets/uxcat/information-icon.svg'}
+              alt={'Information Icon'}
+              width={24}
+              height={24}
+              className={styles.infoIcon}
+            />
           </div>
-        ) : (
-          <div className={styles.questionSkeleton}>
-            <Skeleton count={1} width={200} className={styles.quizQuestion} />
+
+          <div className={styles.question}>
+            {biasTitle ? (
+              <h2
+                className={cn(styles.biasTitle, {
+                  [styles.fadeInBiasTitle]:
+                    fade === false && currentNumber !== 10,
+                  [styles.fadeOutBiasTitle]: fade && currentNumber !== 10,
+                })}
+              >
+                {biasTitle}
+              </h2>
+            ) : (
+              <Skeleton count={1} width={200} />
+            )}
+            {biasDescription ? (
+              <div
+                className={cn(styles.description, {
+                  [styles.fadeInDescription]:
+                    fade === false && !lastQuestionClicked,
+                  [styles.fadeOutDescription]: fade && !lastQuestionClicked,
+                })}
+              >
+                <ContentParser data={biasDescription} />
+              </div>
+            ) : (
+              <Skeleton count={4} />
+            )}
           </div>
-        )}
+        </div>
         {!!startTest ? (
           startTest.questions[currentQuestionIndex]?.answers.map(
             (answer, index) => {

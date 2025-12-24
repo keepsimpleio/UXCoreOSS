@@ -15,7 +15,7 @@ $white: #fafafa;
   }
 
   .questionWrapper {
-    min-height: 348px;
+    min-height: 223px;
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
     background-color: #ffffff;
 
@@ -37,8 +37,9 @@ $white: #fafafa;
       .questionTxt {
         font-size: 24px;
         font-weight: 800;
-        color: #c4c4c4;
+        color: #000;
         text-align: center;
+        margin: 18px 0;
       }
 
       .fadeInQuestionTxt {
@@ -126,8 +127,35 @@ $white: #fafafa;
     }
   }
 
-  .answers {
+  .questionAnswers {
     padding-top: 24px;
+
+    .iconAndBias {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      background: #f0f0f0;
+      padding: 10px;
+      border-radius: 4px;
+    }
+
+    .biasTitle {
+      font-size: 14px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .description {
+      p {
+        margin: 0;
+        line-height: 1.6;
+        font-size: 14px;
+
+        span {
+          background-color: unset !important;
+        }
+      }
+    }
 
     .questionSkeleton {
       display: flex;
@@ -254,7 +282,7 @@ $white: #fafafa;
   }
 
   .question,
-  .answers,
+  .questionAnswers,
   .quizQuestion {
     width: 900px;
     max-width: 100%;
@@ -264,32 +292,20 @@ $white: #fafafa;
   }
 
   .quizQuestion {
-    padding: 16px 24px;
-    font-weight: 700;
-    border: 1px solid #c4c4c4;
-    border-radius: 4px;
-    background-color: #ffffff;
-    width: 851px;
-    max-width: 100%;
-    min-height: 85px;
-    overflow: hidden;
-    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 40px;
+    gap: 8px;
 
-    .questionLabel {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 24px;
+    .quizQuestionTxt {
+      font-size: 18px;
+      margin: 0;
       font-weight: 700;
-      line-height: 1.6;
-      color: #000000d9;
     }
 
-    .questionTxt {
-      margin: 0;
-      padding-left: 44px;
-      padding-top: 4px;
-      font-size: 18px;
+    .questionMark {
+      padding-bottom: 5px;
     }
   }
 
@@ -329,14 +345,15 @@ $white: #fafafa;
 
     .questionWrapper {
       width: unset;
-      padding: 15px 0 40px 15px;
+      padding: 15px 0 0 15px;
       height: unset;
-      min-height: 220px;
+      min-height: 183px;
     }
 
-    .answers {
+    .questionAnswers {
       .answerWrapper {
         -webkit-tap-highlight-color: transparent;
+
         .input {
           width: -webkit-fill-available;
         }
@@ -347,7 +364,13 @@ $white: #fafafa;
 
 @media (max-width: 800px) {
   .ongoing {
-    .answers {
+    .questionAnswers {
+      .iconAndBias {
+        flex-direction: column;
+        align-items: center;
+        margin: 8px;
+      }
+
       .answerWrapper {
         margin-top: 8px;
       }
@@ -364,18 +387,16 @@ $white: #fafafa;
 
         .questionTxt {
           padding-top: unset;
+          font-size: 16px;
+          margin: 16px 0 5px 0;
         }
       }
     }
 
-    .answers,
+    .questionAnswers,
     .question {
       width: unset;
       max-width: unset;
-
-      .question {
-        text-align: center;
-      }
 
       .skeleton {
         border: unset;
@@ -390,9 +411,9 @@ $white: #fafafa;
     }
 
     .quizQuestion {
-      padding: 8px;
       min-height: unset;
-      line-height: 1.4;
+      flex-direction: column;
+      padding: unset;
 
       .questionLabel {
         padding-bottom: 8px;
