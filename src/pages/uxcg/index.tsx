@@ -2,6 +2,8 @@ import React, { FC, useMemo, useState } from 'react';
 import { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 
+import { TRouter } from '@local-types/global';
+
 import { getTags } from '@api/tags';
 import { getStrapiQuestions } from '@api/questions';
 import { getStrapiBiases } from '@api/biases';
@@ -18,7 +20,6 @@ import SeoGenerator from '@components/SeoGenerator';
 import Spinner from '@components/Spinner';
 
 import { QuestionType, TagType } from '@local-types/data';
-import { TRouter } from '@local-types/global';
 
 interface UxcgProps {
   tags: TagType[];

@@ -20,6 +20,7 @@ const MobileDisclimer: FC = () => {
         alt="mobile disclimer for mobile version"
         width={24}
         height={22}
+        unoptimized
       />
       <div>{mobileDisclimer}</div>
     </div>

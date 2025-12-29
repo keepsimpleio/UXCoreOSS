@@ -44,12 +44,15 @@ export interface QuestionType {
 
 export interface TagType {
   id: number;
+  iconUrl?: string;
   styles: {
     backgroundColor: string;
   };
 
   tooltip: TitlesType;
   title: TitlesType;
+  backgroundUrl: string;
+  iconName: string;
 }
 
 export interface BiasType {

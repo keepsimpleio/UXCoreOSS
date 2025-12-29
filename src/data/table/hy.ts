@@ -4,7 +4,7 @@ const hy = {
   showMoreText: 'Ցույց տալ ավելին',
   showLessText: 'Ցույց տալ պակաս',
   noResultsText: 'Արդյունքներ չեն գտնվել',
-  labelText: 'Ընտրեք ձեր պրոդուկտի փուլը',
+  labelText: 'Պրոդուկտի փուլը',
 };
 
 export default hy;

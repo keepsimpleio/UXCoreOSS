@@ -3,11 +3,13 @@ import type { TagType } from '@local-types/data';
 const tags = [
   {
     id: 1,
-    styles: { backgroundColor: '#5396D3' },
+    styles: { backgroundColor: '#0071DA' },
+    backgroundUrl: '/assets/uxcg/team-bg.png',
+    iconName: 'team',
     title: {
-      en: 'Team',
-      ru: 'Команда',
-      hy: 'Թիմ',
+      en: 'Team Assembly',
+      ru: 'Сбор команды',
+      hy: 'Թիմի կազմավորում',
     },
     tooltip: {
       en: 'Questions related to in-house team members cooperation (product, development teams and others).',
@@ -18,6 +20,8 @@ const tags = [
   {
     id: 2,
     styles: { backgroundColor: '#77A34B' },
+    iconName: 'development',
+    backgroundUrl: '/assets/uxcg/development-bg.png',
     title: {
       en: 'Development',
       ru: 'Разработка',
@@ -31,11 +35,13 @@ const tags = [
   },
   {
     id: 3,
-    styles: { backgroundColor: '#A36AA4' },
+    styles: { backgroundColor: '#7D4BA3' },
+    iconName: 'marketing',
+    backgroundUrl: '/assets/uxcg/marketing-bg.png',
     title: {
-      en: 'Pre-SignUp',
-      ru: 'Предрегистрация',
-      hy: 'Մինչ գրանցում',
+      en: 'Marketing/BD',
+      ru: 'Маркетинг/Бизнес развитие',
+      hy: 'Մարքեթինգ/ԲԶ',
     },
     tooltip: {
       en: 'Questions related to sales, marketing funnels, prospects and leads communication, and overall product packaging.',
@@ -45,11 +51,13 @@ const tags = [
   },
   {
     id: 4,
-    styles: { backgroundColor: '#D3666D' },
+    styles: { backgroundColor: '#C5A800' },
+    iconName: 'released',
+    backgroundUrl: '/assets/uxcg/released-bg.png',
     title: {
-      en: 'Post-SignUp',
-      ru: 'Пост-регистрация',
-      hy: 'Գրանցումից հետո',
+      en: 'Released',
+      ru: 'Выпущенный',
+      hy: 'Թողարկված',
     },
     tooltip: {
       en: 'Questions related to user interaction with actual product and its features.',
@@ -59,11 +67,13 @@ const tags = [
   },
   {
     id: 5,
-    styles: { backgroundColor: '#E19F3B' },
+    styles: { backgroundColor: '#C55C00' },
+    iconName: 'monitoring',
+    backgroundUrl: '/assets/uxcg/monitoring-bg.png',
     title: {
-      en: 'Analytics',
-      ru: 'Аналитика',
-      hy: 'Վերլուծություն',
+      en: 'Monitoring',
+      ru: 'Мониторинг',
+      hy: 'Մոնիթորինգ',
     },
     tooltip: {
       en: 'Questions related to product analytical data analysis.',
