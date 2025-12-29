@@ -1,6 +1,6 @@
-const en = {
+const hy = {
   inDevTxt: 'In Development',
   doneTxt: 'Done',
 };
 
-export default en;
+export default hy;

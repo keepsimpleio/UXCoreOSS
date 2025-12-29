@@ -24,7 +24,7 @@ const OurProjectsModal: FC<OurProjectsModalProps> = ({
 }) => {
   const router = useRouter();
   const { locale } = router as TRouter;
-  const { inDevTxt } = ourProjectsData[locale || 'en'];
+  const { inDevTxt, doneTxt } = ourProjectsData[locale || 'en'];
   return (
     <Modal
       onClick={onClose}
@@ -154,7 +154,7 @@ const OurProjectsModal: FC<OurProjectsModalProps> = ({
 
       <div className={styles.doneBtn}>
         <Button
-          label={'Done'}
+          label={doneTxt}
           onClick={() => onClose()}
           type={'primary'}
           dataCy={'our-projects-close-button'}
