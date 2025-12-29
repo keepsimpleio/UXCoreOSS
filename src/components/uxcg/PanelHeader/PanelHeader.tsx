@@ -15,6 +15,7 @@ const PanelHeader: FC<PanelHeaderProps> = ({ text, icon, className }) => {
         width={24}
         height={24}
         className={styles.img}
+        unoptimized
       />
       <span className={styles.text}>{text}</span>
     </div>
