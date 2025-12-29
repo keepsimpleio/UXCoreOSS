@@ -19,6 +19,7 @@ type ModalProps = {
   bodyClassName?: string;
   wrapperClassName?: string;
   fullSizeMobile?: boolean;
+  fullHeightMobile?: boolean;
   removeBorderMobile?: boolean;
   disableBackgroundClick?: boolean;
   disableClose?: boolean;
@@ -46,6 +47,7 @@ const Modal: FC<ModalProps> = ({
   disableClose,
   grayTitle,
   dataCy,
+  fullHeightMobile,
 }) => {
   const handleClose = () => {
     onClick();
@@ -103,6 +105,7 @@ const Modal: FC<ModalProps> = ({
           [styles.bobModal]: size === 'bob-modal',
           [wrapperClassName]: wrapperClassName,
           [styles.fullSizeMobile]: fullSizeMobile,
+          [styles.fullHeightMobile]: fullHeightMobile,
         })}
       >
         {!removeHeader && (

@@ -1,40 +1,28 @@
 import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
-import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
+import cn from 'classnames';
 
-import ToolHeader from '@components/ToolHeader';
 import ToolFooter from '@components/ToolFooter';
 import Table from '@components/Table';
-import UXCGDescription from '@components/UXCGDescription';
+import PanelHeader from '@components/uxcg/PanelHeader';
+import TagContainer from '@components/uxcg/TagContainer';
 
-import type { QuestionType, TagType } from '@local-types/data';
+import { QuestionType, TagType } from '@local-types/data';
 import { TRouter } from '@local-types/global';
-import { UserTypes } from '@local-types/uxcat-types/types';
+
+import uxcgDescriptionData from '@data/uxcgDescriptionData';
 
 import useSpinner from '@hooks/useSpinner';
 
-import decisionTable from '@data/decisionTable';
-
-import { getPersonaList } from '@api/personas';
-
 import styles from './UXCGLayout.module.scss';
-import uxcgDescriptionData from '@data/uxcgDescriptionData';
-import cn from 'classnames';
-
-const SavedPersonas = dynamic(() => import('@components/_uxcp/SavedPersonas'), {
-  ssr: false,
-});
 
 interface UXCGLayoutProps {
-  questions: any; // HYTranslation TODO
+  questions: any;
   tags: TagType[];
   changedHeadingOrder?: boolean;
   searchValue?: string;
   setSearchValue?: (value: string) => void;
-  userInfo?: UserTypes;
-  setUserInfo?: (userInfo: UserTypes) => void;
   allQuestions: any;
-  blockLanguageSwitcher?: boolean;
 }
 
 const UXCGLayout: FC<UXCGLayoutProps> = ({
@@ -43,27 +31,29 @@ const UXCGLayout: FC<UXCGLayoutProps> = ({
   changedHeadingOrder = false,
   searchValue,
   setSearchValue,
-  userInfo,
-  setUserInfo,
   allQuestions,
-  blockLanguageSwitcher,
 }) => {
   const { setIsVisible } = useSpinner()[0];
-  const [isAciveSearch, setIsActiveSearch] = useState<boolean>(false);
-  const [searchResults, setSearchResults] = useState<QuestionType[]>([]);
-  const [activeFilter, setActiveFilter] = useState<string>('1');
-  const [openPersonas, setOpenPersonas] = useState<boolean>(false);
-  const [personas, setPersonas] = useState(null);
-
   const searchDebounce: any = useRef();
-
   const router = useRouter();
   const { locale } = router as TRouter;
+  const { description, defaultStage, selectStageTxt, relevantQuestionsTxt } =
+    uxcgDescriptionData[locale];
+
+  const [isAciveSearch, setIsActiveSearch] = useState<boolean>(false);
+  const [searchResults, setSearchResults] = useState<QuestionType[]>([]);
+  const [stageName, setStageName] = useState<string>('');
+  const [activeFilter, setActiveFilter] = useState<string>('1');
+  const stageText = stageName[locale] || defaultStage;
+
+  const relevantQuestionsWithStage = {
+    en: `Relevant questions for your project's ${stageText} stage`,
+    ru: `Актуальные вопросы для этапа "${stageText}" вашего проекта`,
+    hy: `Համապատասխան հարցեր ձեր նախագծի ${stageText} փուլում`,
+  };
+  const prevFilterRef = useRef(activeFilter);
 
   const initialSearchValue = router.query.search as string;
-
-  const { subTitle } = uxcgDescriptionData[locale];
-  const { savedPersonasTitles } = decisionTable[locale];
 
   const filterQuestionsBySearchTerm = (
     searchTerm: string,
@@ -135,6 +125,13 @@ const UXCGLayout: FC<UXCGLayoutProps> = ({
     [setIsVisible, questions],
   );
 
+  const searchResultTags = searchResults.map(
+    question => question.attributes.tags,
+  );
+  const resultTags = searchResultTags.flatMap(item =>
+    JSON.parse(item).map(String),
+  );
+
   useEffect(() => {
     window.addEventListener('popstate', handlePopState);
 
@@ -164,24 +161,16 @@ const UXCGLayout: FC<UXCGLayoutProps> = ({
   }, [initialSearchValue, router.asPath, locale]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const result = await getPersonaList();
-      setPersonas(result);
-    };
-
-    fetchData().then(r => console.log(r));
-  }, []);
+    if (isAciveSearch) {
+      prevFilterRef.current = activeFilter;
+      setActiveFilter('');
+    } else {
+      setActiveFilter(prevFilterRef.current);
+    }
+  }, [isAciveSearch]);
 
   return (
     <div className={styles.body}>
-      <ToolHeader
-        page="uxcg"
-        tags={tags}
-        openPersonaModal={setOpenPersonas}
-        userInfo={userInfo}
-        setUserInfo={setUserInfo}
-        blockLanguageSwitcher={blockLanguageSwitcher}
-      />
       <div
         className={cn(styles.Content, {
           [styles.hyLayout]: locale === 'hy',
@@ -192,21 +181,47 @@ const UXCGLayout: FC<UXCGLayoutProps> = ({
         ) : (
           <h1 className={styles.Title}>UX CORE GUIDE</h1>
         )}
-        {changedHeadingOrder ? (
-          <h4 className={styles.ShortName} aria-hidden={changedHeadingOrder}>
-            {subTitle}
-          </h4>
-        ) : (
-          <h2 className={styles.ShortName} aria-hidden={changedHeadingOrder}>
-            {subTitle}
-          </h2>
-        )}
+        <p className={styles.description}> {description}</p>
         <section
           className={cn(styles.ShiftedContent, {
             [styles.hyLayout]: locale === 'hy',
           })}
         >
-          <UXCGDescription tags={tags} />
+          <PanelHeader
+            icon={'/assets/uxcg/roadmap.png'}
+            text={selectStageTxt}
+          />
+          <div className={styles.tagContainerWrapper}>
+            {tags.map((tag, index) => (
+              <TagContainer
+                // @ts-ignore
+                setStageName={setStageName}
+                resultTags={resultTags}
+                id={tag.id}
+                iconUrl={tag.iconUrl}
+                key={index}
+                {...tag}
+                backgroundUrl={tag.backgroundUrl}
+                iconName={tag.iconName}
+                activeFilter={activeFilter}
+                isSelected={
+                  activeFilter === String(tag.id) || activeFilter === 'all'
+                }
+                title={tag.title}
+                locale={locale}
+                onClick={setActiveFilter}
+              />
+            ))}
+          </div>
+          <PanelHeader
+            className={styles.relevantQuestionsHeader}
+            icon={'/assets/uxcg/question.png'}
+            text={
+              stageName !== 'all'
+                ? relevantQuestionsWithStage[locale]
+                : relevantQuestionsTxt
+            }
+          />
           <Table
             showMoreButton={false}
             data={
@@ -220,20 +235,12 @@ const UXCGLayout: FC<UXCGLayoutProps> = ({
             withSearch
             searchValue={searchValue}
             setSearchValue={setSearchValue}
+            setStageName={setStageName}
           />
         </section>
         <div className={styles.Motto}>Be Kind. Do Good.</div>
       </div>
-      <ToolFooter page="uxcg" tags={tags} />
-      {openPersonas && (
-        <SavedPersonas
-          personaTableTitles={savedPersonasTitles}
-          savedPersonas={personas}
-          setOpenPersonas={setOpenPersonas}
-          setSavedPersonas={setPersonas}
-          changedUsername={userInfo?.user?.username}
-        />
-      )}
+      <ToolFooter page="uxcg" />
     </div>
   );
 };

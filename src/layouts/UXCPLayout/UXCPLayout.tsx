@@ -11,7 +11,6 @@ import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import cn from 'classnames';
 
-import ToolHeader from '@components/ToolHeader';
 import ToolFooter from '@components/ToolFooter';
 import UXCPDescription from '@components/_uxcp/UXCPDescription';
 import PersonaSection from '@components/_uxcp/PersonaSection';
@@ -41,7 +40,6 @@ import DecisionTable from '@components/_uxcp/DecisionTable';
 import { addPersona, getPersonaList, updatePersona } from '@api/personas';
 import decisionTable from '@data/decisionTable';
 
-import { UserTypes } from '@local-types/uxcat-types/types';
 import styles from './UXCPLayout.module.scss';
 
 const TeamRelatedInsights = dynamic(
@@ -58,10 +56,6 @@ const PersonaExistsModal = dynamic(
   },
 );
 
-const SavedPersonas = dynamic(() => import('@components/_uxcp/SavedPersonas'), {
-  ssr: false,
-});
-
 interface UXCPLayoutProps {
   questions: QuestionType[];
   allLangBiases: any;
@@ -70,8 +64,6 @@ interface UXCPLayoutProps {
   isSinglePersona?: boolean;
   personaDecisionTable?: any;
   existingPersonaName?: string;
-  userInfo?: UserTypes;
-  setUserInfo?: (userInfo: UserTypes) => void;
 }
 
 const UXCPLayout: FC<UXCPLayoutProps> = ({
@@ -81,8 +73,6 @@ const UXCPLayout: FC<UXCPLayoutProps> = ({
   existingPersonaName,
   biases,
   tags,
-  userInfo,
-  setUserInfo,
   allLangBiases,
 }) => {
   const router = useRouter();
@@ -102,7 +92,6 @@ const UXCPLayout: FC<UXCPLayoutProps> = ({
   const [show, setShow] = useState(false);
   const [isInitiated, setIsInitiated] = useState<boolean>(false);
   const [isTeamMember, setIsTeamMember] = useState<boolean>(false);
-  const [openPersonas, setOpenPersonas] = useState<boolean>(false);
   const [temporarySavedData, setTemporarySavedData] = useState<boolean>(false);
   const [personaExistWarning, setPersonaExistWarning] = useState(false);
   const [selectedBiases, setSelectedBiases] = useState<StrapiBiasType[]>([]);
@@ -119,8 +108,7 @@ const UXCPLayout: FC<UXCPLayoutProps> = ({
   );
   const [temporarySavedBiases, setTemporarySavedBiases] = useState(null);
   const { title, subSectionTitle, copyURL, copied } = uxcpLocalization[locale];
-  const { savedPersonasTitles, overWriteText, cancelBtn, pleaseInputName } =
-    decisionTable[locale];
+  const { overWriteText, cancelBtn, pleaseInputName } = decisionTable[locale];
   const { accountData } = useContext(GlobalContext);
   const { relevantQuestions, tagRelevancy, suggestedQuestionsList } = useMemo(
     () => calculateData(questions, selectedBiases),
@@ -449,15 +437,6 @@ const UXCPLayout: FC<UXCPLayoutProps> = ({
 
   return (
     <div className={styles.body}>
-      <ToolHeader
-        page="uxcp"
-        tags={tags}
-        openPersonaModal={setOpenPersonas}
-        showSavedPersonas={true}
-        userInfo={userInfo}
-        setUserInfo={setUserInfo}
-      />
-
       <div
         className={cn(styles.Content, {
           [styles.hyLang]: locale === 'hy',
@@ -568,7 +547,6 @@ const UXCPLayout: FC<UXCPLayoutProps> = ({
             removableBiasId={removableBiasId}
             maxPersonaQuantity={!!personas && personas.length}
             setBiasWillBeRemoved={setBiasWillBeRemoved}
-            setOpenPersonas={setOpenPersonas}
             handleLoginToEditClick={handleLoginToEditClick}
             isMatchedPersonaName={findMatchingPersonaName?.name === personaName}
             loadFromLocal={loadFromLocal}
@@ -581,16 +559,7 @@ const UXCPLayout: FC<UXCPLayoutProps> = ({
         </section>
         <div className={styles.Motto}>Be Kind. Do Good.</div>
       </div>
-      <ToolFooter page="uxcp" tags={tags} />
-      {openPersonas && (
-        <SavedPersonas
-          personaTableTitles={savedPersonasTitles}
-          savedPersonas={personas}
-          setOpenPersonas={setOpenPersonas}
-          setSavedPersonas={setPersonas}
-          changedUsername={userInfo?.user?.username}
-        />
-      )}
+      <ToolFooter page="uxcp" />
       {personaExistWarning && (
         <PersonaExistsModal
           overWriteText={overWriteText}

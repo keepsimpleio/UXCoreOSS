@@ -1,51 +1,39 @@
-import React, { FC, useContext, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
-import ToolHeader from '@components/ToolHeader';
-import SavedPersonas from '@components/_uxcp/SavedPersonas';
 import Spinner from '@components/Spinner';
 import SeoGenerator from '@components/SeoGenerator';
 
 import OngoingLayout from 'src/layouts/OngoingLayout';
 
 import { TRouter } from '@local-types/global';
-import { TagType } from '@local-types/data';
 import { UXCatDataTypes } from '@local-types/uxcat-types/types';
 
 import { getUXCatStartTest } from '@api/uxcat/start-test';
 import { getUserInfo } from '@api/uxcat/users-me';
-import { getTags } from '@api/tags';
 import { UXCatConfigs } from '@api/uxcat/configs';
 import { getFinalTest } from '@api/uxcat/final-test';
-import { getPersonaList } from '@api/personas';
 import { getUXCatData } from '@api/uxcat/uxcat';
 
-import decisionTable from '@data/decisionTable';
 import { achievementSlugs } from '@data/uxcat/ongoingTest/realTimeAchievements';
 
 import styles from '@layouts/OngoingLayout/OngoingLayout.module.scss';
-import { GlobalContext } from '@components/Context/GlobalContext';
 
 type OngoingProps = {
-  tags: TagType[];
   configs: {
     testExpirationTime: number;
   };
   uxcatData: UXCatDataTypes;
 };
 
-const Ongoing: FC<OngoingProps> = ({ tags, configs, uxcatData }) => {
+const Ongoing: FC<OngoingProps> = ({ configs, uxcatData }) => {
   const router = useRouter();
   const { locale } = router as TRouter;
   const currentLocale = locale === 'ru' ? 'ru' : 'en';
-  const { savedPersonasTitles } = decisionTable[locale];
-  const { uxcatUserInfo, setUxcatUserInfo } = useContext(GlobalContext);
 
   const [userInfo, setUserInfo] = useState(null);
   const [test, setTest] = useState(null);
   const [accessToken, setAccessToken] = useState(null);
-  const [openPersonas, setOpenPersonas] = useState<boolean>(false);
-  const [personas, setPersonas] = useState(null);
   const [pageLoading, setPageLoading] = useState(true);
   const [isFinalTest, setIsFinalTest] = useState(false);
   const [testLength, setTestLength] = useState(0);
@@ -88,15 +76,6 @@ const Ongoing: FC<OngoingProps> = ({ tags, configs, uxcatData }) => {
     test?.testStartedAt,
     testDuration,
   );
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await getPersonaList();
-      setPersonas(result);
-    };
-
-    fetchData().then(r => r);
-  }, []);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -179,14 +158,6 @@ const Ongoing: FC<OngoingProps> = ({ tags, configs, uxcatData }) => {
             modifiedDate={uxcatStrapiData?.updatedAt}
             createdDate={'2025-10-28'}
           />
-          <ToolHeader
-            page={'uxcat'}
-            tags={tags}
-            openPersonaModal={setOpenPersonas}
-            disablePageSwitcher
-            setUserInfo={setUxcatUserInfo}
-            userInfo={uxcatUserInfo}
-          />
           <section className={styles.mainWrapper}>
             <OngoingLayout
               accessToken={accessToken}
@@ -199,15 +170,6 @@ const Ongoing: FC<OngoingProps> = ({ tags, configs, uxcatData }) => {
             />
           </section>
         </>
-      )}
-      {openPersonas && (
-        <SavedPersonas
-          personaTableTitles={savedPersonasTitles}
-          savedPersonas={personas}
-          setOpenPersonas={setOpenPersonas}
-          setSavedPersonas={setPersonas}
-          changedUsername={uxcatUserInfo?.user?.username}
-        />
       )}
     </>
   );
@@ -227,10 +189,8 @@ export async function getServerSideProps() {
     };
   }
 
-  const tags = getTags();
   return {
     props: {
-      tags,
       configs,
       uxcatData,
     },

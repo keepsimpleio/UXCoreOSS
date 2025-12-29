@@ -5,6 +5,8 @@ import { SessionProvider } from 'next-auth/react';
 import dynamic from 'next/dynamic';
 import mixpanel, { initMixpanel, trackPageView } from '../../lib/mixpanel';
 
+import Layout from '@layouts/Layout';
+
 import FormPopup from '@components/FormPopup';
 import { GlobalContext } from '@components/Context/GlobalContext';
 import Box from 'src/components/Box';
@@ -22,6 +24,7 @@ import { getStrapiQuestions } from '@api/questions';
 import { getUserInfo } from '@api/uxcat/users-me';
 import { authenticate } from '@api/auth';
 import { getNewUpdate } from '@api/new-updates';
+import { getOurProjects } from '@api/our-projects';
 
 import { mergeQuestionsLocalization } from '@lib/helpers';
 
@@ -66,7 +69,9 @@ function App({ Component, pageProps: { session, ...pageProps } }: TApp) {
   const [isCookieStateLoaded, setIsCookieStateLoaded] = useState(false);
   const [isNewUpdateModalVisible, setIsNewUpdateModalVisible] = useState(false);
   const [showLoader, setShowLoader] = useState(false);
-
+  const [selectedTitle, setSelectedTitle] = useState('');
+  const [updatedUsername, setUpdatedUsername] = useState('');
+  const [ourProjectsModalData, setOurProjectsModalData] = useState(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const router = useRouter();
   const loadingTimer = useRef(null);
@@ -288,9 +293,22 @@ function App({ Component, pageProps: { session, ...pageProps } }: TApp) {
     getData();
   }, [router.isReady, router.locale]);
 
-  const setUpdateModalSeen = () => {
-    document.cookie = `updateModalSeen=true; path=/; max-age=31536000`;
-  };
+  useEffect(() => {
+    if (!router.isReady) return;
+
+    const getData = async () => {
+      try {
+        const locale = router.locale === 'ru' ? 'ru' : 'en';
+        const data = await getOurProjects(locale);
+
+        if (data) setOurProjectsModalData(data);
+      } catch (error) {
+        console.error('Error fetching new update data:', error);
+      }
+    };
+
+    getData();
+  }, [router.isReady, router.locale]);
 
   useEffect(() => {
     if (!newUpdateModalData) return;
@@ -317,6 +335,10 @@ function App({ Component, pageProps: { session, ...pageProps } }: TApp) {
 
     return () => window.clearTimeout(timeout);
   }, [newUpdateModalData]);
+
+  const setUpdateModalSeen = () => {
+    document.cookie = `updateModalSeen=true; path=/; max-age=31536000`;
+  };
 
   const handleCloseModal = () => {
     setIsNewUpdateModalVisible(false);
@@ -398,9 +420,16 @@ function App({ Component, pageProps: { session, ...pageProps } }: TApp) {
           showLoader,
           setShowLoader,
           videoRef,
+          ourProjectsModalData,
+          selectedTitle,
+          setSelectedTitle,
+          updatedUsername,
+          setUpdatedUsername,
         }}
       >
-        <Component {...pageProps} />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
         {feedbackEnabled && (
           <UXCoreFeedbackModal open={openPopup === 'feedback'} />
         )}

@@ -3,6 +3,7 @@ import React, {
   Fragment,
   memo,
   useCallback,
+  useContext,
   useEffect,
   useRef,
   useState,
@@ -14,26 +15,31 @@ import cn from 'classnames';
 import Image from 'next/image';
 
 import type { TRouter } from '@local-types/global';
-import type { StrapiBiasType, TagType } from '@local-types/data';
+import type { StrapiBiasType } from '@local-types/data';
 import { UserTypes } from '@local-types/uxcat-types/types';
 
 import { groupFilteredData } from '@lib/helpers';
 
+import toolHeaderData from '@data/toolHeader';
 import biasesMetadata from '@data/biases';
 import biasesCategories from '@data/biasesCategories';
+
 import useBiasSearch from '@hooks/useBiasSearch';
+
 import PageSwitcher from '@components/PageSwitcher';
 import MobileHeader from '@components/_biases/MobileHeader';
 import Search from '../Search';
-import UsfulLinksDropdown from '@components/UsfulLinksDropdown';
 import Logos from '@components/Logos';
+import OurProjectsModal from '@components/OurProjectsModal';
 
-import { PMIcon } from '@icons/PMIcon';
 import { PMIconGrey } from '@icons/PMIconGrey';
 import { HRIconGrey } from '@icons/HRIconGrey';
 import { HRIconBlue } from '@icons/HRIconBlue';
+import DiamondIcon from '@icons/DiamondIcon';
+import { PMIcon } from '@icons/PMIcon';
 
 import styles from './MobileView.module.scss';
+import { GlobalContext } from '@components/Context/GlobalContext';
 
 const ViewSwitcher = dynamic(() => import('@components/_biases/ViewSwitcher'), {
   ssr: false,
@@ -41,7 +47,6 @@ const ViewSwitcher = dynamic(() => import('@components/_biases/ViewSwitcher'), {
 
 type MobileViewProps = {
   containerClassName: string;
-  tags: TagType[];
   strapiBiases: StrapiBiasType[];
   isSecondView?: boolean;
   toggleIsCoreView?: () => void;
@@ -72,7 +77,6 @@ const MobileView: FC<MobileViewProps> = ({
   headerPodcastOpen,
   isPodcastOpen,
   handleSnackbarOpening,
-  tags,
   description,
   userInfo,
   setUserInfo,
@@ -87,9 +91,12 @@ const MobileView: FC<MobileViewProps> = ({
   const activeStickyElementIndexRef = useRef(0);
   const stickyElementHeight = 45;
   const [content, setContent] = useState([]);
+  const [openOurProjects, setOpenOurProjects] = useState(false);
   const router = useRouter();
   const { locale } = router as TRouter;
   const { explanationLink } = biasesMetadata[locale];
+  const { ourProjects, done } = toolHeaderData[locale];
+  const { ourProjectsModalData } = useContext(GlobalContext);
   const [mobileScrollPosition, setMobileScrollPosition] = useState(0);
 
   function getStickyElements() {
@@ -262,9 +269,15 @@ const MobileView: FC<MobileViewProps> = ({
           blockLanguageSwitcher={blockLanguageSwitcher}
         />
       </div>
-      <div className={styles.MobileContent}>
-        <UsfulLinksDropdown tags={tags} page="uxcore" />
+      <div
+        className={styles.MobileContent}
+        onClick={() => setOpenOurProjects(true)}
+      >
         <PageSwitcher page="uxcore" />
+        <div className={styles.OurProjectsLabel}>
+          <DiamondIcon />
+          <span> {ourProjects}</span>
+        </div>
         <h1 className={styles.Title}>UX CORE</h1>
         <span className={styles.Subtitle}>uxcore.io</span>
         <p className={styles.uxcoreDescription}>{description}</p>
@@ -352,6 +365,18 @@ const MobileView: FC<MobileViewProps> = ({
             </Fragment>
           );
         })}
+      {openOurProjects && (
+        <OurProjectsModal
+          projects={
+            !!ourProjectsModalData && ourProjectsModalData?.aboutProject
+          }
+          title={!!ourProjectsModalData && ourProjectsModalData?.title}
+          onClose={() => setOpenOurProjects(false)}
+          github={!!ourProjectsModalData && ourProjectsModalData.github}
+          api={!!ourProjectsModalData && ourProjectsModalData.api}
+          doneTxt={done}
+        />
+      )}
     </Fragment>
   );
 };

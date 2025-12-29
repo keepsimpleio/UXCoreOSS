@@ -1,4 +1,3 @@
-import { TagType } from '@local-types/data';
 import {
   AchievementsTypes,
   BgAndCoverImagesTypes,
@@ -10,7 +9,6 @@ import {
 } from '@local-types/uxcat-types/types';
 
 export interface UserProfileProps {
-  tags: TagType[];
   userInfo?: UserTypes;
   dummyBoardContent?: BoardContentTypes[];
   coverImages?: BgAndCoverImagesTypes[];

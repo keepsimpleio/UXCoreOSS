@@ -4,6 +4,7 @@ import React, {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from 'react';
 import { useRouter } from 'next/router';
@@ -11,7 +12,6 @@ import Image from 'next/image';
 import cn from 'classnames';
 import dynamic from 'next/dynamic';
 
-import type { TagType } from '@local-types/data';
 import type { TRouter } from '@local-types/global';
 import { UserTypes } from '@local-types/uxcat-types/types';
 
@@ -19,9 +19,8 @@ import Link from '@components/NextLink';
 import PageSwitcher from '@components/PageSwitcher';
 import UserDropdown from '@components/UserDropdown';
 import MobileHeader from '@components/_biases/MobileHeader';
-import UsfulLinksDropdown from '@components/UsfulLinksDropdown';
-import UsefulLinksContent from '@components/UsefulLinksContent';
 import { GlobalContext } from '@components/Context/GlobalContext';
+import OurProjectsModal from '@components/OurProjectsModal';
 import LanguageSwitcher from '@components/LanguageSwitcher';
 
 import { navItems } from './navItems';
@@ -48,9 +47,7 @@ const SettingsModal = dynamic(() => import('@components/SettingsModal'), {
 });
 
 type TToolHeader = {
-  page?: 'uxcp' | 'uxcg' | 'uxcore' | 'uxeducation' | 'uxcat';
   homepageLinkTarget?: '_blank' | '_self';
-  tags: TagType[];
   openPodcast?: boolean;
   showSavedPersonas?: boolean;
   setOpenPodcast?: (updater: (prev: boolean) => boolean) => void;
@@ -62,13 +59,24 @@ type TToolHeader = {
   setUserInfo?: (data: UserTypes) => void;
   setUpdatedUsername?: (username: string) => void;
   blockLanguageSwitcher?: boolean;
+  hidden?: boolean;
+};
+const normalizePath = (p: string) => p.replace(/\/+$/, '') || '/';
+
+const getActiveFromPath = (pathname: string) => {
+  const path = normalizePath(pathname);
+
+  if (path.includes('/uxcore')) return 'uxcore';
+  if (path.includes('/uxcg')) return 'uxcg';
+  if (path.includes('/uxcp')) return 'uxcp';
+  if (path.includes('/uxcat') || path.includes('/user')) return 'uxcat';
+
+  return null;
 };
 
 const ToolHeader: FC<TToolHeader> = ({
-  page,
   homepageLinkTarget = '_self',
   openPodcast,
-  tags,
   setOpenPodcast,
   openPersonaModal,
   showSavedPersonas = true,
@@ -79,15 +87,31 @@ const ToolHeader: FC<TToolHeader> = ({
   setUserInfo,
   setUpdatedUsername,
   blockLanguageSwitcher,
+  hidden,
 }) => {
   const router = useRouter();
-  const { isMobile } = useMobile()[1];
-  const [, { isCoreView }] = useUXCoreGlobals();
-  const { accountData, setAccountData } = useContext(GlobalContext);
   const { locale, asPath } = router as TRouter;
 
+  const { isMobile } = useMobile()[1];
+  const [, { isCoreView }] = useUXCoreGlobals();
+  const { accountData, setAccountData, ourProjectsModalData } =
+    useContext(GlobalContext);
+
+  const imageSrc = useMemo(() => accountData?.picture, [accountData]);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [openOurProjects, setOpenOurProjects] = useState(false);
+  const [showUxcoreTooltip, toggleUxcoreHeaderTooltip] = useState(true);
+  const [showUxcgTooltip, toggleUxcgHeaderTooltip] = useState(true);
+  const [openSettings, setOpenSettings] = useState(false);
+  const [token, setToken] = useState<string | null>(null);
+  const [usernameIsTakenError, setUsernameIsTakenError] = useState('');
+  const [changedTitle, setChangedTitle] = useState(false);
+  const [activePage, setActivePage] = useState(() =>
+    getActiveFromPath(router.asPath),
+  );
+
   const {
-    usefulLinksLabel,
+    ourProjects,
     usernameIsTaken,
     settingsTxt,
     myProfileTxt,
@@ -96,23 +120,13 @@ const ToolHeader: FC<TToolHeader> = ({
     podcast,
     findSolutions,
     learnAboutUXCore,
+    done,
   } = toolHeaderData[locale];
-  const imageSrc = useMemo(() => accountData?.picture, [accountData]);
-  const [showDropdown, setShowDropdown] = useState(false);
-  const [showUxcoreTooltip, toggleUxcoreHeaderTooltip] = useState(true);
-  const [showUxcgTooltip, toggleUxcgHeaderTooltip] = useState(true);
-  const [openSettings, setOpenSettings] = useState(false);
-  const [token, setToken] = useState<string | null>(null);
-  const [usernameIsTakenError, setUsernameIsTakenError] = useState('');
-  const [changedTitle, setChangedTitle] = useState(false);
 
-  const currentUsername = accountData
-    ? accountData.username
-    : accountData?.username;
-
+  const currentUsername = !!accountData && accountData.username;
   const currentEmail = accountData && accountData.email;
-
   const publicEmail = accountData && accountData.publicEmail;
+  const isRoutingRef = useRef(false);
 
   const linkedIn = userInfo?.user?.linkedin
     ? userInfo?.user?.linkedin
@@ -125,6 +139,7 @@ const ToolHeader: FC<TToolHeader> = ({
   const level = userInfo?.user?.level ? userInfo?.user?.level : userInfo?.level;
   const changeTitlePermission = isLevelMilestone(level, 13);
   const userTitlesRu = ['Просвещенный', 'Профессор', 'Великий'];
+
   const russianTitles = selectedTitle => {
     if (!selectedTitle) {
       return null;
@@ -137,6 +152,39 @@ const ToolHeader: FC<TToolHeader> = ({
   };
 
   const title = changedTitle ? userInfo?.title : userInfo?.user?.title;
+
+  useEffect(() => {
+    const initial = getActiveFromPath(router.asPath);
+    if (initial) setActivePage(initial);
+
+    const onStart = (url: string) => {
+      isRoutingRef.current = true;
+
+      const next = getActiveFromPath(url);
+      if (next) setActivePage(next);
+    };
+
+    const onComplete = (url: string) => {
+      isRoutingRef.current = false;
+
+      const next = getActiveFromPath(url);
+      if (next) setActivePage(next);
+    };
+
+    const onError = () => {
+      isRoutingRef.current = false;
+    };
+
+    router.events.on('routeChangeStart', onStart);
+    router.events.on('routeChangeComplete', onComplete);
+    router.events.on('routeChangeError', onError);
+
+    return () => {
+      router.events.off('routeChangeStart', onStart);
+      router.events.off('routeChangeComplete', onComplete);
+      router.events.off('routeChangeError', onError);
+    };
+  }, [router.events, router.asPath]);
 
   const openPodcastHandler = useCallback(() => {
     setOpenPodcast(prev => !prev);
@@ -174,7 +222,7 @@ const ToolHeader: FC<TToolHeader> = ({
       setUsernameIsTakenError('');
       const userData = await getUserInfo();
       setUserInfo(userData?.user);
-      setUpdatedUsername && setUpdatedUsername(username);
+      setUpdatedUsername(username);
     } catch (error) {
       setOpenSettings(true);
       setUsernameIsTakenError(usernameIsTaken);
@@ -222,7 +270,7 @@ const ToolHeader: FC<TToolHeader> = ({
   }, [title, locale, userInfo]);
 
   return (
-    <header className={styles.ToolHeader}>
+    <header className={cn(styles.ToolHeader, { [styles.Hidden]: hidden })}>
       <div className={styles.mobile}>
         <MobileHeader
           disablePageSwitcher={disablePageSwitcher}
@@ -234,8 +282,14 @@ const ToolHeader: FC<TToolHeader> = ({
         />
         {!disablePageSwitcher && (
           <div className={styles.PageSwitcherContainer}>
-            <UsfulLinksDropdown tags={tags} page={page} />
-            <PageSwitcher page={page} />
+            <PageSwitcher page={activePage} />
+            <span
+              className={styles.PageSwitcherItem}
+              onClick={() => setOpenOurProjects(true)}
+            >
+              <DiamondIcon />
+              <span className={styles.Description}>{ourProjects}</span>
+            </span>
           </div>
         )}
       </div>
@@ -245,58 +299,80 @@ const ToolHeader: FC<TToolHeader> = ({
             <Link href="/" locale={locale} legacyBehavior>
               <a target={homepageLinkTarget} className={styles.logo}>
                 <Image
-                  src={'/assets/logos/keepsimple.svg'}
+                  src={'/assets/logos/keepsimpleNewYear.svg'}
                   alt="keepsimple logo"
                   width={130.61}
                   height={25.87}
                 />
               </a>
             </Link>
-            <div className={styles.Links}>
-              {navItems.map(({ label, href, page: itemPage, icon }, index) => (
-                <Link key={index} href={href} locale={locale} legacyBehavior>
-                  <a
-                    className={cn(styles.MenuItem, {
-                      [styles.Active]: itemPage === page,
-                    })}
-                    target={label === 'Bob - AI Assistant' ? '_blank' : '_self'}
-                    onClick={() => {
-                      toggleUxcoreHeaderTooltip(false);
-                      toggleUxcgHeaderTooltip(false);
-                    }}
-                  >
-                    {label != 'Bob - AI Assistant' ? (
-                      icon
-                    ) : (
-                      <Image
-                        src={'/assets/Bob.png'}
-                        alt={'Bob - AI Assistant'}
-                        width={25}
-                        height={25}
-                        className={styles.bob}
-                      />
-                    )}
-                    <span className={styles.Description}>
-                      {label === 'Bob - AI Assistant'
-                        ? bobName
-                          ? bobName
-                          : label
-                        : label === 'Awareness Test'
-                          ? awarenessTest
-                          : label}
-                    </span>
-                    {label === 'Bob - AI Assistant' && (
-                      <Image
-                        src={'/assets/open-link.svg'}
-                        alt={'New link icon'}
-                        width={17}
-                        height={16}
-                        className={styles.openLink}
-                      />
-                    )}
-                  </a>
-                </Link>
-              ))}
+            <div
+              className={cn(styles.Links, styles[`is-${activePage}`], {
+                [styles[`is-${activePage}-ru`]]: locale === 'ru',
+              })}
+            >
+              <span className={styles.Pill} />
+              {navItems.map(({ label, href, page, icon }, index) => {
+                return (
+                  <>
+                    <span
+                      className={cn(styles.Indicator, {
+                        [styles.IndicatorActive]: activePage,
+                      })}
+                    />
+                    <Link
+                      key={index}
+                      href={href}
+                      locale={locale}
+                      legacyBehavior
+                    >
+                      <a
+                        className={cn(styles.MenuItem, {
+                          [styles.Active]: activePage === page,
+                          [styles[`${page}-MenuItem`]]: !!page,
+                        })}
+                        target={
+                          label === 'Bob - AI Assistant' ? '_blank' : '_self'
+                        }
+                        onClick={() => {
+                          toggleUxcoreHeaderTooltip(false);
+                          toggleUxcgHeaderTooltip(false);
+                        }}
+                      >
+                        {label != 'Bob - AI Assistant' ? (
+                          icon
+                        ) : (
+                          <Image
+                            src={'/assets/Bob.png'}
+                            alt={'Bob - AI Assistant'}
+                            width={25}
+                            height={25}
+                            className={styles.bob}
+                          />
+                        )}
+                        <span className={styles.Description}>
+                          {label === 'Bob - AI Assistant'
+                            ? bobName
+                              ? bobName
+                              : label
+                            : label === 'Awareness Test'
+                              ? awarenessTest
+                              : label}
+                        </span>
+                        {label === 'Bob - AI Assistant' && (
+                          <Image
+                            src={'/assets/open-link.svg'}
+                            alt={'New link icon'}
+                            width={17}
+                            height={16}
+                            className={styles.openLink}
+                          />
+                        )}
+                      </a>
+                    </Link>
+                  </>
+                );
+              })}
             </div>
 
             {showUxcgTooltip && asPath === '/uxcore' && (
@@ -346,7 +422,7 @@ const ToolHeader: FC<TToolHeader> = ({
               <div
                 onClick={openPodcastHandler}
                 className={cn(styles.MenuItem, {
-                  [styles.Active]: !!openPodcast,
+                  [styles.ActivePodcast]: !!openPodcast,
                 })}
                 data-cy={'podcast-button'}
               >
@@ -357,11 +433,12 @@ const ToolHeader: FC<TToolHeader> = ({
             <span
               className={cn(styles.MenuItem, {
                 [styles.MenuItemHy]: locale === 'hy',
+                [styles.ActiveProjects]: !!openOurProjects,
               })}
+              onClick={() => setOpenOurProjects(true)}
             >
               <DiamondIcon />
-              <span className={styles.Description}>{usefulLinksLabel}</span>
-              <UsefulLinksContent tags={tags} page={page} />
+              <span className={styles.Description}>{ourProjects}</span>
             </span>
             <div
               className={cn(styles.actions, {
@@ -410,6 +487,18 @@ const ToolHeader: FC<TToolHeader> = ({
             }
             changeTitlePermission={changeTitlePermission}
             setChangedTitle={setChangedTitle}
+          />
+        )}
+        {openOurProjects && (
+          <OurProjectsModal
+            projects={
+              !!ourProjectsModalData && ourProjectsModalData?.aboutProject
+            }
+            title={!!ourProjectsModalData && ourProjectsModalData?.title}
+            onClose={() => setOpenOurProjects(false)}
+            github={!!ourProjectsModalData && ourProjectsModalData.github}
+            api={!!ourProjectsModalData && ourProjectsModalData.api}
+            doneTxt={done}
           />
         )}
       </>

@@ -14,7 +14,7 @@ import UXCoreIcon from '@icons/UXCoreIcon';
 import styles from './PageSwitcher.module.scss';
 
 type TPageSwitcher = {
-  page?: 'uxcore' | 'uxcg' | 'uxcp' | 'uxeducation' | 'uxcat';
+  page?: string;
 };
 
 const PageSwitcher: FC<TPageSwitcher> = ({ page }) => {

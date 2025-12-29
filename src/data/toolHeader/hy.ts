@@ -1,5 +1,5 @@
 const hy = {
-  usefulLinksLabel: 'Օգտակար հղումներ',
+  ourProjects: 'Մեր նախագծերը',
   usernameIsTaken: 'Username is already taken. Please try another one.',
   settingsTxt: 'Կարգավորումներ',
   myProfileTxt: ' Իմ պրոֆիլը',
@@ -8,6 +8,7 @@ const hy = {
   findSolutions: 'Գտեք ձեր խնդիրների լուծումները',
   learnAboutUXCore: 'Սովորել մարդու մտածողության օրինաչափությունները',
   podcast: 'Պոդկաստ',
+  done: 'Done',
   usefulLinks: [
     {
       title: '',

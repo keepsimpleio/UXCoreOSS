@@ -42,6 +42,7 @@ const UXCoreLines: FC<UXCoreLinesProps> = ({
   };
   const activePaths = PATH_MAP[pathName] || defaultPaths;
   const svgHeightRes = pathName === 'third' ? 350 : 325;
+
   useEffect(() => {
     const geoms = activePaths.map((d, index) => {
       if (

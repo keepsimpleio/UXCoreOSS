@@ -5,19 +5,14 @@ import { useRouter } from 'next/router';
 import TestResultLayout from '@layouts/TestResult';
 import CalculatingResults from '@layouts/CalculatingResults';
 
-import ToolHeader from '@components/ToolHeader';
-import SavedPersonas from '@components/_uxcp/SavedPersonas';
 import CongratsModal from '@components/CongratsModal';
 import SeoGenerator from '@components/SeoGenerator';
 import Spinner from '@components/Spinner';
 import { GlobalContext } from '@components/Context/GlobalContext';
 
 import uxcatData from '@data/uxcat';
-import decisionTable from '@data/decisionTable';
 
-import { getTags } from '@api/tags';
 import { getUXCatLastTest } from '@api/uxcat/last-test';
-import { getPersonaList } from '@api/personas';
 import { UXCatConfigs } from '@api/uxcat/configs';
 import { getNotifications } from '@api/uxcat/get-notifications';
 import { getAllAchievements } from '@api/uxcat/get-all-achievements';
@@ -42,11 +37,10 @@ import {
   getPassedLevels,
 } from '@lib/uxcat-helpers';
 
-import { StrapiBiasType, TagType } from '@local-types/data';
+import { StrapiBiasType } from '@local-types/data';
 import { TRouter } from '@local-types/global';
 
 type TestResultProps = {
-  tags: TagType[];
   userInfo: UserTypes[];
   lastTest: any;
   uxCatLevels: uxCatLevels[];
@@ -62,7 +56,6 @@ type matchingIncorrectListType = {
 };
 
 const TestResult: FC<TestResultProps> = ({
-  tags,
   uxCatLevels,
   uxcatStrapiData,
   achievements,
@@ -72,7 +65,6 @@ const TestResult: FC<TestResultProps> = ({
   const { locale } = router as TRouter;
   const { uxCoreData, uxcgData, accountData } = useContext(GlobalContext);
   const [userInfo, setUserInfo] = useState<UserTypes | null>(null);
-  const [headerUserInfo, setHeaderUserInfo] = useState<UserTypes | null>(null);
   const [randomQuestionsIds, setRandomQuestionsIds] = useState([]);
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [testResult, setTestResults] = useState<TestResultsTypes>(null);
@@ -83,8 +75,6 @@ const TestResult: FC<TestResultProps> = ({
   const [notifiedAchievements, setNotifiedAchievements] = useState([]);
   const [levelsDetails, setLevelsDetails] = useState(null);
   const [nextTest, setNextTest] = useState('');
-  const [openPersonas, setOpenPersonas] = useState<boolean>(false);
-  const [personas, setPersonas] = useState(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [allowedToStart, setAllowedToStart] = useState(false);
   const [achievementLoading, setAchievementLoading] = useState<boolean>(true);
@@ -92,7 +82,6 @@ const TestResult: FC<TestResultProps> = ({
   const [openCongratsModal, setOpenCongratsModal] = useState(false);
   const [achievementList, setAchievementsList] = useState([]);
 
-  const { savedPersonasTitles } = decisionTable[locale];
   const {
     minutesTxtShort,
     hoursTxtShort,
@@ -165,15 +154,6 @@ const TestResult: FC<TestResultProps> = ({
   }, [nextTestTime, locale]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const result = await getPersonaList();
-      setPersonas(result);
-    };
-
-    fetchData().then(r => console.log(r));
-  }, []);
-
-  useEffect(() => {
     const fetchAllAchievements = async () => {
       const achievements = testResult?.testSummary?.unlockedAchieves;
       try {
@@ -234,7 +214,6 @@ const TestResult: FC<TestResultProps> = ({
       try {
         const userData = await getUserInfo();
         setUserInfo(userData);
-        setHeaderUserInfo(userData);
         const test = await getUXCatLastTest(accessToken);
         setTestResults(test);
       } catch (err) {
@@ -414,15 +393,6 @@ const TestResult: FC<TestResultProps> = ({
             modifiedDate={uxcatStrapiData?.updatedAt}
             createdDate={'2025-10-28'}
           />
-          <ToolHeader
-            page={'uxcat'}
-            tags={tags}
-            openPersonaModal={setOpenPersonas}
-            disablePageSwitcher
-            userInfo={headerUserInfo}
-            setUserInfo={setHeaderUserInfo}
-          />
-
           {analyzingProgress ? (
             <CalculatingResults
               setIsAnalyzingInProgress={setAnalyzingProgress}
@@ -455,15 +425,6 @@ const TestResult: FC<TestResultProps> = ({
               killSwitcher={killSwitcher}
             />
           )}
-          {openPersonas && (
-            <SavedPersonas
-              personaTableTitles={savedPersonasTitles}
-              savedPersonas={personas}
-              setOpenPersonas={setOpenPersonas}
-              setSavedPersonas={setPersonas}
-              changedUsername={userInfo?.user?.username}
-            />
-          )}
 
           {openCongratsModal && (
             <CongratsModal
@@ -480,7 +441,6 @@ const TestResult: FC<TestResultProps> = ({
 export default TestResult;
 
 export const getServerSideProps: GetServerSideProps = async context => {
-  const tags = getTags();
   const uxcatStrapiData = await getUXCatData();
   const configs = await UXCatConfigs();
 
@@ -493,7 +453,6 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
   return {
     props: {
-      tags,
       uxCatLevels,
       achievements,
       uxcatStrapiData,

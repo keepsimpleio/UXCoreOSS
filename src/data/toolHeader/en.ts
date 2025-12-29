@@ -1,5 +1,5 @@
 const en = {
-  usefulLinksLabel: 'Useful Links',
+  ourProjects: 'Our Projects',
   usernameIsTaken: 'Username is already taken. Please try another one.',
   settingsTxt: 'Settings',
   myProfileTxt: 'My Profile',
@@ -8,6 +8,7 @@ const en = {
   findSolutions: 'Find solutions for your problems',
   learnAboutUXCore: 'Learn human thinking patterns',
   podcast: 'Podcast',
+  done: 'Done',
   usefulLinks: [
     {
       title: '',

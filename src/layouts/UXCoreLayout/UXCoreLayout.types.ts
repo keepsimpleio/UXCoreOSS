@@ -1,8 +1,7 @@
-import type { StrapiBiasType, TagType } from '@local-types/data';
+import type { StrapiBiasType } from '@local-types/data';
 import { UserTypes } from '@local-types/uxcat-types/types';
 
 export interface UXCoreLayoutProps {
-  tags: TagType[];
   mounted?: boolean;
   strapiBiases: StrapiBiasType[];
   isOpen?: boolean;
@@ -14,9 +13,5 @@ export interface UXCoreLayoutProps {
   };
   userInfo?: UserTypes;
   setUserInfo?: (data: UserTypes) => void;
-  setOpenPersonas?: (openPersonas: boolean) => void;
-  uxcatUserInfo?: UserTypes;
-  setUxcatUserInfo?: (data: UserTypes) => void;
   blockLanguageSwitcher?: boolean;
-  slug?: string;
 }

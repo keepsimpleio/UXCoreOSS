@@ -1,5 +1,5 @@
 const ru = {
-  usefulLinksLabel: 'Ссылки',
+  ourProjects: 'Наши проекты',
   usernameIsTaken: 'Имя пользователя занято',
   settingsTxt: 'Настройки',
   myProfileTxt: 'Мой профиль',
@@ -8,6 +8,7 @@ const ru = {
   findSolutions: 'Находим решения ваших проблем',
   learnAboutUXCore: 'зучаем паттерны мышления',
   podcast: 'Подкаст',
+  done: 'Готово',
   usefulLinks: [
     {
       title: '',

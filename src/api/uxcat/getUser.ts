@@ -1,5 +1,7 @@
+import { UxCatRoute } from '@api/uxcat/configs';
+
 export const getPublicUserInfo = async (username: string | string[]) => {
-  const url = `https://uxcat.keepsimple.io/users/${username}`;
+  const url = `${UxCatRoute}users/${username}`;
 
   try {
     const response = await fetch(url, {

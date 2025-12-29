@@ -318,7 +318,7 @@ export const generateQuestionsSeo = (
 export const mergeBiasesLocalization = (en: any[], ru: any[], hy?: any[]) => {
   const result: StrapiBiasType[] = [];
 
-  !!en &&
+  if (Array.isArray(en)) {
     en?.forEach((item: any, index: number) => {
       result.push({
         seoTitleEn: item?.attributes?.seoTitle || null,
@@ -380,6 +380,7 @@ export const mergeBiasesLocalization = (en: any[], ru: any[], hy?: any[]) => {
         updatedAt: item?.attributes?.updatedAt || null,
       });
     });
+  }
 
   return result;
 };

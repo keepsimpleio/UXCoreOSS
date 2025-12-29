@@ -8,7 +8,6 @@ const en = {
   message:
     'You are about to leave the page. Your test will continue until its time runs out',
   pickAnswer: 'Choose the answer',
-  questionLabel: 'Question: ',
 };
 
 export default en;

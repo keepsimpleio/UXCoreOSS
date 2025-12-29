@@ -2,11 +2,7 @@ import { FC } from 'react';
 import dynamic from 'next/dynamic';
 import cn from 'classnames';
 
-import ToolHeader from '@components/ToolHeader';
 import Button from '@components/Button';
-
-import type { TagType } from '@local-types/data';
-import { UserTypes } from '@local-types/uxcat-types/types';
 
 import UxCatLogo from '@icons/UxCatLogo';
 
@@ -17,21 +13,15 @@ const Modal = dynamic(() => import('@components/Modal'), {
 });
 
 type StartTestLayoutProps = {
-  tags?: TagType[];
-  setOpenPersonas: (openPersonas: boolean) => void;
   testDuration: string;
   description1: string;
   goodLuckTxt: string;
   btnTxt: string;
   handleStartTest: () => void;
   disabled?: boolean;
-  userInfo?: UserTypes;
-  setUserInfo?: (userInfo: UserTypes) => void;
   description2?: string;
 };
 const StartTestLayout: FC<StartTestLayoutProps> = ({
-  tags,
-  setOpenPersonas,
   testDuration,
   handleStartTest,
   description1,
@@ -39,19 +29,9 @@ const StartTestLayout: FC<StartTestLayoutProps> = ({
   goodLuckTxt,
   btnTxt,
   disabled,
-  userInfo,
-  setUserInfo,
 }) => {
   return (
     <>
-      <ToolHeader
-        page={'uxcat'}
-        tags={tags}
-        openPersonaModal={setOpenPersonas}
-        disablePageSwitcher
-        userInfo={userInfo}
-        setUserInfo={setUserInfo}
-      />
       <section className={styles.startTestWrapper}>
         <span className={styles.duration}>{testDuration}</span>
         <img

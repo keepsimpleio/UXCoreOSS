@@ -1,4 +1,4 @@
-import { FC, useContext, useEffect } from 'react';
+import { FC, useContext } from 'react';
 import { useRouter } from 'next/router';
 import { signOut, useSession } from 'next-auth/react';
 
@@ -8,6 +8,7 @@ import {
   handleMixpanelSignUp,
   trackLogInSource,
 } from '../../../../lib/mixpanel';
+import { setRedirectCookie } from '@lib/cookies';
 
 import { TRouter } from '@local-types/global';
 
@@ -20,7 +21,6 @@ import LinkedInIcon from '@icons/LinkedInIcon';
 import DiscordIcon from '@icons/DiscordIcon';
 
 import styles from './LogInModal.module.scss';
-import { setRedirectCookie } from '@lib/cookies';
 
 type LoginModalProps = {
   setShowModal: (showModal: boolean) => void;
@@ -49,31 +49,26 @@ const LogInModal: FC<LoginModalProps> = ({ setShowModal, source }) => {
     provider: string,
     logInSource: string,
   ) => {
+    const returnTo = router.asPath;
+    setRedirectCookie(returnTo);
+
     if (session && accountData === null) {
       await signOut({ redirect: false });
 
       localStorage.removeItem('accessToken');
       localStorage.removeItem('provider');
       sessionStorage.clear();
-      document.cookie =
-        'next-auth.session-token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
 
-      setTimeout(() => {
-        router.replace(`/auth?provider=${provider}`);
-        handleMixpanelSignUp(provider);
-      }, 100);
-    } else {
-      router.push(`/auth?provider=${provider}`);
+      router.replace(`/auth?provider=${provider}`);
       handleMixpanelSignUp(provider);
       trackLogInSource(logInSource);
+      return;
     }
-  };
 
-  useEffect(() => {
-    if (!session) {
-      setRedirectCookie(window.location.pathname + window.location.search);
-    }
-  }, [session, router]);
+    router.push(`/auth?provider=${provider}`);
+    handleMixpanelSignUp(provider);
+    trackLogInSource(logInSource);
+  };
 
   return (
     <Modal

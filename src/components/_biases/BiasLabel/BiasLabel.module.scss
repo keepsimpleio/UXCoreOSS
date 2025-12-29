@@ -33,8 +33,6 @@ $purple-border: #8073ff;
   color: #333;
   font-size: 8px;
   clip-path: polygon(4.5% 0, 95.5% 0, 100% 50%, 95.5% 100%, 4.5% 100%, 0 50%);
-  //TODO Mary Test it tomorrow :(
-  //transition: all 0.2s ease;
 
   &::before {
     content: '';

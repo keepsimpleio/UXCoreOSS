@@ -199,7 +199,6 @@ const UXCoreIds: FC<UXCoreProps> = ({
       )}
       {biases[locale] ? (
         <UXCoreLayout
-          tags={tags}
           strapiBiases={biases[locale]}
           isOpen={!!currentActiveBias.number}
           biasSelected={!!activeBiasNumber}

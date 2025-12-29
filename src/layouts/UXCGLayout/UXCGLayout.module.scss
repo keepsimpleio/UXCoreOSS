@@ -13,17 +13,23 @@
   max-width: 900px;
   position: relative;
 
+  .description {
+    text-align: center;
+    line-height: 1.5;
+  }
+
   .Title,
   .ShortName {
     font-family: 'RedHatDisplay';
     text-align: center;
     font-weight: 300;
     margin: 0;
+    color: #000000d9;
   }
 
   .Title {
     font-size: 36px;
-    color: #28587b;
+    color: #000000d9;
   }
 
   .ShortName {
@@ -33,6 +39,12 @@
   }
 
   & .ShiftedContent {
+    .tagContainerWrapper {
+      display: flex;
+      gap: 13px;
+      margin-bottom: 48px;
+    }
+
     min-height: calc(100vh - 130px - 48px - 54px - 68px);
   }
 
@@ -44,11 +56,13 @@
 
   & .Motto {
     font-size: 20px;
-    color: #28587b;
+    color: #000000d9;
+
     text-align: center;
     padding: 22px 0px;
   }
 }
+
 .hyLayout {
   * {
     font-family: 'NotoSansArmenian-Regular', sans-serif;
@@ -59,6 +73,19 @@
   .Content {
     margin: 30px auto 0;
     padding-top: 16px;
+  }
+}
+
+@media (max-width: 930px) {
+  .Content {
+    & .ShiftedContent {
+      .tagContainerWrapper {
+        display: none;
+      }
+      .relevantQuestionsHeader {
+        display: none;
+      }
+    }
   }
 }
 

@@ -178,5 +178,13 @@
     .fullSizeMobile {
       max-width: unset;
     }
+
+    .fullHeightMobile {
+      max-height: unset;
+      max-width: unset;
+      width: 100vw;
+      height: 100vh;
+      margin: unset;
+    }
   }
 }
