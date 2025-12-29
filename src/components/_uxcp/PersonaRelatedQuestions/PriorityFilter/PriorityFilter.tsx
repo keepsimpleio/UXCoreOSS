@@ -50,6 +50,7 @@ const PriorityFilter: FC<PriorityFilterProps> = ({
               width={13}
               height={17}
               alt={'question-mark'}
+              unoptimized
             />
           </Tooltip>
         </span>
@@ -76,6 +77,7 @@ const PriorityFilter: FC<PriorityFilterProps> = ({
             alt="priority level"
             width={10}
             height={12}
+            unoptimized
           />
           {highPriority}
         </div>
@@ -89,6 +91,7 @@ const PriorityFilter: FC<PriorityFilterProps> = ({
             alt="priority level"
             width={10}
             height={9}
+            unoptimized
           />
           {mediumPriority}
         </div>
@@ -102,6 +105,7 @@ const PriorityFilter: FC<PriorityFilterProps> = ({
             alt="priority level"
             width={10}
             height={6}
+            unoptimized
           />
           {lowPriority}
         </div>

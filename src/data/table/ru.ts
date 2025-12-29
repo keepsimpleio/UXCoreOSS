@@ -4,7 +4,7 @@ const ru = {
   showMoreText: 'Показать больше',
   showLessText: 'Показать меньше',
   noResultsText: 'Результаты не найдены',
-  labelText: 'Выберите стадию вашего проекта',
+  labelText: 'Стадия проекта',
 };
 
 export default ru;

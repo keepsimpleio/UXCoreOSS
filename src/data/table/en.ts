@@ -4,7 +4,7 @@ const en = {
   showMoreText: 'Show more',
   showLessText: 'Show less',
   noResultsText: ' No results found',
-  labelText: 'Select your product stage',
+  labelText: 'Product stage',
 };
 
 export default en;

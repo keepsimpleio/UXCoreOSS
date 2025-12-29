@@ -17,6 +17,7 @@ import styles from './Table.module.scss';
 
 type TableProps = {
   data: QuestionType[];
+  setStageName?: (value: string) => void;
   tags: TagType[];
   activeFilter: string;
   withSearch?: boolean;
@@ -53,6 +54,7 @@ const Table: FC<TableProps> = ({
   isUXCoreModal,
   setSearchValue,
   setIsQuestionHovered,
+  setStageName,
 }) => {
   const router = useRouter();
   const { locale } = router as TRouter;
@@ -190,16 +192,18 @@ const Table: FC<TableProps> = ({
             </div>
             <Tag
               dataId="all"
-              styles={{ backgroundColor: '#617181' }}
+              styles={{ backgroundColor: '#282828' }}
               isActive={activeFilter === 'all'}
               title={allQuestionsButtonLabel}
               type="button"
               onClick={handleTagFilterClick}
               large
+              setStageName={setStageName}
               className={styles.AllQuestionsButton}
             />
             {tags.map((tag, index) => (
               <Tag
+                setStageName={setStageName}
                 dataId={String(tag.id)}
                 key={index}
                 {...tag}
@@ -228,6 +232,7 @@ const Table: FC<TableProps> = ({
             const answerIndex = findAnswerIndexByBiasNumber(biasNumber, index);
             const name = formatName(attributes.number, attributes.title);
 
+            // GET BACK TO IT LATER: fix damn loop issue
             const isHidden =
               activeFilter !== 'all' &&
               !itemTags.includes(Number(activeFilter));

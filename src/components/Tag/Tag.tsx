@@ -28,6 +28,7 @@ export type TTag = {
   className?: string;
   isUxEducation?: boolean;
   dataCy?: string;
+  setStageName?: (value: TitlesType | string) => void;
 };
 
 const Tag: FC<TTag> = ({
@@ -42,6 +43,7 @@ const Tag: FC<TTag> = ({
   onClick = () => {},
   className,
   isUxEducation,
+  setStageName,
   dataCy,
 }: TTag) => {
   const { isMobile } = useMobile()[1];
@@ -70,7 +72,16 @@ const Tag: FC<TTag> = ({
           [styles.TagButtonActive]: isActive,
           [className]: !!className,
         })}
-        onClick={type === 'button' ? onClick : () => {}}
+        onClick={
+          type === 'button'
+            ? e => {
+                onClick?.(e);
+                !!setStageName && dataId === 'all'
+                  ? setStageName('all')
+                  : setStageName(title);
+              }
+            : () => {}
+        }
         style={incomingStyles}
       >
         {displayTitle}
