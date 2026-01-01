@@ -20,42 +20,39 @@ const ChristmasPopup: FC<ChristmasPopupProps> = ({ open }) => {
 
   const [close, setClose] = useState(false);
   const title =
-    locale === 'en'
-      ? 'MERRY CHRISTMAS AND HAPPY NEW YEAR'
-      : 'С Новым Годом и Рождеством!';
+    locale === 'ru'
+      ? 'С Новым Годом и Рождеством!'
+      : 'MERRY CHRISTMAS AND HAPPY NEW YEAR';
+
   const happyNewYearTxt =
-    locale === 'en'
-      ? '🎄 Merry Christmas and Happy New Year! 🎄'
-      : '🎄 С Новым Годом и Рождеством! 🎄';
+    locale === 'ru'
+      ? '🎄 С Новым Годом и Рождеством! 🎄'
+      : '🎄 Merry Christmas and Happy New Year! 🎄';
+
   const descriptionEn = (
     <p>
-      {' '}
-      Thousands of users from 148 countries! 🎉 <br /> 100,000+ sessions! 🎉🎉{' '}
-      <br /> 3 upcoming projects in development 🎉🎉🎉
+      Over 200,000 visitors from 183 (!) countries have spent 140 DAYS with
+      us🎉🎉🎉
     </p>
   );
   const descriptionRu = (
     <p>
-      Тысячи пользователей из 148 стран! 🎉 <br /> Более 100,000 сессий! 🎉🎉{' '}
-      <br /> 3 новых проекта-дополнения в разработке! 🎉🎉🎉
+      200,000 пользователей из 183 стран провели на нашем проекте 140 ДНЕЙ!
+      🎉🎉🎉
     </p>
   );
-  const description = locale === 'en' ? descriptionEn : descriptionRu;
+  const description = locale === 'ru' ? descriptionRu : descriptionEn;
   const thankYouTxtEn = (
     <p className={styles.thankYouTxt}>
-      {' '}
-      Thank you for staying with us, with open-source. <br /> Be Kind. Do
-      Good.{' '}
+      We love you all. We&#39;ll build more epic stuff just for you!
     </p>
   );
   const thankYouTxtRu = (
     <p className={styles.thankYouTxt}>
-      {' '}
-      Спасибо что помогаете нам развивать open-source. <br /> Be Kind. Do
-      Good.{' '}
+      Мы любим вас. Мы продолжим релизить классные штуки.
     </p>
   );
-  const thankYouTxt = locale === 'en' ? thankYouTxtEn : thankYouTxtRu;
+  const thankYouTxt = locale === 'ru' ? thankYouTxtRu : thankYouTxtEn;
   const closePopUp = () => {
     Cookies.set('helpToHelpModal', 'seen', { expires: 14 });
     sessionStorage.setItem('seenHelpToHelp', String(true));
@@ -71,6 +68,7 @@ const ChristmasPopup: FC<ChristmasPopupProps> = ({ open }) => {
       setClose(!reopeningPopUp);
     }
   }, []);
+
   return (
     open && (
       <Modal
