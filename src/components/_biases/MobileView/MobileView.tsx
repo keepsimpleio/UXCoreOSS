@@ -269,12 +269,12 @@ const MobileView: FC<MobileViewProps> = ({
           blockLanguageSwitcher={blockLanguageSwitcher}
         />
       </div>
-      <div
-        className={styles.MobileContent}
-        onClick={() => setOpenOurProjects(true)}
-      >
+      <div className={styles.MobileContent}>
         <PageSwitcher page="uxcore" />
-        <div className={styles.OurProjectsLabel}>
+        <div
+          className={styles.OurProjectsLabel}
+          onClick={() => setOpenOurProjects(true)}
+        >
           <DiamondIcon />
           <span> {ourProjects}</span>
         </div>
