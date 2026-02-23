@@ -20,6 +20,7 @@ module.exports = async () => {
       defaultLocale: 'en',
     },
     assetPrefix: isLocal ? '' : '/uxcore_next',
+    output: 'standalone',
     async rewrites() {
       return [
         {
