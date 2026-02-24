@@ -48,9 +48,6 @@ module.exports = async () => {
     experimental: {
       manualClientBasePath: true,
     },
-    env: {
-      NEXTAUTH_URL: process.env.NEXTAUTH_URL,
-    },
     compiler: {
       removeConsole:
         process.env.NODE_ENV === 'prod' ? { exclude: ['error'] } : false,
