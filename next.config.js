@@ -20,6 +20,7 @@ module.exports = async () => {
       defaultLocale: 'en',
     },
     assetPrefix: isLocal ? '' : '/uxcore_next',
+    output: 'standalone',
     async rewrites() {
       return [
         {
@@ -46,9 +47,6 @@ module.exports = async () => {
     },
     experimental: {
       manualClientBasePath: true,
-    },
-    env: {
-      NEXTAUTH_URL: process.env.NEXTAUTH_URL,
     },
     compiler: {
       removeConsole:

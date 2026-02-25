@@ -1,22 +1,35 @@
-FROM node:20.19.0 AS base
+FROM node:20.19.0-alpine AS deps
+
 WORKDIR /app
 
-FROM base AS deps
-COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile
+# Install dependencies (use lockfile if present for reproducible builds)
+COPY package.json yarn.lock* ./
+RUN if [ -f yarn.lock ]; then yarn install --frozen-lockfile; else yarn install; fi
 
-FROM base AS builder
-COPY --from=deps /app/node_modules ./node_modules
-COPY . .
-RUN yarn run build
+FROM node:20.19.0-alpine AS builder
 
-FROM base AS runner
+WORKDIR /app
 ENV NODE_ENV=production
+
+COPY . .
+COPY --from=deps /app/node_modules ./node_modules
+
+RUN yarn run build:staging
+
+FROM node:20.19.0-alpine AS runner
+
 WORKDIR /app
-COPY --from=builder /app/package.json ./package.json
-COPY --from=builder /app/next.config.js ./next.config.js
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV PORT=3005
+
+# Copy only the minimal standalone output
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
+COPY --from=builder /app/.env ./.env
+
 EXPOSE 3005
-CMD ["yarn", "run", "start:staging"]
+
+CMD ["node", "server.js"]
+
