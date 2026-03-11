@@ -174,6 +174,11 @@ $headerHeight: 46px;
       }
     }
   }
+  .Disabled {
+    opacity: 50%;
+    pointer-events: none;
+    cursor: default;
+  }
 
   & .actions {
     font-size: 18px;
@@ -442,6 +447,10 @@ $headerHeight: 46px;
         cursor: default;
         margin-right: 5px;
         gap: 8px;
+      }
+      .Disabled {
+        opacity: 50%;
+        pointer-events: none;
       }
     }
   }
