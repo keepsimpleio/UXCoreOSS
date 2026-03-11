@@ -284,7 +284,9 @@ const ToolHeader: FC<TToolHeader> = ({
           <div className={styles.PageSwitcherContainer}>
             <PageSwitcher page={activePage} />
             <span
-              className={styles.PageSwitcherItem}
+              className={cn(styles.PageSwitcherItem, {
+                [styles.Disabled]: !ourProjectsModalData,
+              })}
               onClick={() => setOpenOurProjects(true)}
             >
               <DiamondIcon />
@@ -433,6 +435,7 @@ const ToolHeader: FC<TToolHeader> = ({
             <span
               className={cn(styles.MenuItem, {
                 [styles.MenuItemHy]: locale === 'hy',
+                [styles.Disabled]: !ourProjectsModalData,
                 [styles.ActiveProjects]: !!openOurProjects,
               })}
               onClick={() => setOpenOurProjects(true)}
