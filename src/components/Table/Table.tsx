@@ -1,17 +1,25 @@
-import { FC, memo, useCallback, useEffect, useRef, useState } from 'react';
-import { useRouter } from 'next/router';
 import cn from 'classnames';
 import Link from 'next/link';
-
-import Tag, { TTag } from '@components/Tag';
-import Button from '@components/Button';
-import Search from './TableSearch';
+import { useRouter } from 'next/router';
+import {
+  FC,
+  memo,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 
 import type { QuestionType, TagType } from '@local-types/data';
-
 import { TRouter } from '@local-types/global';
 
 import tableIntl from '@data/table';
+
+import Button from '@components/Button';
+import Tag, { TTag } from '@components/Tag';
+
+import Search from './TableSearch';
 
 import styles from './Table.module.scss';
 
@@ -58,7 +66,9 @@ const Table: FC<TableProps> = ({
 }) => {
   const router = useRouter();
   const { locale } = router as TRouter;
-  const tableBodyRef = useRef(null);
+  const tableBodyRef = useRef<HTMLDivElement | null>(null);
+  const UXCG_WINDOW_SCROLL_KEY = 'uxcgLayoutScrollY:v1';
+  const UXCG_TABLE_SCROLL_KEY = 'uxcgTableScrollTop:v1';
 
   const [data, setData] = useState(incomingData);
   const [displayedItems, setDisplayedItems] = useState(data.length);
@@ -99,6 +109,39 @@ const Table: FC<TableProps> = ({
     return newData;
   }, []);
 
+  const persistUXCGScrollPosition = useCallback(() => {
+    if (typeof window === 'undefined') return;
+    try {
+      window.sessionStorage.setItem(
+        UXCG_WINDOW_SCROLL_KEY,
+        String(window.scrollY || 0),
+      );
+      window.sessionStorage.setItem(
+        UXCG_TABLE_SCROLL_KEY,
+        String(tableBodyRef.current?.scrollTop || 0),
+      );
+    } catch {
+      // Ignore storage errors.
+    }
+  }, []);
+
+  useLayoutEffect(() => {
+    if (typeof window === 'undefined') return;
+    if (!tableBodyRef.current) return;
+    try {
+      const savedScrollTop = window.sessionStorage.getItem(
+        UXCG_TABLE_SCROLL_KEY,
+      );
+      if (!savedScrollTop) return;
+      const scrollTop = Number(savedScrollTop);
+      if (!Number.isNaN(scrollTop)) {
+        tableBodyRef.current.scrollTop = scrollTop;
+      }
+    } catch {
+      // Ignore storage errors.
+    }
+  }, [incomingData]);
+
   const handleChange = useCallback(
     (value: string) => {
       onSearch && onSearch(value);
@@ -131,6 +174,7 @@ const Table: FC<TableProps> = ({
 
   const openQuestion = useCallback(
     (number: number, biasNumber: number, answerIndex: number) => {
+      persistUXCGScrollPosition();
       const basePath =
         router.locale === 'ru'
           ? '/ru/uxcg'
@@ -143,7 +187,7 @@ const Table: FC<TableProps> = ({
         { scroll: false },
       );
     },
-    [biasNumber, router],
+    [biasNumber, router, persistUXCGScrollPosition],
   );
 
   useEffect(() => {
@@ -219,6 +263,7 @@ const Table: FC<TableProps> = ({
         <div
           className={styles.TableBody}
           ref={tableBodyRef}
+          onScroll={persistUXCGScrollPosition}
           style={{ maxHeight }}
         >
           {noResults && (
@@ -281,6 +326,7 @@ const Table: FC<TableProps> = ({
                     href={`/uxcg/${slug}`}
                     key={index}
                     scroll={false}
+                    onClick={persistUXCGScrollPosition}
                     className={styles.questionTitle}
                   >
                     {name}

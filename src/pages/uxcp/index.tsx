@@ -1,19 +1,19 @@
-import React, { useMemo, FC } from 'react';
 import { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
+import React, { FC, useMemo } from 'react';
 
-import UXCPLayout from '@layouts/UXCPLayout';
+import type { QuestionType, StrapiBiasType, TagType } from '@local-types/data';
+import { TRouter } from '@local-types/global';
+
+import { getStrapiBiases } from '@api/biases';
+import { getUXCPSeo } from '@api/mainPageSeo';
+import { getStrapiQuestions } from '@api/questions';
+import { getTags } from '@api/tags';
 
 import SeoGenerator from '@components/SeoGenerator';
 import Spinner from '@components/Spinner';
 
-import { getStrapiQuestions } from '@api/questions';
-import { getStrapiBiases } from '@api/biases';
-import { getTags } from '@api/tags';
-import { getUXCPSeo } from '@api/mainPageSeo';
-
-import type { QuestionType, StrapiBiasType, TagType } from '@local-types/data';
-import { TRouter } from '@local-types/global';
+import UXCPLayout from '@layouts/UXCPLayout';
 
 interface UXCPProps {
   questions: QuestionType[];

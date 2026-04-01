@@ -1,23 +1,23 @@
-import { FC, useMemo, useState, useEffect } from 'react';
+import cn from 'classnames';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { FC, useEffect, useMemo, useState } from 'react';
 
-import Section from '@components/Section';
-import DynamicButton from '@components/_uxcp/PersonaRelatedQuestions/DynamicButton';
-import PriorityFilter from '@components/_uxcp/PersonaRelatedQuestions/PriorityFilter';
-import Pagination from '@components/_uxcp/Pagination';
+import type { RelevantQuestionType, TagType } from '@local-types/data';
+import type { TRouter } from '@local-types/global';
 
 import useMobile from '@hooks/useMobile';
 
 import uxcpLocalization from '@data/uxcp';
 
-import type { RelevantQuestionType, TagType } from '@local-types/data';
-import type { TRouter } from '@local-types/global';
+import Pagination from '@components/_uxcp/Pagination';
+import DynamicButton from '@components/_uxcp/PersonaRelatedQuestions/DynamicButton';
+import PriorityFilter from '@components/_uxcp/PersonaRelatedQuestions/PriorityFilter';
+import Section from '@components/Section';
 
 import RelatedQuestion from './RelatedQuestion';
 
 import styles from './PersonaRelatedQuestions.module.scss';
-import cn from 'classnames';
-import Image from 'next/image';
 
 type PersonaRelatedQuestionsProps = {
   stageIndex: number;

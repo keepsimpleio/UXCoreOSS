@@ -1,6 +1,6 @@
 import en from './en';
-import ru from './ru';
 import hy from './hy';
+import ru from './ru';
 
 const locales = {
   en,

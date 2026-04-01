@@ -1,24 +1,25 @@
-import { FC, useContext } from 'react';
 import { useRouter } from 'next/router';
 import { signOut, useSession } from 'next-auth/react';
+import { FC, useContext } from 'react';
+
+import { TRouter } from '@local-types/global';
+
+import { setRedirectCookie } from '@lib/cookies';
 
 import decisionTable from '@data/decisionTable';
+
+import DiscordIcon from '@icons/DiscordIcon';
+import GoogleIcon from '@icons/GoogleIcon';
+import LinkedInIcon from '@icons/LinkedInIcon';
+
+import Button from '@components/Button';
+import { GlobalContext } from '@components/Context/GlobalContext';
+import Modal from '@components/Modal';
 
 import {
   handleMixpanelSignUp,
   trackLogInSource,
 } from '../../../../lib/mixpanel';
-import { setRedirectCookie } from '@lib/cookies';
-
-import { TRouter } from '@local-types/global';
-
-import Modal from '@components/Modal';
-import Button from '@components/Button';
-import { GlobalContext } from '@components/Context/GlobalContext';
-
-import GoogleIcon from '@icons/GoogleIcon';
-import LinkedInIcon from '@icons/LinkedInIcon';
-import DiscordIcon from '@icons/DiscordIcon';
 
 import styles from './LogInModal.module.scss';
 

@@ -1,26 +1,9 @@
-import React, { FC, useContext, useEffect, useState } from 'react';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
+import React, { FC, useContext, useEffect, useState } from 'react';
 
-import TestResultLayout from '@layouts/TestResult';
-import CalculatingResults from '@layouts/CalculatingResults';
-
-import CongratsModal from '@components/CongratsModal';
-import SeoGenerator from '@components/SeoGenerator';
-import Spinner from '@components/Spinner';
-import { GlobalContext } from '@components/Context/GlobalContext';
-
-import uxcatData from '@data/uxcat';
-
-import { getUXCatLastTest } from '@api/uxcat/last-test';
-import { UXCatConfigs } from '@api/uxcat/configs';
-import { getNotifications } from '@api/uxcat/get-notifications';
-import { getAllAchievements } from '@api/uxcat/get-all-achievements';
-import { getUserInfo } from '@api/uxcat/users-me';
-import { getLevels } from '@api/uxcat/get-levels';
-import { getUXCatData } from '@api/uxcat/uxcat';
-import { getAchievement } from '@api/uxcat/get-achievement';
-
+import { StrapiBiasType } from '@local-types/data';
+import { TRouter } from '@local-types/global';
 import {
   AchievementsTypes,
   TestResultsTypes,
@@ -37,8 +20,24 @@ import {
   getPassedLevels,
 } from '@lib/uxcat-helpers';
 
-import { StrapiBiasType } from '@local-types/data';
-import { TRouter } from '@local-types/global';
+import { UXCatConfigs } from '@api/uxcat/configs';
+import { getAchievement } from '@api/uxcat/get-achievement';
+import { getAllAchievements } from '@api/uxcat/get-all-achievements';
+import { getLevels } from '@api/uxcat/get-levels';
+import { getNotifications } from '@api/uxcat/get-notifications';
+import { getUXCatLastTest } from '@api/uxcat/last-test';
+import { getUserInfo } from '@api/uxcat/users-me';
+import { getUXCatData } from '@api/uxcat/uxcat';
+
+import uxcatData from '@data/uxcat';
+
+import CongratsModal from '@components/CongratsModal';
+import { GlobalContext } from '@components/Context/GlobalContext';
+import SeoGenerator from '@components/SeoGenerator';
+import Spinner from '@components/Spinner';
+
+import CalculatingResults from '@layouts/CalculatingResults';
+import TestResultLayout from '@layouts/TestResult';
 
 type TestResultProps = {
   userInfo: UserTypes[];

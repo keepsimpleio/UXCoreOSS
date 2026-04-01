@@ -1,10 +1,10 @@
-import { FC, useEffect, useState } from 'react';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
-import ReactGA from 'react-ga4';
-
 import cn from 'classnames';
 import Cookies from 'js-cookie';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { FC, useEffect, useState } from 'react';
+import ReactGA from 'react-ga4';
+
 import type { TRouter } from '@local-types/global';
 
 import styles from './UXCoreHelpToHelpModal.module.scss';

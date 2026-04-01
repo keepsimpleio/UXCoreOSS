@@ -1,34 +1,7 @@
-import React, { FC, useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { GlobalContext } from '@components/Context/GlobalContext';
+import React, { FC, useContext, useEffect, useState } from 'react';
 
-import UserProfile from '@layouts/UserProfile/UserProfile';
-
-import NotFoundPage from '../../404';
-import SeoGenerator from '@components/SeoGenerator';
-
-import pageNotFoundData from '@data/404';
-
-import { getBackgroundImages, getCoverImages } from '@api/strapi';
-import { getPublicUserInfo } from '@api/uxcat/getUser';
-import { getUserInfo } from '@api/uxcat/users-me';
-import { getLevels } from '@api/uxcat/get-levels';
-import { getUXCatStatistics } from '@api/uxcat/statistics';
-import { getAllAchievements } from '@api/uxcat/get-all-achievements';
-import { UXCatConfigs } from '@api/uxcat/configs';
-import { getNotifications } from '@api/uxcat/get-notifications';
-
-import {
-  findLevelDetail,
-  normalizeUserData,
-  isLevelMilestone,
-  formatDate,
-  getNotifiedAchievements,
-  findAchievementListByType,
-  enhanceAchievementsWithGroups,
-  findAchievementListBySubType,
-} from '@lib/uxcat-helpers';
-
+import { TRouter } from '@local-types/global';
 import {
   AchievementsTypes,
   BoardContentTypes,
@@ -36,9 +9,37 @@ import {
   UserTypes,
   uxCatLevels,
 } from '@local-types/uxcat-types/types';
-import { TRouter } from '@local-types/global';
+
+import {
+  enhanceAchievementsWithGroups,
+  findAchievementListBySubType,
+  findAchievementListByType,
+  findLevelDetail,
+  formatDate,
+  getNotifiedAchievements,
+  isLevelMilestone,
+  normalizeUserData,
+} from '@lib/uxcat-helpers';
+
+import { getBackgroundImages, getCoverImages } from '@api/strapi';
+import { UXCatConfigs } from '@api/uxcat/configs';
+import { getAllAchievements } from '@api/uxcat/get-all-achievements';
+import { getLevels } from '@api/uxcat/get-levels';
+import { getNotifications } from '@api/uxcat/get-notifications';
+import { getPublicUserInfo } from '@api/uxcat/getUser';
+import { getUXCatStatistics } from '@api/uxcat/statistics';
+import { getUserInfo } from '@api/uxcat/users-me';
+
+import pageNotFoundData from '@data/404';
 
 import UXCoreIcon from '@icons/UXCoreIcon';
+
+import { GlobalContext } from '@components/Context/GlobalContext';
+import SeoGenerator from '@components/SeoGenerator';
+
+import UserProfile from '@layouts/UserProfile/UserProfile';
+
+import NotFoundPage from '../../404';
 
 import 'react-toastify/dist/ReactToastify.css';
 

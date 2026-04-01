@@ -1,12 +1,13 @@
-import { FC, Fragment, useState } from 'react';
 import cn from 'classnames';
 import { useRouter } from 'next/router';
-import CustomModal from '@components/CustomModal';
+import { FC, Fragment, useState } from 'react';
 
-import type { TRouter } from '@local-types/global';
 import type { TagType } from '@local-types/data';
+import type { TRouter } from '@local-types/global';
 
 import toolHeaderData from '@data/toolHeader';
+
+import CustomModal from '@components/CustomModal';
 
 import styles from './UsefulLinksContent.module.scss';
 

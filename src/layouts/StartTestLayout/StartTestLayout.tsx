@@ -1,10 +1,10 @@
-import { FC } from 'react';
-import dynamic from 'next/dynamic';
 import cn from 'classnames';
-
-import Button from '@components/Button';
+import dynamic from 'next/dynamic';
+import { FC } from 'react';
 
 import UxCatLogo from '@icons/UxCatLogo';
+
+import Button from '@components/Button';
 
 import styles from './StartTestLayout.module.scss';
 

@@ -1,6 +1,6 @@
-import { FC } from 'react';
 import cn from 'classnames';
 import Image from 'next/image';
+import { FC } from 'react';
 
 import { PanelHeaderProps } from './PanelHeader.types';
 

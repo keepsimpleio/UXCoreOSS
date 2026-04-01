@@ -1,5 +1,5 @@
-import { FC, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { FC, useEffect, useState } from 'react';
 
 import { TRouter } from '@local-types/global';
 

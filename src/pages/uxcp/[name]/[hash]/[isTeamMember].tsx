@@ -1,7 +1,9 @@
-import { FC, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import Spinner from '@components/Spinner';
+import { FC, useEffect } from 'react';
+
 import { parseUXCPLink } from '@lib/uxcp-helpers';
+
+import Spinner from '@components/Spinner';
 
 const UXCPLinkHandler: FC = () => {
   const router = useRouter();

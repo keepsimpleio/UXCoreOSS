@@ -1,14 +1,14 @@
-import { FC } from 'react';
-import Image from 'next/image';
 import cn from 'classnames';
+import Image from 'next/image';
+import { FC } from 'react';
 
-import { TagContainerProps } from './TagContainer.types';
-
-import { TeamAssemblyIcon } from '@icons/uxcgIcons/TeamAssembly';
 import { Development } from '@icons/uxcgIcons/Development';
 import { Marketing } from '@icons/uxcgIcons/Marketing';
-import { Released } from '@icons/uxcgIcons/Released';
 import { Monitoring } from '@icons/uxcgIcons/Monitoring';
+import { Released } from '@icons/uxcgIcons/Released';
+import { TeamAssemblyIcon } from '@icons/uxcgIcons/TeamAssembly';
+
+import { TagContainerProps } from './TagContainer.types';
 
 import styles from './TagContainer.module.scss';
 

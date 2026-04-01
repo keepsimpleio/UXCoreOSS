@@ -1,18 +1,8 @@
-import React, { FC, useContext, useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import Image from 'next/image';
 import cn from 'classnames';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import React, { FC, useContext, useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
-
-import CompletionBar from '@components/CompletionBar';
-import { GlobalContext } from '@components/Context/GlobalContext';
-import Result from '@components/Result';
-import Button from '@components/Button';
-import AddToCalendar from '@components/AddToCalendar';
-import ScorePanel from '@components/ScorePanel';
-import NPS from '@components/NPS';
-import TestResultsAchievements from '@components/TestResultsAchievements';
-import Toasts from '@components/Toasts';
 
 import type { TRouter } from '@local-types/global';
 import { uxCatLevels } from '@local-types/uxcat-types/types';
@@ -25,9 +15,18 @@ import testResultData from '@data/uxcat/testResult';
 
 import BobIconWhite from '@icons/BobIconWhite';
 
-import styles from './TestResultLayout.module.scss';
+import AddToCalendar from '@components/AddToCalendar';
+import Button from '@components/Button';
+import CompletionBar from '@components/CompletionBar';
+import { GlobalContext } from '@components/Context/GlobalContext';
+import NPS from '@components/NPS';
+import Result from '@components/Result';
+import ScorePanel from '@components/ScorePanel';
+import TestResultsAchievements from '@components/TestResultsAchievements';
+import Toasts from '@components/Toasts';
 
 import 'react-toastify/dist/ReactToastify.css';
+import styles from './TestResultLayout.module.scss';
 
 interface TestResultsTypes {
   testPoints: number;

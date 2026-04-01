@@ -1,3 +1,6 @@
+import cn from 'classnames';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
 import React, {
   FC,
   MouseEvent,
@@ -7,34 +10,31 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { useRouter } from 'next/router';
-import cn from 'classnames';
 import Slider, { LazyLoadTypes } from 'react-slick';
-import Image from 'next/image';
 
-import type { TRouter } from '@local-types/global';
 import type { QuestionType, StrapiBiasType, TagType } from '@local-types/data';
+import type { TRouter } from '@local-types/global';
 
-import modalIntl from '@data/modal';
-
-import Tag from '@components/Tag';
-import AnswerContentGenerator from '@components/AnswerContentGenerator';
-import ModalRaiting from '@components/ModalRaiting';
-import Tooltip from '@components/Tooltip';
-import Share from '@components/UXCGModalSubComponents/Share';
-import LanguageSwitcher from '@components/LanguageSwitcher';
+import useMobile from '@hooks/useMobile';
+import useTooltip from '@hooks/useTooltip';
+import useUXCGGlobals from '@hooks/useUXCGGlobals';
 
 import { copyToClipboard, generateSocialLinks, updateVH } from '@lib/helpers';
 
-import useUXCGGlobals from '@hooks/useUXCGGlobals';
-import useTooltip from '@hooks/useTooltip';
-import useMobile from '@hooks/useMobile';
+import modalIntl from '@data/modal';
 
 import ThreeLineArrow from '@icons/ThreeLineArrow';
 
-import styles from './UXCGModalMobile.module.scss';
+import AnswerContentGenerator from '@components/AnswerContentGenerator';
+import LanguageSwitcher from '@components/LanguageSwitcher';
+import ModalRaiting from '@components/ModalRaiting';
+import Tag from '@components/Tag';
+import Tooltip from '@components/Tooltip';
+import Share from '@components/UXCGModalSubComponents/Share';
+
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import styles from './UXCGModalMobile.module.scss';
 
 type TUXCGModalMobile = {
   questionId: number;

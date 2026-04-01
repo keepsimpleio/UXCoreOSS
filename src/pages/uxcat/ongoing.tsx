@@ -1,23 +1,23 @@
-import React, { FC, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-
-import Spinner from '@components/Spinner';
-import SeoGenerator from '@components/SeoGenerator';
-
-import OngoingLayout from 'src/layouts/OngoingLayout';
+import React, { FC, useEffect, useState } from 'react';
 
 import { TRouter } from '@local-types/global';
 import { UXCatDataTypes } from '@local-types/uxcat-types/types';
 
-import { getUXCatStartTest } from '@api/uxcat/start-test';
-import { getUserInfo } from '@api/uxcat/users-me';
 import { UXCatConfigs } from '@api/uxcat/configs';
 import { getFinalTest } from '@api/uxcat/final-test';
+import { getUXCatStartTest } from '@api/uxcat/start-test';
+import { getUserInfo } from '@api/uxcat/users-me';
 import { getUXCatData } from '@api/uxcat/uxcat';
 
 import { achievementSlugs } from '@data/uxcat/ongoingTest/realTimeAchievements';
 
+import SeoGenerator from '@components/SeoGenerator';
+import Spinner from '@components/Spinner';
+
 import styles from '@layouts/OngoingLayout/OngoingLayout.module.scss';
+
+import OngoingLayout from 'src/layouts/OngoingLayout';
 
 type OngoingProps = {
   configs: {

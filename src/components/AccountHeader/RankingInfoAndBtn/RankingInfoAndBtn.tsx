@@ -1,14 +1,14 @@
-import { FC, useEffect, useState } from 'react';
 import cn from 'classnames';
+import { useRouter } from 'next/router';
+import { FC, useEffect, useState } from 'react';
+import { Tooltip as ReactTooltip } from 'react-tooltip';
+
+import { TRouter } from '@local-types/global';
+
+import uxcatData from '@data/uxcat';
 
 import StartTestBtn from '@components/StartTestBtn';
 import Tooltip from '@components/Tooltip';
-
-import { useRouter } from 'next/router';
-import { TRouter } from '@local-types/global';
-import { Tooltip as ReactTooltip } from 'react-tooltip';
-
-import uxcatData from '@data/uxcat';
 
 import styles from './RankingInfoAndBtn.module.scss';
 

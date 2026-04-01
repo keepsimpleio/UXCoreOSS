@@ -1,6 +1,6 @@
+import Image from 'next/image';
 import { FC } from 'react';
 import ICalendarLink from 'react-icalendar-link';
-import Image from 'next/image';
 
 import styles from './CalendarItems.module.scss';
 

@@ -1,16 +1,17 @@
-import React, { FC } from 'react';
+import cn from 'classnames';
 import Image from 'next/image';
 import Link from 'next/link';
-import cn from 'classnames';
-import { Tooltip as ReactTooltip } from 'react-tooltip';
 import { useRouter } from 'next/router';
+import React, { FC } from 'react';
+import { Tooltip as ReactTooltip } from 'react-tooltip';
 
-import Modal from '@components/Modal';
-import Button from '@components/Button';
+import { TRouter } from '@local-types/global';
 
 import ourProjectsData from '@data/ourProjects';
 
-import { TRouter } from '@local-types/global';
+import Button from '@components/Button';
+import Modal from '@components/Modal';
+
 import type { OurProjectsModalProps } from './OurProjectsModal.types';
 
 import styles from './OurProjectsModal.module.scss';
@@ -25,6 +26,13 @@ const OurProjectsModal: FC<OurProjectsModalProps> = ({
   const router = useRouter();
   const { locale } = router as TRouter;
   const { inDevTxt, doneTxt } = ourProjectsData[locale || 'en'];
+
+  const sortedProjects = [...(projects || [])].sort((a, b) => {
+    const aInDev = Boolean(a?.inDevelopment);
+    const bInDev = Boolean(b?.inDevelopment);
+    return aInDev === bInDev ? 0 : aInDev ? 1 : -1;
+  });
+
   return (
     <Modal
       onClick={onClose}
@@ -33,7 +41,7 @@ const OurProjectsModal: FC<OurProjectsModalProps> = ({
       fullHeightMobile
       dataCy={'our-projects-modal'}
     >
-      {projects?.map((project: any, index: number) => {
+      {sortedProjects?.map((project: any, index: number) => {
         const isInDev = Boolean(project?.inDevelopment);
         const tooltipId = `proj-tip-${index}`;
 

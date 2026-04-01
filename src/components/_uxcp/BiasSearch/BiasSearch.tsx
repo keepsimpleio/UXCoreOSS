@@ -1,19 +1,19 @@
-import { FC, SetStateAction, useCallback, useMemo, useState } from 'react';
-import Image from 'next/image';
 import cn from 'classnames';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { FC, SetStateAction, useCallback, useMemo, useState } from 'react';
 
-import Input from '@components/Input';
-import Tooltip from '@components/Tooltip';
-import BiasActionCell from '@components/_uxcp/BiasActionCell';
-import Section from '@components/Section';
-
-import type { TRouter } from '@local-types/global';
 import type { StrapiBiasType } from '@local-types/data';
+import type { TRouter } from '@local-types/global';
+
+import { getSearchResultsUxcp } from '@lib/helpers';
 
 import uxcpLocalization from '@data/uxcp';
 
-import { getSearchResultsUxcp } from '@lib/helpers';
+import BiasActionCell from '@components/_uxcp/BiasActionCell';
+import Input from '@components/Input';
+import Section from '@components/Section';
+import Tooltip from '@components/Tooltip';
 
 import styles from './BiasSearch.module.scss';
 

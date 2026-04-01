@@ -1,12 +1,12 @@
-import { FC, useEffect, useState } from 'react';
 import cn from 'classnames';
 import { useRouter } from 'next/router';
+import { FC, useEffect, useState } from 'react';
 
 import { TRouter } from '@local-types/global';
 
-import uxcatData from '@data/uxcat';
-
 import { useClickOutside } from '@hooks/useClickOutside';
+
+import uxcatData from '@data/uxcat';
 
 import styles from './Dropdown.module.scss';
 

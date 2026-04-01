@@ -1,15 +1,15 @@
-import { FC, useMemo } from 'react';
 import { useRouter } from 'next/router';
+import { FC, useMemo } from 'react';
 
-import Section from '@components/Section';
-import BiasActionCell from '@components/_uxcp/BiasActionCell';
+import { StrapiBiasType } from '@local-types/data';
+import type { TRouter } from '@local-types/global';
 
 import useMobile from '@hooks/useMobile';
 
-import type { TRouter } from '@local-types/global';
-import { StrapiBiasType } from '@local-types/data';
-
 import uxcpLocalization from '@data/uxcp';
+
+import BiasActionCell from '@components/_uxcp/BiasActionCell';
+import Section from '@components/Section';
 
 import styles from './TeamRelatedInsights.module.scss';
 

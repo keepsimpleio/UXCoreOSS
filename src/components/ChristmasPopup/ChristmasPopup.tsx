@@ -1,13 +1,17 @@
-import { FC, useEffect, useState } from 'react';
-import Modal from '@components/Modal';
-import { TRouter } from '@local-types/global';
-import { useRouter } from 'next/router';
-import styles from './ChristmasPopup.module.scss';
-import Cookies from 'js-cookie';
-import EmojiFall from '@components/EmojiFall';
 import cn from 'classnames';
-import useMobile from '@hooks/useMobile';
+import Cookies from 'js-cookie';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { FC, useEffect, useState } from 'react';
+
+import { TRouter } from '@local-types/global';
+
+import useMobile from '@hooks/useMobile';
+
+import EmojiFall from '@components/EmojiFall';
+import Modal from '@components/Modal';
+
+import styles from './ChristmasPopup.module.scss';
 
 interface ChristmasPopupProps {
   open: boolean;

@@ -1,14 +1,17 @@
-import React, { FC, useState } from 'react';
+import cn from 'classnames';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import React, { FC, useState } from 'react';
+import Skeleton from 'react-loading-skeleton';
 import { Tooltip as ReactTooltip } from 'react-tooltip';
-import cn from 'classnames';
+
+import { TRouter } from '@local-types/global';
 
 import { useClickOutside } from '@hooks/useClickOutside';
 
-import Skeleton from 'react-loading-skeleton';
-
 import { isLevelMilestone } from '@lib/uxcat-helpers';
+
+import uxcatData from '@data/uxcat';
 
 import styles from './AccountInfo.module.scss';
 
@@ -46,6 +49,8 @@ const AccountInfo: FC<AccountInfoProps> = ({
   levelDetails,
 }) => {
   const router = useRouter();
+  const { locale } = router as TRouter;
+  const { certificate } = uxcatData[locale];
   const descriptionText = description || 'No description';
   const [tooltipOpen, setTooltipOpen] = useState(false);
   const ref = useClickOutside(handleBackgroundClick);
@@ -131,7 +136,7 @@ const AccountInfo: FC<AccountInfoProps> = ({
                 onClick={openCertificate}
                 ref={ref}
               >
-                <span>Completion Certificate </span>
+                <span>{certificate} </span>
                 <Image
                   className={styles.QuestionMarkIcon}
                   src="/assets/uxcat/infoTooltip.png"
@@ -149,7 +154,7 @@ const AccountInfo: FC<AccountInfoProps> = ({
                   onClick={handleTooltipToggle}
                   ref={ref}
                 >
-                  <span>Completion Certificate </span>
+                  <span>{certificate} </span>
                   <Image
                     className={styles.QuestionMarkIcon}
                     src="/assets/uxcat/infoTooltip.png"

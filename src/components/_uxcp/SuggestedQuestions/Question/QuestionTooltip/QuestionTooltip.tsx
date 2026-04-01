@@ -1,5 +1,5 @@
-import { FC, useMemo } from 'react';
 import { useRouter } from 'next/router';
+import { FC, useMemo } from 'react';
 
 import type { TRouter } from '@local-types/global';
 

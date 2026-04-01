@@ -1,18 +1,18 @@
-import React, { FC, useContext, useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import { GetStaticProps } from 'next';
-
-import SeoGenerator from '@components/SeoGenerator';
-import Spinner from '@components/Spinner';
-import { GlobalContext } from '@components/Context/GlobalContext';
-
-import UXCoreLayout from '@layouts/UXCoreLayout';
-
-import { getUXCoreSeo } from '@api/mainPageSeo';
-import { getStrapiBiases } from '@api/biases';
+import { useRouter } from 'next/router';
+import React, { FC, useContext, useEffect, useState } from 'react';
 
 import type { BiasType } from '@local-types/data';
 import { TRouter } from '@local-types/global';
+
+import { getStrapiBiases } from '@api/biases';
+import { getUXCoreSeo } from '@api/mainPageSeo';
+
+import { GlobalContext } from '@components/Context/GlobalContext';
+import SeoGenerator from '@components/SeoGenerator';
+import Spinner from '@components/Spinner';
+
+import UXCoreLayout from '@layouts/UXCoreLayout';
 
 interface UXCoreProps {
   biases: BiasType[];
@@ -35,6 +35,7 @@ const Index: FC<UXCoreProps> = ({ seo, biases }) => {
       <SeoGenerator
         strapiSEO={seo[0]}
         ogTags={seo[0].OGTags}
+        type={'CollectionPage'}
         createdDate={'2020-07-23'}
         modifiedDate={seo[0].updatedAt}
       />

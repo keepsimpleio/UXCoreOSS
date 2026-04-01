@@ -1,5 +1,5 @@
-import { getStrapiQuestions } from '@api/questions';
 import { getStrapiBiases } from '@api/biases';
+import { getStrapiQuestions } from '@api/questions';
 
 export const getUXCoreTextPaths = async (locales: string[]) => {
   const strapiBiases = await getStrapiBiases();

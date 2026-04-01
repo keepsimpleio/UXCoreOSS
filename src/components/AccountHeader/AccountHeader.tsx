@@ -1,9 +1,9 @@
-import { FC } from 'react';
-import Image from 'next/image';
 import cn from 'classnames';
+import Image from 'next/image';
+import { FC } from 'react';
 
-import AccountInfo from '@components/AccountInfo';
 import RankingInfoAndBtn from '@components/AccountHeader/RankingInfoAndBtn';
+import AccountInfo from '@components/AccountInfo';
 
 import styles from './AccountHeader.module.scss';
 

@@ -1,19 +1,19 @@
 import cn from 'classnames';
-import { FC, useEffect, useRef, useLayoutEffect } from 'react';
+import { FC, useEffect, useLayoutEffect, useRef } from 'react';
 
-import { UXCoreLinesProps } from './UXCoreLines.types';
-
-import { defaultPaths, forthPaths, secondPaths, thirdPaths } from './paths';
+import { useBrowserScale } from '@hooks/useBrowserScale';
 
 import {
-  getRightEndOfPath,
   getLeftEndOfPath,
+  getRightEndOfPath,
   handleExceptionalIndex,
   sortPathsByVerticalPosition,
 } from '@lib/core-view-helpers';
 
+import { defaultPaths, forthPaths, secondPaths, thirdPaths } from './paths';
+import { UXCoreLinesProps } from './UXCoreLines.types';
+
 import styles from './UXCoreLines.module.scss';
-import { useBrowserScale } from '@hooks/useBrowserScale';
 
 const UXCoreLines: FC<UXCoreLinesProps> = ({
   startGreen,

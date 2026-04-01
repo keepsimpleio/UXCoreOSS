@@ -1,3 +1,6 @@
+import cn from 'classnames';
+import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
 import React, {
   FC,
   memo,
@@ -7,38 +10,35 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import { useRouter } from 'next/router';
-import dynamic from 'next/dynamic';
-import cn from 'classnames';
-
-import ToolFooter from '@components/ToolFooter';
-import UXCPDescription from '@components/_uxcp/UXCPDescription';
-import PersonaSection from '@components/_uxcp/PersonaSection';
-import BiasSearch from '@components/_uxcp/BiasSearch';
-import SelectionView from '@components/_uxcp/SelectionView';
-import SuggestedQuestions from '@components/_uxcp/SuggestedQuestions';
-import PieChartSection from '@components/_uxcp/PieChartSection';
-import PersonaRelatedQuestions from '@components/_uxcp/PersonaRelatedQuestions';
-import Section from '@components/Section';
-import Input from '@components/Input';
-import PersonaButton from '@components/_uxcp/PersonaButton';
-import MobileDisclimer from '@components/_uxcp/MobileDisclimer';
-import LogInModal from '@components/_uxcp/LogInModal';
-import { GlobalContext } from '@components/Context/GlobalContext';
-
-import { copyToClipboard } from '@lib/helpers';
-import { calculateData, generateUXCPLink } from '@lib/uxcp-helpers';
-
-import useMobile from '@hooks/useMobile';
 
 import type { QuestionType, StrapiBiasType, TagType } from '@local-types/data';
 import type { TRouter } from '@local-types/global';
 
+import useMobile from '@hooks/useMobile';
+
+import { copyToClipboard } from '@lib/helpers';
+import { calculateData, generateUXCPLink } from '@lib/uxcp-helpers';
+
+import { addPersona, getPersonaList, updatePersona } from '@api/personas';
+
+import decisionTable from '@data/decisionTable';
 import uxcpLocalization from '@data/uxcp';
 
+import BiasSearch from '@components/_uxcp/BiasSearch';
 import DecisionTable from '@components/_uxcp/DecisionTable';
-import { addPersona, getPersonaList, updatePersona } from '@api/personas';
-import decisionTable from '@data/decisionTable';
+import LogInModal from '@components/_uxcp/LogInModal';
+import MobileDisclimer from '@components/_uxcp/MobileDisclimer';
+import PersonaButton from '@components/_uxcp/PersonaButton';
+import PersonaRelatedQuestions from '@components/_uxcp/PersonaRelatedQuestions';
+import PersonaSection from '@components/_uxcp/PersonaSection';
+import PieChartSection from '@components/_uxcp/PieChartSection';
+import SelectionView from '@components/_uxcp/SelectionView';
+import SuggestedQuestions from '@components/_uxcp/SuggestedQuestions';
+import UXCPDescription from '@components/_uxcp/UXCPDescription';
+import { GlobalContext } from '@components/Context/GlobalContext';
+import Input from '@components/Input';
+import Section from '@components/Section';
+import ToolFooter from '@components/ToolFooter';
 
 import styles from './UXCPLayout.module.scss';
 

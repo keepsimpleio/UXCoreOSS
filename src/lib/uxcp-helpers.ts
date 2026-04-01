@@ -4,6 +4,7 @@ import type {
   StrapiBiasType,
   SuggestedQuestionType,
 } from '@local-types/data';
+
 import { map } from '@lib/codeMap';
 
 type QuestionCalculationResultsType = {

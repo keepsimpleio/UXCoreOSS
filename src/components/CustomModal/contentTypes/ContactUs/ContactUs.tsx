@@ -1,18 +1,23 @@
-import { FC, useState, useCallback } from 'react';
+import cn from 'classnames';
 import { useRouter } from 'next/router';
+import { FC, useCallback, useState } from 'react';
 
+import type { TRouter } from '@local-types/global';
+
+import useFormPopup from '@hooks/useFormPopup';
+import useSpinner from '@hooks/useSpinner';
+
+import { validateEmail } from '@lib/helpers';
+
+import { contactUsRequest } from '@api/contactUs';
+
+import contactUsData from '@data/contactUs';
+
+import Button from '@components/Button';
 import Input from '@components/Input';
 import Textarea from '@components/Textarea';
-import Button from '@components/Button';
-import { validateEmail } from '@lib/helpers';
-import type { TRouter } from '@local-types/global';
-import contactUsData from '@data/contactUs';
-import { contactUsRequest } from '@api/contactUs';
-import useSpinner from '@hooks/useSpinner';
-import useFormPopup from '@hooks/useFormPopup';
 
 import styles from './ContactUs.module.scss';
-import cn from 'classnames';
 
 type TContactUs = {
   closeModal: () => void;

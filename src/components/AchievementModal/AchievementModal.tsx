@@ -1,6 +1,7 @@
-import { FC } from 'react';
-import { useRouter } from 'next/router';
 import cn from 'classnames';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { FC } from 'react';
 
 import { TRouter } from '@local-types/global';
 
@@ -9,7 +10,6 @@ import uxcatData from '@data/uxcat';
 import Modal from '@components/Modal';
 
 import styles from './AchievementModal.module.scss';
-import Image from 'next/image';
 
 type AchievementModalProps = {
   icon: string;

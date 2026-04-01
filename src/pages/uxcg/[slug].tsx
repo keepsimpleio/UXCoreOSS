@@ -1,3 +1,5 @@
+import { GetStaticPaths, GetStaticProps } from 'next';
+import { useRouter } from 'next/router';
 import {
   FC,
   useCallback,
@@ -7,33 +9,32 @@ import {
   useRef,
   useState,
 } from 'react';
-import { GetStaticPaths, GetStaticProps } from 'next';
-import { useRouter } from 'next/router';
-
-import UXCGModal from '@components/UXCGModal';
-import SeoGenerator from '@components/SeoGenerator';
-import { GlobalContext } from '@components/Context/GlobalContext';
-import UXCGModalMobile from '@components/UXCGModalMobile';
-
-import { getTags } from '@api/tags';
-import { getStrapiQuestions } from '@api/questions';
-import { getUXCGSeo } from '@api/mainPageSeo';
 
 import { QuestionType, TagType } from '@local-types/data';
 import { TRouter } from '@local-types/global';
 
 import useMobile from '@hooks/useMobile';
 
-import { getUXCGSlugPaths } from '@lib/paths';
 import {
   copyToClipboard,
   generateQuestionsSeo,
   getAdjacentUXCGTitles,
   mergeQuestionsLocalization,
 } from '@lib/helpers';
-import { getUXCGRedirects } from '../../../lib/getUXCGRedirects';
+import { getUXCGSlugPaths } from '@lib/paths';
+
+import { getUXCGSeo } from '@api/mainPageSeo';
+import { getStrapiQuestions } from '@api/questions';
+import { getTags } from '@api/tags';
+
+import { GlobalContext } from '@components/Context/GlobalContext';
+import SeoGenerator from '@components/SeoGenerator';
+import UXCGModal from '@components/UXCGModal';
+import UXCGModalMobile from '@components/UXCGModalMobile';
 
 import UXCGLayout from '@layouts/UXCGLayout';
+
+import { getUXCGRedirects } from '../../../lib/getUXCGRedirects';
 
 import styles from './UxcgId.module.scss';
 
@@ -67,7 +68,14 @@ const Slug: FC<UXCGIdProps> = ({
 }) => {
   const router = useRouter();
   const { asPath, locale } = router as TRouter;
-  const searchTerm = router.query.searchTerm;
+  const searchQuery = router.query.search;
+  const searchTermQuery = router.query.searchTerm;
+  const searchTerm =
+    typeof searchTermQuery === 'string' && searchTermQuery
+      ? searchTermQuery
+      : typeof searchQuery === 'string'
+        ? searchQuery
+        : undefined;
   const { isMobile } = useMobile()[1];
 
   const [isModalClosed, setIsModalClosed] = useState<boolean>(true);
@@ -175,6 +183,7 @@ const Slug: FC<UXCGIdProps> = ({
         questionsSeo={questionsSeo}
         strapiSEO={mainSeo}
         ogTags={OGTags.OGTags}
+        type={'DefinedTerm'}
         localizedSlug={slugs}
         modifiedDate={modalData?.updatedAt}
         createdDate={'2021-07-16'}

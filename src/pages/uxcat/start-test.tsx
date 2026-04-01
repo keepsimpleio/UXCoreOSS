@@ -1,22 +1,22 @@
-import React, { FC, useContext, useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
+import { useRouter } from 'next/router';
+import React, { FC, useContext, useEffect, useState } from 'react';
 
 import { TRouter } from '@local-types/global';
 import { UXCatDataTypes } from '@local-types/uxcat-types/types';
 
-import StartTestLayout from '@layouts/StartTestLayout';
-
-import Spinner from '@components/Spinner';
-import { GlobalContext } from '@components/Context/GlobalContext';
-import SeoGenerator from '@components/SeoGenerator';
-import GenderModal from '@components/GenderModal';
+import { UXCatConfigs } from '@api/uxcat/configs';
+import { getUXCatStatistics } from '@api/uxcat/statistics';
+import { getUXCatData } from '@api/uxcat/uxcat';
 
 import startTestData from '@data/startTest';
 
-import { getUXCatData } from '@api/uxcat/uxcat';
-import { getUXCatStatistics } from '@api/uxcat/statistics';
-import { UXCatConfigs } from '@api/uxcat/configs';
+import { GlobalContext } from '@components/Context/GlobalContext';
+import GenderModal from '@components/GenderModal';
+import SeoGenerator from '@components/SeoGenerator';
+import Spinner from '@components/Spinner';
+
+import StartTestLayout from '@layouts/StartTestLayout';
 
 type StartTestProps = {
   uxcatData: UXCatDataTypes;

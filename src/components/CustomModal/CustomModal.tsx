@@ -1,12 +1,14 @@
-import { FC, useEffect, KeyboardEvent } from 'react';
-import { createPortal } from 'react-dom';
-import { useRouter } from 'next/router';
 import cn from 'classnames';
+import { useRouter } from 'next/router';
+import { FC, KeyboardEvent, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 
-import type { TRouter } from '@local-types/global';
 import type { TagType } from '@local-types/data';
-import { AddQuestion, ContactUs } from './contentTypes';
+import type { TRouter } from '@local-types/global';
+
 import customModalData from '@data/customModal';
+
+import { AddQuestion, ContactUs } from './contentTypes';
 
 import styles from './CustomModal.module.scss';
 

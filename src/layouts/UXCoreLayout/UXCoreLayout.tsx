@@ -1,29 +1,29 @@
-import React, { FC, useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import cn from 'classnames';
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
+import React, { FC, useEffect, useState } from 'react';
 
 import type { TRouter } from '@local-types/global';
-import type { UXCoreLayoutProps } from './UXCoreLayout.types';
-
-import ToolFooter from '@components/ToolFooter';
-import Spinner from '@components/Spinner';
-import Search from '@components/_biases/Search';
-import Logos from '@components/Logos';
 
 import useUXCoreGlobals from '@hooks/useUXCoreGlobals';
 import useUCoreMobile from '@hooks/uxcoreMobile';
 
-import FolderIcon from '@icons/FolderIcon';
-import CoreIcon from '@icons/CoreIcon';
-
 import biasesLocalization from '@data/biases';
 import biasesMobile from '@data/biasesMobile';
 
-import { PMIcon } from '@icons/PMIcon';
-import { HRIconGrey } from '@icons/HRIconGrey';
+import CoreIcon from '@icons/CoreIcon';
+import FolderIcon from '@icons/FolderIcon';
 import { HRIconBlue } from '@icons/HRIconBlue';
+import { HRIconGrey } from '@icons/HRIconGrey';
+import { PMIcon } from '@icons/PMIcon';
 import { PMIconGrey } from '@icons/PMIconGrey';
+
+import Search from '@components/_biases/Search';
+import Logos from '@components/Logos';
+import Spinner from '@components/Spinner';
+import ToolFooter from '@components/ToolFooter';
+
+import type { UXCoreLayoutProps } from './UXCoreLayout.types';
 
 import styles from './UXCoreLayout.module.scss';
 

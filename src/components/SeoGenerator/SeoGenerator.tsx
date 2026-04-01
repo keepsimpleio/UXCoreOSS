@@ -1,11 +1,11 @@
-import type { FC } from 'react';
 import Head from 'next/head';
-import Script from 'next/script';
 import { useRouter } from 'next/router';
-
-import { generateSchema } from '@lib/schema';
+import Script from 'next/script';
+import type { FC } from 'react';
 
 import type { TRouter } from '@local-types/global';
+
+import { generateSchema } from '@lib/schema';
 
 import hrSeoDescriptionEn from '@data/seo/hrDescription-en';
 import hrSeoDescriptionRu from '@data/seo/hrDescription-ru';
@@ -17,6 +17,7 @@ interface SeoGeneratorProps {
   localizedSlug?: any;
   modifiedDate?: string;
   createdDate?: string;
+  type?: string;
   ogTags?: {
     ogDescription: string;
     ogTitle: string;
@@ -42,6 +43,7 @@ const SeoGenerator: FC<SeoGeneratorProps> = ({
   createdDate,
   modifiedDate,
   localizedSlug,
+  type,
 }) => {
   const router = useRouter();
   const hasStrapiSEO =
@@ -196,6 +198,7 @@ const SeoGenerator: FC<SeoGeneratorProps> = ({
     favIcon,
     createdDate,
     modifiedDate,
+    type,
   );
 
   return (
@@ -205,6 +208,13 @@ const SeoGenerator: FC<SeoGeneratorProps> = ({
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=2"
+        />
+        <link
+          rel="preload"
+          href="/uxcore_/fonts/Lato/Lato-Regular.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
         />
         <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
         <meta name="theme-color" content="#1e2023" />

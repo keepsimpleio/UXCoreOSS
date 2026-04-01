@@ -1,14 +1,14 @@
-import { FC, Fragment, useMemo } from 'react';
-import { useRouter } from 'next/router';
 import { GetStaticProps } from 'next';
+import { useRouter } from 'next/router';
+import { FC, Fragment, useMemo } from 'react';
 
-import ApiLayout from '@layouts/ApiLayout';
-
-import SeoGenerator from '@components/SeoGenerator';
+import { TRouter } from '@local-types/global';
 
 import { getUXCoreApiSeo } from '@api/mainPageSeo';
 
-import { TRouter } from '@local-types/global';
+import SeoGenerator from '@components/SeoGenerator';
+
+import ApiLayout from '@layouts/ApiLayout';
 
 interface ApiProps {
   mainSeo: { en: any; ru: any };

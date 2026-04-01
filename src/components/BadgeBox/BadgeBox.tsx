@@ -1,9 +1,9 @@
+import Image from 'next/image';
 import { FC } from 'react';
 
 import Starfall from '@components/Starfall';
 
 import styles from './BadgeBox.module.scss';
-import Image from 'next/image';
 
 type BadgeBoxProps = {
   imgSrc?: string;
@@ -27,6 +27,7 @@ const BadgeBox: FC<BadgeBoxProps> = ({
           height={40}
           className={styles.starOnImg}
           alt={'star'}
+          unoptimized
         />
         <Image
           src={`${process.env.NEXT_PUBLIC_STRAPI}${imgSrc}`}

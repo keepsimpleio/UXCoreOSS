@@ -1,16 +1,16 @@
-import React, { FC } from 'react';
 import cn from 'classnames';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-
-import Tooltip from '@components/Tooltip';
-import UXCatPageTitle from '@components/UXCatPageTitle';
+import React, { FC } from 'react';
 
 import { TRouter } from '@local-types/global';
 
 import useMobile from '@hooks/useMobile';
 
 import leaderboardPlaceholder from '@data/leaderboard';
+
+import Tooltip from '@components/Tooltip';
+import UXCatPageTitle from '@components/UXCatPageTitle';
 
 import styles from './Leaderboard.module.scss';
 

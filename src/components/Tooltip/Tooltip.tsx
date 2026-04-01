@@ -1,10 +1,11 @@
+import cn from 'classnames';
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import cn from 'classnames';
 import { v4 as uuidv4 } from 'uuid';
 
-import { calculateTooltipPostion } from '@lib/helpers';
 import useTooltip from '@hooks/useTooltip';
+
+import { calculateTooltipPostion } from '@lib/helpers';
 
 import styles from './Tooltip.module.scss';
 

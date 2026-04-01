@@ -1,9 +1,8 @@
-import React, { FC, Fragment } from 'react';
+import cn from 'classnames';
+import type { GetStaticProps } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
-import cn from 'classnames';
-
-import type { GetStaticProps } from 'next';
+import React, { FC, Fragment } from 'react';
 
 import pageNotFoundData from '@data/404';
 
@@ -18,7 +17,7 @@ const NotFoundPage: FC<NotFoundPageProps> = ({ intl, locale }) => {
   const { title } = intl;
   const errorPage = process.env.NEXT_PUBLIC_DOMAIN + '/404';
   const errorPageImage = process.env.NEXT_PUBLIC_DOMAIN + '/assets/favicon.svg';
-  
+
   return (
     <Fragment>
       <Head>

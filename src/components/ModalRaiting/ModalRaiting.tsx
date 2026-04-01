@@ -1,12 +1,16 @@
-import { FC, useState, MouseEvent, useEffect } from 'react';
 import cn from 'classnames';
 import { useRouter } from 'next/router';
+import { FC, MouseEvent, useEffect, useState } from 'react';
 
 import type { TRouter } from '@local-types/global';
-import modalIntl from '@data/modalRaiting';
-import { updateVH, saveInLocalStorage, getRatedItems } from '@lib/helpers';
-import { rateRequest } from '@api/rating';
+
 import useSpinner from '@hooks/useSpinner';
+
+import { getRatedItems, saveInLocalStorage, updateVH } from '@lib/helpers';
+
+import { rateRequest } from '@api/rating';
+
+import modalIntl from '@data/modalRaiting';
 
 import styles from './ModalRaiting.module.scss';
 

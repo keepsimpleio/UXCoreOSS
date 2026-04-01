@@ -1,13 +1,14 @@
-import { FC, useCallback, useMemo } from 'react';
 import { useRouter } from 'next/router';
+import { FC, useCallback, useMemo } from 'react';
 
-import type { TRouter } from '@local-types/global';
 import type { TagType } from '@local-types/data';
+import type { TRouter } from '@local-types/global';
 
 import uxcpLocalization from '@data/uxcp';
 
-import styles from './PieLegend.module.scss';
 import Tooltip from '@components/Tooltip';
+
+import styles from './PieLegend.module.scss';
 
 type PieLegendProps = {
   tagRelevancy: { [key: string]: number };

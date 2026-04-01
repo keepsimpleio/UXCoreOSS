@@ -1,9 +1,10 @@
-import { FC, Fragment, useMemo, memo } from 'react';
-import ReactMarkdown from 'react-markdown';
-import remarkBreaks from 'remark-breaks';
-import rehypeRaw from 'rehype-raw';
-import useContentType from '@hooks/useContentType';
 import unescape from 'lodash.unescape';
+import { FC, Fragment, memo, useMemo } from 'react';
+import ReactMarkdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
+import remarkBreaks from 'remark-breaks';
+
+import useContentType from '@hooks/useContentType';
 
 type ContentParserProps = {
   data: any;

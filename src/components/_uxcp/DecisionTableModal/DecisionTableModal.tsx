@@ -1,13 +1,14 @@
-import React, { Fragment, useEffect, useState } from 'react';
-import { TRouter } from '@local-types/global';
 import { useRouter } from 'next/router';
+import React, { Fragment, useEffect, useState } from 'react';
 import { Tooltip as ReactTooltip } from 'react-tooltip';
 
-import Modal from '@components/Modal';
-import Textarea from '@components/Textarea';
-import Button from '@components/Button';
+import { TRouter } from '@local-types/global';
 
 import decisionTable from '@data/decisionTable';
+
+import Button from '@components/Button';
+import Modal from '@components/Modal';
+import Textarea from '@components/Textarea';
 
 import styles from './DecisionTableModal.module.scss';
 

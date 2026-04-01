@@ -1,9 +1,10 @@
-import { useState, useEffect, forwardRef } from 'react';
-import { createPortal } from 'react-dom';
 import cn from 'classnames';
+import { forwardRef, useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
+
+import { BiasType } from '@local-types/data';
 
 import styles from './ZoomBox.module.scss';
-import { BiasType } from '@local-types/data';
 
 type TLabel = {
   data: BiasType;

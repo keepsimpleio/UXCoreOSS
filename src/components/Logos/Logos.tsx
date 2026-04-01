@@ -1,16 +1,16 @@
-import { FC } from 'react';
-import { useRouter } from 'next/router';
 import cn from 'classnames';
+import { useRouter } from 'next/router';
+import { FC } from 'react';
 
 import { TRouter } from '@local-types/global';
 
 import biasesLogoDescription from '@data/biasesLogoDescription';
 
-import GoogleLogo from '@icons/GoogleLogo';
 import AmazonLogo from '@icons/AmazonLogo';
-import XLogo from '@icons/XLogo';
-import HarvardBusinessSchoolLogo from '@icons/HarvardBusinessSchoolLogo';
 import DukeLogo from '@icons/DukeLogo';
+import GoogleLogo from '@icons/GoogleLogo';
+import HarvardBusinessSchoolLogo from '@icons/HarvardBusinessSchoolLogo';
+import XLogo from '@icons/XLogo';
 
 import styles from './Logos.module.scss';
 

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getRedirectMap } from './lib/getUXCoreRedirects';
+
 import { getUXCGRedirects } from './lib/getUXCGRedirects';
+import { getRedirectMap } from './lib/getUXCoreRedirects';
 
 const PUBLIC_FILE = /\.(.*)$/;
 const supportedLocales = ['en', 'ru', 'hy'];
@@ -79,5 +80,6 @@ export const config = {
     '/:locale/uxcore/:path*',
     '/uxcg/:path*',
     '/:locale/uxcg/:path*',
+    '/((?!api|_next/static|_next/image|uxcore_|favicon.ico).*)',
   ],
 };

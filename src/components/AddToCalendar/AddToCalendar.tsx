@@ -1,14 +1,13 @@
-import { FC, useState } from 'react';
-import { useRouter } from 'next/router';
 import cn from 'classnames';
+import { useRouter } from 'next/router';
+import { FC, useState } from 'react';
 
 import type { TRouter } from '@local-types/global';
 
 import { useClickOutside } from '@hooks/useClickOutside';
+import useMobile from '@hooks/useMobile';
 
 import calendar from '@data/uxcat/calendar';
-
-import useMobile from '@hooks/useMobile';
 
 import CalendarItems from '@components/CalendarItems';
 import Modal from '@components/Modal';
