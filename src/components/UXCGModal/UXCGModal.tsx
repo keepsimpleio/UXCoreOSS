@@ -1,3 +1,5 @@
+import cn from 'classnames';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, {
   FC,
@@ -9,25 +11,23 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import cn from 'classnames';
-import Image from 'next/image';
 
-import type { TRouter } from '@local-types/global';
 import type { QuestionType, StrapiBiasType, TagType } from '@local-types/data';
+import type { TRouter } from '@local-types/global';
+
+import useMobile from '@hooks/useMobile';
+import useTooltip from '@hooks/useTooltip';
+
+import { copyToClipboard, generateSocialLinks, updateVH } from '@lib/helpers';
 
 import modalIntl from '@data/modal';
 
 import AnswerContentGenerator from '@components/AnswerContentGenerator';
-import Share from '@components/UXCGModalSubComponents/Share';
-import ModalRaiting from '@components/ModalRaiting';
 import LanguageSwitcher from '@components/LanguageSwitcher';
-import Tooltip from '@components/Tooltip';
+import ModalRaiting from '@components/ModalRaiting';
 import Tag from '@components/Tag';
-
-import { copyToClipboard, generateSocialLinks, updateVH } from '@lib/helpers';
-
-import useTooltip from '@hooks/useTooltip';
-import useMobile from '@hooks/useMobile';
+import Tooltip from '@components/Tooltip';
+import Share from '@components/UXCGModalSubComponents/Share';
 
 import styles from './UXCGModal.module.scss';
 

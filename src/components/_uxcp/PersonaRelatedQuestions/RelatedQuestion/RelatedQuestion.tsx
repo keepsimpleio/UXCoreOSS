@@ -1,11 +1,12 @@
-import { FC } from 'react';
 import cn from 'classnames';
-import Link from '@components/NextLink';
-
-import Tooltip from '@components/Tooltip';
-import RelatedQuestionTooltip from './RelatedQuestionTooltip';
+import { FC } from 'react';
 
 import { QuestionType, StrapiBiasType } from '@local-types/data';
+
+import Link from '@components/NextLink';
+import Tooltip from '@components/Tooltip';
+
+import RelatedQuestionTooltip from './RelatedQuestionTooltip';
 
 import styles from './RelatedQuestion.module.scss';
 

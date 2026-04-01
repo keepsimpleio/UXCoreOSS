@@ -1,6 +1,7 @@
+import hy from '@data/addQuestion/hy';
+
 import en from './en';
 import ru from './ru';
-import hy from '@data/addQuestion/hy';
 
 const locales = {
   en,

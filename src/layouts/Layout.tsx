@@ -1,18 +1,19 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import { usePathname } from 'next/navigation';
-
-import { GlobalContext } from '@components/Context/GlobalContext';
-import SavedPersonas from '@components/_uxcp/SavedPersonas';
-import UXCorePopup from '@components/UXCorePopup';
-import ToolHeader from '@components/ToolHeader';
-import decisionTable from '@data/decisionTable';
-
-import { getPersonaList } from '@api/personas';
+import { useRouter } from 'next/router';
+import React, { useContext, useEffect, useState } from 'react';
 
 import { TRouter } from '@local-types/global';
 
 import useUCoreMobile from '@hooks/uxcoreMobile';
+
+import { getPersonaList } from '@api/personas';
+
+import decisionTable from '@data/decisionTable';
+
+import SavedPersonas from '@components/_uxcp/SavedPersonas';
+import { GlobalContext } from '@components/Context/GlobalContext';
+import ToolHeader from '@components/ToolHeader';
+import UXCorePopup from '@components/UXCorePopup';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const router = useRouter();

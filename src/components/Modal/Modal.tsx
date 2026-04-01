@@ -1,6 +1,6 @@
+import cn from 'classnames';
 import React, { FC, KeyboardEvent, ReactNode, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import cn from 'classnames';
 
 import styles from './Modal.module.scss';
 

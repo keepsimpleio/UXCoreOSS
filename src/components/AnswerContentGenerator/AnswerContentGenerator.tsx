@@ -1,8 +1,9 @@
-import { FC, Fragment } from 'react';
 import { useRouter } from 'next/router';
+import { FC, Fragment } from 'react';
 
 import type { StrapiBiasType } from '@local-types/data';
 import type { TRouter } from '@local-types/global';
+
 import AnswerBiasLink from '@components/AnswerBiasLink';
 
 interface AnswerContentGeneratorProps {

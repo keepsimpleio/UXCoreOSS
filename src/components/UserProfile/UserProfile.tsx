@@ -1,19 +1,19 @@
-import React, { FC } from 'react';
-import { useRouter } from 'next/router';
 import cn from 'classnames';
-
-import Button from '@components/Button';
-import StartTestBtn from '@components/StartTestBtn';
-import RankingInfoAndBtn from '@components/AccountHeader/RankingInfoAndBtn';
-
-import uxcatData from '@data/uxcat';
+import { useRouter } from 'next/router';
+import React, { FC } from 'react';
+import { Tooltip as ReactTooltip } from 'react-tooltip';
 
 import { TRouter } from '@local-types/global';
 
 import useMobile from '@hooks/useMobile';
 
+import uxcatData from '@data/uxcat';
+
+import RankingInfoAndBtn from '@components/AccountHeader/RankingInfoAndBtn';
+import Button from '@components/Button';
+import StartTestBtn from '@components/StartTestBtn';
+
 import styles from './UserProfile.module.scss';
-import { Tooltip as ReactTooltip } from 'react-tooltip';
 
 type UserProfileProps = {
   loggedIn?: boolean;

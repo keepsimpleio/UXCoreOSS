@@ -1,8 +1,11 @@
-import React, { FC } from 'react';
 import { useRouter } from 'next/router';
-import Modal from '@components/Modal';
-import Button from '@components/Button';
+import React, { FC } from 'react';
+
 import { TRouter } from '@local-types/global';
+
+import Button from '@components/Button';
+import Modal from '@components/Modal';
+
 import styles from './PersonaDeleteModal.module.scss';
 
 interface PersonaDeleteModalProps {

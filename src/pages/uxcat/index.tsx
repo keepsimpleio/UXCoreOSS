@@ -1,25 +1,14 @@
-import React, { FC, useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
+import { useRouter } from 'next/router';
+import React, { FC, useEffect, useState } from 'react';
 
-import UXCatLayout from '@layouts/UXCatLayout';
-
-import SeoGenerator from '@components/SeoGenerator';
-
-import { getLevels } from '@api/uxcat/get-levels';
-import { getNotifications } from '@api/uxcat/get-notifications';
-import { getAchievement } from '@api/uxcat/get-achievement';
-import { getUXCatData } from '@api/uxcat/uxcat';
-import { UXCatConfigs } from '@api/uxcat/configs';
-import { getAllAchievements } from '@api/uxcat/get-all-achievements';
-
+import { TRouter } from '@local-types/global';
 import {
   AchievementsTypes,
   UserTypes,
   UXCatDataTypes,
   uxCatLevels,
 } from '@local-types/uxcat-types/types';
-import { TRouter } from '@local-types/global';
 
 import {
   enhanceAchievementsWithGroups,
@@ -29,7 +18,17 @@ import {
   isLevelMilestone,
 } from '@lib/uxcat-helpers';
 
+import { UXCatConfigs } from '@api/uxcat/configs';
+import { getAchievement } from '@api/uxcat/get-achievement';
+import { getAllAchievements } from '@api/uxcat/get-all-achievements';
+import { getLevels } from '@api/uxcat/get-levels';
+import { getNotifications } from '@api/uxcat/get-notifications';
 import { getUserInfo } from '@api/uxcat/users-me';
+import { getUXCatData } from '@api/uxcat/uxcat';
+
+import SeoGenerator from '@components/SeoGenerator';
+
+import UXCatLayout from '@layouts/UXCatLayout';
 
 type UxcatProps = {
   uxCatLevels: uxCatLevels[];

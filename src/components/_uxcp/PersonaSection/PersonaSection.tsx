@@ -1,13 +1,14 @@
-import { FC, useMemo } from 'react';
 import { useRouter } from 'next/router';
-
-import TeamMemberSwitcher from '@components/_uxcp/TeamMemberSwitcher';
-import Input from '@components/Input';
+import { FC, useMemo } from 'react';
 
 import type { TRouter } from '@local-types/global';
 
-import uxcpLocalization from '@data/uxcp';
 import useMobile from '@hooks/useMobile';
+
+import uxcpLocalization from '@data/uxcp';
+
+import TeamMemberSwitcher from '@components/_uxcp/TeamMemberSwitcher';
+import Input from '@components/Input';
 
 import styles from './PersonaSection.module.scss';
 

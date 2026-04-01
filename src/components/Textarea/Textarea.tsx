@@ -1,3 +1,4 @@
+import cn from 'classnames';
 import {
   ChangeEvent,
   FC,
@@ -6,7 +7,6 @@ import {
   useRef,
   useState,
 } from 'react';
-import cn from 'classnames';
 
 import styles from './Textarea.module.scss';
 

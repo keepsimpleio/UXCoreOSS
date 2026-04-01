@@ -1,6 +1,7 @@
 import type { FC } from 'react';
-import Tooltip from '@components/Tooltip';
+
 import BiasPopupContent from '@components/AnswerBiasLink/BiasPopupContent';
+import Tooltip from '@components/Tooltip';
 
 interface DesktopProps {
   containerClassName: string;

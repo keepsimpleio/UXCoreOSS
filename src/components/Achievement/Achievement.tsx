@@ -1,13 +1,14 @@
-import React, { FC, useEffect, useState } from 'react';
+import cn from 'classnames';
 import dynamic from 'next/dynamic';
+import Image from 'next/image';
+import React, { FC, useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import { Tooltip as ReactTooltip } from 'react-tooltip';
-import cn from 'classnames';
-import Image from 'next/image';
 
 import AchievementModal from '@components/AchievementModal';
-import type { AchievementProps } from './Achievement.types';
 import AnimatedText from '@components/AnimatedText';
+
+import type { AchievementProps } from './Achievement.types';
 
 import styles from './Achievement.module.scss';
 

@@ -13,6 +13,7 @@ describe('UX Core Bias Page: Availability Heuristics', () => {
   });
   it('Should open the first question and verify URL and content', () => {
     cy.get('[data-cy="open-question"]').first().click();
+    cy.wait(4000);
     cy.url().should('include', '/why-our-company-is-having-reputation-issue#0');
   });
 

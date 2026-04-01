@@ -1,6 +1,6 @@
-import { FC, useCallback } from 'react';
 import cn from 'classnames';
 import { useRouter } from 'next/router';
+import { FC, useCallback } from 'react';
 
 import type { TRouter } from '@local-types/global';
 

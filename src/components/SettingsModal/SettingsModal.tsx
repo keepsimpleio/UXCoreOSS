@@ -1,19 +1,18 @@
 import { useRouter } from 'next/router';
 import { FC, useCallback, useState } from 'react';
 
-import Modal from '@components/Modal';
-
 import { TRouter } from '@local-types/global';
 
 import { isValidEmail, linkedInRegex, usernameRegex } from '@lib/uxcat-helpers';
 
-import Input from '@components/Input';
-import Button from '@components/Button';
-import Dropdown from '@components/Dropdown';
-import Checkbox from '@components/Checkbox';
-import Textarea from '@components/Textarea';
-
 import settingsData from '@data/uxcat/settings';
+
+import Button from '@components/Button';
+import Checkbox from '@components/Checkbox';
+import Dropdown from '@components/Dropdown';
+import Input from '@components/Input';
+import Modal from '@components/Modal';
+import Textarea from '@components/Textarea';
 
 import styles from './SettingsModal.module.scss';
 

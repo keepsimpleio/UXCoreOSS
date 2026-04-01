@@ -1,7 +1,7 @@
-import UXCGIcon from '@icons/UXCGIcon';
-import UXCPIcon from '@icons/UXCPIcon';
 import UXCatIcon from '@icons/UXCatIcon';
+import UXCGIcon from '@icons/UXCGIcon';
 import UXCoreIcon from '@icons/UXCoreIcon';
+import UXCPIcon from '@icons/UXCPIcon';
 
 export const navItems = [
   {

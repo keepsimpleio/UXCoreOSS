@@ -1,9 +1,10 @@
-import { FC, useCallback } from 'react';
 import cn from 'classnames';
-import { useRouter } from 'next/router';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { FC, useCallback } from 'react';
 
 import type { TRouter } from '@local-types/global';
+
 import uxcpLocalization from '@data/uxcp';
 
 import Tooltip from '@components/Tooltip';

@@ -1,10 +1,8 @@
-// @ts-ignore
-import geoip from 'geoip-lite';
+import geoip from 'fast-geoip';
 
-// @ts-ignore
-export default function handler(req, res) {
-  const ip = req.headers['x-forwarded-for'];
-  const geo = geoip.lookup(ip) || {};
+export default async function handler(req: any, res: any) {
+  const ip = req.headers['x-forwarded-for'] as string;
+  const geo = (await geoip.lookup(ip)) || {};
 
   res.status(200).json({ ...geo, ip });
 }

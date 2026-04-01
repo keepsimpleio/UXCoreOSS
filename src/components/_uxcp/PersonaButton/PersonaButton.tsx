@@ -1,9 +1,10 @@
-import { FC, useCallback, useRef, useState } from 'react';
 import cn from 'classnames';
+import { useRouter } from 'next/router';
+import { FC, useCallback, useRef, useState } from 'react';
+
+import type { TRouter } from '@local-types/global';
 
 import styles from './PersonaButton.module.scss';
-import type { TRouter } from '@local-types/global';
-import { useRouter } from 'next/router';
 
 type PersonaButtonProps = {
   label: string;

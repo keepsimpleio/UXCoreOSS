@@ -1,4 +1,3 @@
-import { AchievementsTypes } from '@local-types/uxcat-types/types';
 import {
   ClassAttributes,
   HTMLAttributes,
@@ -9,6 +8,8 @@ import {
   ReactNode,
   ReactPortal,
 } from 'react';
+
+import { AchievementsTypes } from '@local-types/uxcat-types/types';
 
 export type AchievementsBoardProps = {
   achievements: any;

@@ -1,16 +1,17 @@
-import React from 'react';
 import { useRouter } from 'next/router';
+import React from 'react';
 
-import CertificateLayout from '@layouts/CertificateLayout';
-
-import Spinner from '@components/Spinner';
-import NotFoundPage from '../../404';
+import type { TRouter } from '@local-types/global';
 
 import { getCertificate } from '@api/uxcat/certificate';
 
 import pageNotFoundData from '@data/404';
 
-import type { TRouter } from '@local-types/global';
+import Spinner from '@components/Spinner';
+
+import CertificateLayout from '@layouts/CertificateLayout';
+
+import NotFoundPage from '../../404';
 
 const Certificate = ({ userId, certificate }) => {
   const router = useRouter();

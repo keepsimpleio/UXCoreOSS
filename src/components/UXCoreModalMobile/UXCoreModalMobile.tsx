@@ -1,26 +1,26 @@
-import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
-import { useRouter } from 'next/router';
 import cn from 'classnames';
-
-import ModalRaiting from '@components/ModalRaiting';
-import Table from '@components/Table';
-import ContentParser from '@components/ContentParser';
-import UXCoreModalHeader from '@components/UXCoreModalParts/UXCoreModalHeader';
-import Spinner from '@components/Spinner';
-
-import type { TRouter } from '@local-types/global';
-import type { QuestionType, StrapiBiasType, TagType } from '@local-types/data';
-
-import { copyToClipboard, generateSocialLinks } from '@lib/helpers';
+import { useRouter } from 'next/router';
+import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
 import Slider, { LazyLoadTypes } from 'react-slick';
 
-import modalIntl from '@data/modal';
+import type { QuestionType, StrapiBiasType, TagType } from '@local-types/data';
+import type { TRouter } from '@local-types/global';
 
 import useUXCoreGlobals from '@hooks/useUXCoreGlobals';
+
+import { copyToClipboard, generateSocialLinks } from '@lib/helpers';
+
+import modalIntl from '@data/modal';
 
 import HrIcon from '@icons/HrIcon';
 import ProductIcon from '@icons/ProductIcon';
 import ThreeLineArrow from '@icons/ThreeLineArrow';
+
+import ContentParser from '@components/ContentParser';
+import ModalRaiting from '@components/ModalRaiting';
+import Spinner from '@components/Spinner';
+import Table from '@components/Table';
+import UXCoreModalHeader from '@components/UXCoreModalParts/UXCoreModalHeader';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';

@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import {
   FC,
   SetStateAction,
@@ -6,17 +7,17 @@ import {
   useMemo,
   useState,
 } from 'react';
-import { useRouter } from 'next/router';
 
 import type { StrapiBiasType } from '@local-types/data';
 import type { TRouter } from '@local-types/global';
 
-import BiasItem from '@components/_uxcp/BiasItem';
-import Section from '@components/Section';
-import Pagination from '@components/_uxcp/Pagination';
+import useMobile from '@hooks/useMobile';
 
 import uxcpLocalization from '@data/uxcp';
-import useMobile from '@hooks/useMobile';
+
+import BiasItem from '@components/_uxcp/BiasItem';
+import Pagination from '@components/_uxcp/Pagination';
+import Section from '@components/Section';
 
 import styles from './SelectionView.module.scss';
 

@@ -1,8 +1,9 @@
 import { FC } from 'react';
-import Link from '@components/NextLink';
 
-import Tooltip from '@components/Tooltip';
 import { SuggestedQuestionType } from '@local-types/data';
+
+import Link from '@components/NextLink';
+import Tooltip from '@components/Tooltip';
 
 import QuestionTooltip from './QuestionTooltip';
 

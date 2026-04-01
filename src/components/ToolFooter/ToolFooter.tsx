@@ -1,14 +1,14 @@
-import { FC, Fragment, useState } from 'react';
-import { useRouter } from 'next/router';
 import cn from 'classnames';
-import { Tooltip as ReactTooltip } from 'react-tooltip';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { FC, Fragment, useState } from 'react';
+import { Tooltip as ReactTooltip } from 'react-tooltip';
 
-import CustomModal from '@components/CustomModal';
+import type { TRouter } from '@local-types/global';
 
 import toolFooterData from '@data/toolFooter';
 
-import type { TRouter } from '@local-types/global';
+import CustomModal from '@components/CustomModal';
 
 import styles from './ToolFooter.module.scss';
 

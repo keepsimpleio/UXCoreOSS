@@ -1,25 +1,25 @@
-import { FC, useContext, useEffect, useMemo, useState } from 'react';
-import { useRouter } from 'next/router';
-import type { TRouter } from '@local-types/global';
-import Image from 'next/image';
 import cn from 'classnames';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { FC, useContext, useEffect, useMemo, useState } from 'react';
 
-import { GlobalContext } from '@components/Context/GlobalContext';
-import UserDropdown from '@components/UserDropdown';
-import SettingsModal from '@components/SettingsModal';
-import LanguageSwitcher from '@components/LanguageSwitcher';
-
-import PodcastIcon from '@icons/PodcastIcon';
+import type { TRouter } from '@local-types/global';
+import { UserTypes } from '@local-types/uxcat-types/types';
 
 import { isLevelMilestone } from '@lib/uxcat-helpers';
 
-import toolHeaderData from '@data/toolHeader';
-
-import { userInfoUpdate } from '@api/uxcat/settings';
 import { getMyInfo } from '@api/strapi';
+import { userInfoUpdate } from '@api/uxcat/settings';
 import { getUserInfo } from '@api/uxcat/users-me';
 
-import { UserTypes } from '@local-types/uxcat-types/types';
+import toolHeaderData from '@data/toolHeader';
+
+import PodcastIcon from '@icons/PodcastIcon';
+
+import { GlobalContext } from '@components/Context/GlobalContext';
+import LanguageSwitcher from '@components/LanguageSwitcher';
+import SettingsModal from '@components/SettingsModal';
+import UserDropdown from '@components/UserDropdown';
 
 import styles from './MobileHeader.module.scss';
 

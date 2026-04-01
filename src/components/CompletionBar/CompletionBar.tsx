@@ -1,14 +1,13 @@
-import React, { FC, useEffect, useState } from 'react';
 import cn from 'classnames';
-import { Tooltip as ReactTooltip } from 'react-tooltip';
-import { useRouter } from 'next/router';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
+import React, { FC, useEffect, useState } from 'react';
+import { Tooltip as ReactTooltip } from 'react-tooltip';
 
-import UXCatPageTitle from '@components/UXCatPageTitle';
-import UXCatTooltip from '@components/UXCatTooltip';
-
-import { uxCatLevels } from '@local-types/uxcat-types/types';
 import { TRouter } from '@local-types/global';
+import { uxCatLevels } from '@local-types/uxcat-types/types';
+
+import useMobile from '@hooks/useMobile';
 
 import {
   findLevelDetail,
@@ -16,7 +15,8 @@ import {
   getPointsToNextLevel,
 } from '@lib/uxcat-helpers';
 
-import useMobile from '@hooks/useMobile';
+import UXCatPageTitle from '@components/UXCatPageTitle';
+import UXCatTooltip from '@components/UXCatTooltip';
 
 import styles from './CompletionBar.module.scss';
 

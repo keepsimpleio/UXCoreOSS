@@ -1,14 +1,14 @@
-import { FC, useCallback, useEffect, useState } from 'react';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
-
 import cn from 'classnames';
 import Cookies from 'js-cookie';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { FC, useCallback, useEffect, useState } from 'react';
 
 import type { TRouter } from '@local-types/global';
 
-import styles from './UXCoreFeedbackModal.module.scss';
 import feedbackData from '@data/feedbackData';
+
+import styles from './UXCoreFeedbackModal.module.scss';
 
 type UXCoreFeedbackModal = {
   open: boolean;

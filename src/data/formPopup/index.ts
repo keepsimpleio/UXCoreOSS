@@ -1,6 +1,7 @@
+import hy from '@data/decisionTable/hy';
+
 import en from './en';
 import ru from './ru';
-import hy from '@data/decisionTable/hy';
 
 const locales = {
   en,

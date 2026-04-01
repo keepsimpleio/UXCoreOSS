@@ -1,14 +1,14 @@
-import { FC, useState } from 'react';
-import { useRouter } from 'next/router';
 import cn from 'classnames';
 import Image from 'next/image';
-
-import Modal from '@components/Modal';
-import Button from '@components/Button';
+import { useRouter } from 'next/router';
+import { FC, useState } from 'react';
 
 import type { TRouter } from '@local-types/global';
 
 import modalData from '@data/uxcat/imageSelectModal';
+
+import Button from '@components/Button';
+import Modal from '@components/Modal';
 
 import styles from './SelectImageModal.module.scss';
 

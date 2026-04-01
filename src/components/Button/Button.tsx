@@ -1,5 +1,5 @@
-import { FC, useCallback } from 'react';
 import cn from 'classnames';
+import { FC, useCallback } from 'react';
 
 import Loader from '@icons/Loader';
 

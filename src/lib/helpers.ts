@@ -1,7 +1,10 @@
 import type { MutableRefObject } from 'react';
-import biasesCategories from '@data/biasesCategories';
+
 import type { BiasType, QuestionType, StrapiBiasType } from '@local-types/data';
+
 import { downloadLinksEn, downloadLinksRu } from '@api/questions';
+
+import biasesCategories from '@data/biasesCategories';
 
 export function scrollToImage(src: string) {
   function getOffset(el: HTMLImageElement) {

@@ -1,40 +1,41 @@
-import React, { FC, useContext, useEffect, useRef, useState } from 'react';
+import cn from 'classnames';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import dynamic from 'next/dynamic';
+import React, { FC, useContext, useEffect, useRef, useState } from 'react';
 import { resetServerContext } from 'react-beautiful-dnd';
-import cn from 'classnames';
+
+import { TRouter } from '@local-types/global';
 
 import useMobile from '@hooks/useMobile';
 
 import { isValidEmail } from '@lib/uxcat-helpers';
 
-import { TRouter } from '@local-types/global';
-import type { UserProfileProps } from './UserProfile.types';
+import { getPersonaList } from '@api/personas';
+import { updateBackgroundImage, updateCoverImage } from '@api/strapi';
+import { sendRef } from '@api/uxcat/sendRef';
+import { getUserInfo } from '@api/uxcat/users-me';
 
-import Toasts from '@components/Toasts';
-import Dropdown from '@components/Dropdown';
-import Statistics from '@components/Statistics';
-import StartTestBtn from '@components/StartTestBtn';
-import LogInModal from '@components/_uxcp/LogInModal';
-import AccountHeader from '@components/AccountHeader';
-import CompletionBar from '@components/CompletionBar';
-import UXCatPageTitle from '@components/UXCatPageTitle';
-import SavedPersonas from '@components/_uxcp/SavedPersonas';
-import AchievementsBoard from '@components/AchievementsBoard';
-
-import uxcatData from '@data/uxcat';
 import decisionTable from '@data/decisionTable';
+import uxcatData from '@data/uxcat';
 import modalData from '@data/uxcat/imageSelectModal';
 import userProfileData from '@data/uxcat/userProfile';
 
-import { getPersonaList } from '@api/personas';
-import { getUserInfo } from '@api/uxcat/users-me';
-import { updateBackgroundImage, updateCoverImage } from '@api/strapi';
-import { sendRef } from '@api/uxcat/sendRef';
+import LogInModal from '@components/_uxcp/LogInModal';
+import SavedPersonas from '@components/_uxcp/SavedPersonas';
+import AccountHeader from '@components/AccountHeader';
+import AchievementsBoard from '@components/AchievementsBoard';
+import CompletionBar from '@components/CompletionBar';
+import { GlobalContext } from '@components/Context/GlobalContext';
+import Dropdown from '@components/Dropdown';
+import StartTestBtn from '@components/StartTestBtn';
+import Statistics from '@components/Statistics';
+import Toasts from '@components/Toasts';
+import UXCatPageTitle from '@components/UXCatPageTitle';
+
+import type { UserProfileProps } from './UserProfile.types';
 
 import styles from './UserProfile.module.scss';
-import { GlobalContext } from '@components/Context/GlobalContext';
 
 const SelectImageModal = dynamic(() => import('@components/SelectImageModal'), {
   ssr: false,

@@ -1,6 +1,8 @@
-import { FC } from 'react';
-import CalloutIcon from '@icons/CalloutIcon';
 import cn from 'classnames';
+import { FC } from 'react';
+
+import CalloutIcon from '@icons/CalloutIcon';
+
 import styles from './TabHeader.module.scss';
 
 type TabHeaderTypes = {

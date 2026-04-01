@@ -1,26 +1,27 @@
-import { FC, useContext, useEffect, useMemo, useState } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
-
-import UXCoreLayout from '@layouts/UXCoreLayout';
-
-import SeoGenerator from '@components/SeoGenerator';
-import UXCoreModalMobile from '@components/UXCoreModalMobile';
-import UXCoreModal from '@components/UXCoreModal';
-import { GlobalContext } from '@components/Context/GlobalContext';
-
-import { getAdjacentBiasTitles, mergeBiasesLocalization } from '@lib/helpers';
-import { getUXCoreTextPaths } from '@lib/paths';
-import { getRedirectMap } from '../../../lib/getUXCoreRedirects';
-
-import { getStrapiBiases } from '@api/biases';
-import { getTags } from '@api/tags';
+import { FC, useContext, useEffect, useMemo, useState } from 'react';
 
 import type { QuestionType, StrapiBiasType, TagType } from '@local-types/data';
 import { TRouter } from '@local-types/global';
 
 import useMobile from '@hooks/useMobile';
 import useUXCoreGlobals from '@hooks/useUXCoreGlobals';
+
+import { getAdjacentBiasTitles, mergeBiasesLocalization } from '@lib/helpers';
+import { getUXCoreTextPaths } from '@lib/paths';
+
+import { getStrapiBiases } from '@api/biases';
+import { getTags } from '@api/tags';
+
+import { GlobalContext } from '@components/Context/GlobalContext';
+import SeoGenerator from '@components/SeoGenerator';
+import UXCoreModal from '@components/UXCoreModal';
+import UXCoreModalMobile from '@components/UXCoreModalMobile';
+
+import UXCoreLayout from '@layouts/UXCoreLayout';
+
+import { getRedirectMap } from '../../../lib/getUXCoreRedirects';
 
 import styles from './uxcoreId.module.scss';
 
@@ -156,6 +157,7 @@ const UXCoreIds: FC<UXCoreProps> = ({
         strapiSEO={seoData}
         ogTags={OGTags.OGTags}
         localizedSlug={slugs}
+        type={'DefinedTerm'}
         createdDate={'2020-07-23'}
         modifiedDate={currentActiveBias.updatedAt}
       />

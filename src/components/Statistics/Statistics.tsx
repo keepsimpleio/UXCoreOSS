@@ -1,13 +1,13 @@
+import { useRouter } from 'next/router';
 import { FC } from 'react';
 
-import UXCatPageTitle from '@components/UXCatPageTitle';
-
-import { useRouter } from 'next/router';
 import { TRouter } from '@local-types/global';
 
 import statisticsData from '@data/statistics';
 
 import LastTestResultIcon from '@icons/LastTestResultIcon';
+
+import UXCatPageTitle from '@components/UXCatPageTitle';
 
 import styles from './Statistics.module.scss';
 

@@ -1,19 +1,20 @@
-import Link from 'next/link';
-import React, { FC, useCallback, useEffect, useState } from 'react';
-import Image from 'next/image';
-import { logout } from '@api/auth';
-import { useRouter } from 'next/router';
 import cn from 'classnames';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
-
-import LogInModal from '@components/_uxcp/LogInModal';
 
 import { TRouter } from '@local-types/global';
 
+import { logout } from '@api/auth';
+
 import decisionTable from '@data/decisionTable';
 
-import styles from './UserDropdown.module.scss';
+import LogInModal from '@components/_uxcp/LogInModal';
+
 import 'react-loading-skeleton/dist/skeleton.css';
+import styles from './UserDropdown.module.scss';
 
 type UserDropdownProps = {
   userName?: string;

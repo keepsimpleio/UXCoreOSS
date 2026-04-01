@@ -1,5 +1,6 @@
-import { FC } from 'react';
 import cn from 'classnames';
+import { FC } from 'react';
+
 import styles from './BorderedContainer.module.scss';
 
 interface contentItems {

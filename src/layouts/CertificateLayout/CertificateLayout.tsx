@@ -1,14 +1,14 @@
 import { FC, useContext, useState } from 'react';
 import { usePDF } from 'react-to-pdf';
 
-import Button from '@components/Button';
-import CertificateContainer from '@components/CertificateContainer';
-import { GlobalContext } from '@components/Context/GlobalContext';
-
 import copyButtonData from '@data/copyButton';
 import downloadButtonData from '@data/downloadButton';
 
 import CopyLinkIcon from '@icons/CopyLinkIcon';
+
+import Button from '@components/Button';
+import CertificateContainer from '@components/CertificateContainer';
+import { GlobalContext } from '@components/Context/GlobalContext';
 
 import styles from './CertificateLayout.module.scss';
 

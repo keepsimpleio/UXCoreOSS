@@ -15,7 +15,9 @@
     "test:firefox": "cypress run --browser firefox",
     "test:edge": "cypress run --browser edge",
     "test:all": "npm run test:chrome && npm run test:firefox && npm run test:edge",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "generate:llms": "tsx --tsconfig scripts/tsconfig.json scripts/generate-llms.ts",
+    "generate:llms:full": "tsx --tsconfig scripts/tsconfig.json scripts/generate-llms-full.ts"
   },
   "lint-staged": {
     "**/*.{ts,tsx}": [
@@ -34,7 +36,8 @@
     "cypress-v10-preserve-cookie": "^1.2.1",
     "date-fns": "2.30.0",
     "dotenv": "^16.4.5",
-    "geoip-lite": "1.4.2",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "fast-geoip": "^1.1.88",
     "html2canvas": "^1.4.1",
     "lodash.debounce": "4.0.8",
     "lodash.unescape": "4.0.1",
@@ -88,6 +91,7 @@
     "sass-loader": "13.1.0",
     "start-server-and-test": "^2.0.12",
     "ts-node": "^10.9.2",
+    "tsx": "^4.19.2",
     "typescript": "5.2.2"
   }
 }

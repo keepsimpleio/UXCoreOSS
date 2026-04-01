@@ -1,32 +1,31 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useRouter } from 'next/router';
-import ReactGA from 'react-ga4';
-import { SessionProvider } from 'next-auth/react';
 import dynamic from 'next/dynamic';
-import mixpanel, { initMixpanel, trackPageView } from '../../lib/mixpanel';
+import { useRouter } from 'next/router';
+import { SessionProvider } from 'next-auth/react';
+import React, { useEffect, useRef, useState } from 'react';
 
-import Layout from '@layouts/Layout';
-
-import FormPopup from '@components/FormPopup';
-import { GlobalContext } from '@components/Context/GlobalContext';
-import Box from 'src/components/Box';
-import NewUpdateModal from '@components/NewUpdateModal/NewUpdateModal';
-
+import useGlobals from '@hooks/useGlobals';
+import useMobile from '@hooks/useMobile';
 import useSpinner from '@hooks/useSpinner';
 import useUXCGGlobals from '@hooks/useUXCGGlobals';
 import useUXCoreGlobals from '@hooks/useUXCoreGlobals';
-import useMobile from '@hooks/useMobile';
-import useGlobals from '@hooks/useGlobals';
-
-import { getMyInfo, getSettings } from '@api/strapi';
-import { getStrapiBiases } from '@api/biases';
-import { getStrapiQuestions } from '@api/questions';
-import { getUserInfo } from '@api/uxcat/users-me';
-import { authenticate } from '@api/auth';
-import { getNewUpdate } from '@api/new-updates';
-import { getOurProjects } from '@api/our-projects';
 
 import { mergeQuestionsLocalization } from '@lib/helpers';
+
+import { authenticate } from '@api/auth';
+import { getStrapiBiases } from '@api/biases';
+import { getNewUpdate } from '@api/new-updates';
+import { getOurProjects } from '@api/our-projects';
+import { getStrapiQuestions } from '@api/questions';
+import { getMyInfo, getSettings } from '@api/strapi';
+import { getUserInfo } from '@api/uxcat/users-me';
+
+import { GlobalContext } from '@components/Context/GlobalContext';
+import FormPopup from '@components/FormPopup';
+import NewUpdateModal from '@components/NewUpdateModal/NewUpdateModal';
+
+import Layout from '@layouts/Layout';
+
+import Box from 'src/components/Box';
 
 import '../styles/globals.scss';
 
@@ -153,6 +152,7 @@ function App({ Component, pageProps: { session, ...pageProps } }: TApp) {
 
   useEffect(() => {
     const getData = async () => {
+      if (!session?.user) return;
       try {
         const data = await getMyInfo();
         if (data) {
@@ -166,7 +166,7 @@ function App({ Component, pageProps: { session, ...pageProps } }: TApp) {
     };
 
     getData();
-  }, []);
+  }, [session]);
 
   useEffect(() => {
     const getData = async () => {
@@ -212,8 +212,10 @@ function App({ Component, pageProps: { session, ...pageProps } }: TApp) {
 
     events.on('routeChangeComplete', url => {
       if (isIndexingOn && isProduction) {
-        ReactGA.set({ page: url });
-        ReactGA.send(url);
+        import('react-ga4').then(({ default: ReactGA }) => {
+          ReactGA.set({ page: url });
+          ReactGA.send(url);
+        });
       }
 
       clearTimeout(loadingTimer.current);
@@ -227,16 +229,18 @@ function App({ Component, pageProps: { session, ...pageProps } }: TApp) {
   }, []);
 
   useEffect(() => {
+    initUseMobile();
     initUseUXCoreGlobals();
     initUseUXCGGlobals();
     initUseMobile();
-
     if (isIndexingOn && isProduction) {
-      ReactGA.initialize(process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID);
-      setTimeout(() => {
-        ReactGA.set({ page: window.location.pathname });
-        ReactGA.send(window.location.pathname);
-      }, 0);
+      import('react-ga4').then(({ default: ReactGA }) => {
+        ReactGA.initialize(process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID);
+        setTimeout(() => {
+          ReactGA.set({ page: window.location.pathname });
+          ReactGA.send(window.location.pathname);
+        }, 0);
+      });
     }
   }, []);
 
@@ -369,37 +373,49 @@ function App({ Component, pageProps: { session, ...pageProps } }: TApp) {
   }, [router.pathname, isDarkTheme]);
 
   useEffect(() => {
-    initMixpanel();
-    trackPageView(window.location.pathname);
+    let handleRouteChange: (url: string) => void;
 
-    const handleRouteChange = (url: string) => {
-      trackPageView(url);
+    import('../../lib/mixpanel').then(({ initMixpanel, trackPageView }) => {
+      initMixpanel();
+      trackPageView(window.location.pathname);
+
+      handleRouteChange = (url: string) => {
+        trackPageView(url);
+      };
+
+      router.events.on('routeChangeComplete', handleRouteChange);
+    });
+
+    return () => {
+      if (handleRouteChange) {
+        router.events.off('routeChangeComplete', handleRouteChange);
+      }
     };
-
-    router.events.on('routeChangeComplete', handleRouteChange);
-    return () => router.events.off('routeChangeComplete', handleRouteChange);
   }, []);
 
   useEffect(() => {
     if (!accountData?.id || !accountData?.createdAt) return;
 
-    mixpanel.identify(accountData.id);
+    import('../../lib/mixpanel').then(({ default: mixpanel }) => {
+      mixpanel.identify(accountData.id);
 
-    const isNewUser = new Date(accountData.createdAt) >= new Date('2025-06-01');
+      const isNewUser =
+        new Date(accountData.createdAt) >= new Date('2025-06-01');
 
-    if (isNewUser) {
-      mixpanel.track('New User', {
-        id: accountData.id,
-        username: accountData.username,
-        createdAt: accountData.createdAt,
-      });
+      if (isNewUser) {
+        mixpanel.track('New User', {
+          id: accountData.id,
+          username: accountData.username,
+          createdAt: accountData.createdAt,
+        });
 
-      mixpanel.people.set({
-        $name: accountData.username,
-        $created: accountData.createdAt,
-        id: accountData.id,
-      });
-    }
+        mixpanel.people.set({
+          $name: accountData.username,
+          $created: accountData.createdAt,
+          id: accountData.id,
+        });
+      }
+    });
   }, [accountData?.id, accountData?.createdAt]);
 
   return (

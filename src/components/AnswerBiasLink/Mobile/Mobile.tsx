@@ -1,4 +1,5 @@
 import { FC, Fragment, useCallback, useState } from 'react';
+
 import MobileBiasModal from './MobileBiasModal';
 
 interface MobileProps {

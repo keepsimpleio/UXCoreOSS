@@ -1,3 +1,5 @@
+import cn from 'classnames';
+import { useRouter } from 'next/router';
 import {
   FC,
   KeyboardEvent,
@@ -6,24 +8,22 @@ import {
   useRef,
   useState,
 } from 'react';
-import { useRouter } from 'next/router';
-import cn from 'classnames';
 
-import type { TRouter } from '@local-types/global';
 import type { QuestionType, TagType } from '@local-types/data';
+import type { TRouter } from '@local-types/global';
 
 import { copyToClipboard, generateSocialLinks } from '@lib/helpers';
-
-import Table from '@components/Table';
-import ModalRaiting from '@components/ModalRaiting';
-import ContentParser from '@components/ContentParser';
-import UXCoreModalHeader from '@components/UXCoreModalParts/UXCoreModalHeader';
-import Spinner from '@components/Spinner';
 
 import modalIntl from '@data/modal';
 
 import HrIcon from '@icons/HrIcon';
 import ProductIcon from '@icons/ProductIcon';
+
+import ContentParser from '@components/ContentParser';
+import ModalRaiting from '@components/ModalRaiting';
+import Spinner from '@components/Spinner';
+import Table from '@components/Table';
+import UXCoreModalHeader from '@components/UXCoreModalParts/UXCoreModalHeader';
 
 import styles from './UXCoreModal.module.scss';
 

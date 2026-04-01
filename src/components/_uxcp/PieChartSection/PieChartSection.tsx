@@ -1,19 +1,19 @@
-import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
+import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { PieChart } from 'react-minimal-pie-chart';
 
-import Section from '@components/Section';
-import PieTooltip from '@components/_uxcp/PieChartSection/PieTooltip';
-import PieLegend from '@components/_uxcp/PieChartSection/PieLegend';
+import type { TagType } from '@local-types/data';
+import type { TRouter } from '@local-types/global';
 
 import useMobile from '@hooks/useMobile';
 
 import { calculatePercentage } from '@lib/uxcp-helpers';
 
-import type { TRouter } from '@local-types/global';
-import type { TagType } from '@local-types/data';
-
 import uxcpLocalization from '@data/uxcp';
+
+import PieLegend from '@components/_uxcp/PieChartSection/PieLegend';
+import PieTooltip from '@components/_uxcp/PieChartSection/PieTooltip';
+import Section from '@components/Section';
 
 import styles from './PieChartSection.module.scss';
 

@@ -1,8 +1,8 @@
-import { FC, useEffect, useRef, useState } from 'react';
 import cn from 'classnames';
+import { FC, useEffect, useRef, useState } from 'react';
 
-import CopyIcon from '@icons/CopyIcon';
 import Checkmark from '@icons/Checkmark';
+import CopyIcon from '@icons/CopyIcon';
 
 import styles from './CodeSnippet.module.scss';
 

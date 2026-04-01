@@ -1,17 +1,17 @@
-import { FC, useContext, useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import cn from 'classnames';
-
-import Modal from '@components/Modal';
-import ContentParser from '@components/ContentParser';
-import { GlobalContext } from '@components/Context/GlobalContext';
-
-import questionAnalyseData from '@data/uxcat/questionAnalyse';
-
-import { mergeBiasesLocalization } from '@lib/helpers';
+import { useRouter } from 'next/router';
+import { FC, useContext, useEffect, useState } from 'react';
 
 import { StrapiBiasType } from '@local-types/data';
 import { TRouter } from '@local-types/global';
+
+import { mergeBiasesLocalization } from '@lib/helpers';
+
+import questionAnalyseData from '@data/uxcat/questionAnalyse';
+
+import ContentParser from '@components/ContentParser';
+import { GlobalContext } from '@components/Context/GlobalContext';
+import Modal from '@components/Modal';
 
 import styles from './QuestionAnalyse.module.scss';
 

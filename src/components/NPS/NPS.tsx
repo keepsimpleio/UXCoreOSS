@@ -1,13 +1,13 @@
-import { FC, useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import Image from 'next/image';
 import cn from 'classnames';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { FC, useEffect, useState } from 'react';
+
+import type { TRouter } from '@local-types/global';
 
 import useMobile from '@hooks/useMobile';
 
 import Button from '@components/Button';
-
-import type { TRouter } from '@local-types/global';
 
 import styles from './NPS.module.scss';
 

@@ -1,19 +1,19 @@
-import { FC, useCallback, useEffect, useState, useRef } from 'react';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
-
 import cn from 'classnames';
 import Cookies from 'js-cookie';
-
-import CopyIcon from '@icons/CopyIcon';
-import Checkmark from '@icons/Checkmark';
-
-import { generateSocialLinks, copyToClipboard } from '@lib/helpers';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { FC, useCallback, useEffect, useRef, useState } from 'react';
 
 import type { TRouter } from '@local-types/global';
 
-import styles from './UXCorePleaseShareModal.module.scss';
+import { copyToClipboard, generateSocialLinks } from '@lib/helpers';
+
 import sharePopupData from '@data/sharePopupData';
+
+import Checkmark from '@icons/Checkmark';
+import CopyIcon from '@icons/CopyIcon';
+
+import styles from './UXCorePleaseShareModal.module.scss';
 
 type UXCorePleaseShareModal = {
   open: boolean;

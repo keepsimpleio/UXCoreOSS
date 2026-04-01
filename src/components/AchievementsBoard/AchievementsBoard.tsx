@@ -1,15 +1,15 @@
 import { FC } from 'react';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 
 import useMobile from '@hooks/useMobile';
 
+import Achievements from '@components/Achievements';
+
 import {
   AchievementsBoardProps,
-  providedProps,
   providedChildProps,
+  providedProps,
 } from './AchievementBoard.types';
-
-import Achievements from '@components/Achievements';
 
 import styles from '../../pages/user/[userId]/userId.module.scss';
 

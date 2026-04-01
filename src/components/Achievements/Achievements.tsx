@@ -1,8 +1,8 @@
-import { FC } from 'react';
+import cn from 'classnames';
 import { useRouter } from 'next/router';
+import { FC } from 'react';
 import { DraggableProvidedDragHandleProps } from 'react-beautiful-dnd';
 import Skeleton from 'react-loading-skeleton';
-import cn from 'classnames';
 
 import { TRouter } from '@local-types/global';
 import { AchievementsTypes } from '@local-types/uxcat-types/types';

@@ -1,16 +1,16 @@
-import { FC } from 'react';
-import { useRouter } from 'next/router';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { FC } from 'react';
 import Confetti from 'react-confetti';
 
-import Modal from '@components/Modal';
-import Button from '@components/Button';
-
-import congratulationsModal from '@data/uxcat/congratulationsModal';
+import { TRouter } from '@local-types/global';
 
 import useMobile from '@hooks/useMobile';
 
-import { TRouter } from '@local-types/global';
+import congratulationsModal from '@data/uxcat/congratulationsModal';
+
+import Button from '@components/Button';
+import Modal from '@components/Modal';
 
 import styles from './CongratsModal.module.scss';
 

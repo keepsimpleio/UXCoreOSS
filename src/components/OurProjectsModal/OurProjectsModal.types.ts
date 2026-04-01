@@ -5,6 +5,7 @@ export type OurProjectsModalProps = {
     name: string;
     link: string;
     description: string;
+    inDevelopment?: boolean;
     image: {
       data: {
         attributes: {

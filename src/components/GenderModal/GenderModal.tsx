@@ -1,14 +1,14 @@
-import { FC, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { FC, useEffect, useState } from 'react';
 
-import Modal from '@components/Modal';
-import Button from '@components/Button';
+import { TRouter } from '@local-types/global';
 
 import { userInfoUpdate } from '@api/uxcat/settings';
 
 import genderModalData from '@data/genderModalData';
 
-import { TRouter } from '@local-types/global';
+import Button from '@components/Button';
+import Modal from '@components/Modal';
 
 import styles from './GenderModal.module.scss';
 

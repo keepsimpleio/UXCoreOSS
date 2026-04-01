@@ -1,6 +1,6 @@
-import type { FC } from 'react';
-import { useRouter } from 'next/router';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
+import type { FC } from 'react';
 
 import type { TRouter } from '@local-types/global';
 

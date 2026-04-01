@@ -1,31 +1,31 @@
-import { FC, useContext, useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
+import cn from 'classnames';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { FC, useContext, useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import { Tooltip as ReactTooltip } from 'react-tooltip';
-import cn from 'classnames';
-
-import { GlobalContext } from '@components/Context/GlobalContext';
-import Button from '@components/Button';
-import ContentParser from '@components/ContentParser';
-import Toasts from '@components/Toasts';
-import OngoingHeader from '@components/OngoingHeader';
-import OngoingAnswerLines from '@components/OngoingAnswerLines';
 
 import { StrapiBiasType } from '@local-types/data';
 import { TRouter } from '@local-types/global';
 
-import ongoingTestData from '@data/uxcat/ongoingTest';
-
 import { mergeBiasesLocalization } from '@lib/helpers';
 
-import { getUXCatSubmitTest } from '@api/uxcat/submit-test';
 import { getAchievement } from '@api/uxcat/get-achievement';
+import { getUXCatSubmitTest } from '@api/uxcat/submit-test';
+
+import ongoingTestData from '@data/uxcat/ongoingTest';
 
 import ArrowRight from '@icons/ArrowRight';
 
-import styles from './OngoingLayout.module.scss';
+import Button from '@components/Button';
+import ContentParser from '@components/ContentParser';
+import { GlobalContext } from '@components/Context/GlobalContext';
+import OngoingAnswerLines from '@components/OngoingAnswerLines';
+import OngoingHeader from '@components/OngoingHeader';
+import Toasts from '@components/Toasts';
+
 import 'react-loading-skeleton/dist/skeleton.css';
+import styles from './OngoingLayout.module.scss';
 
 type OngoingProps = {
   startTest?: {

@@ -11,10 +11,6 @@ Disallow: /hy/uxcgstory/
 Disallow: /hy/uxcgdiy/
 Disallow: /hy/uiux/
 Disallow: /hy/awareness-test/
-Disallow: /hy/table-of-contents/
-Disallow: /hy/why-study-management/
-Disallow: /hy/what-is-a-project/
-Disallow: /hy/project-artifacts-and-their-importance/
 Disallow: /hy/project-management-environment/
 Disallow: /hy/philosophies-methodologies-and-frameworks/
 Disallow: /hy/software-development-life-cycles/

@@ -1,25 +1,25 @@
-import React, { FC, useMemo, useState } from 'react';
 import { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
+import React, { FC, useMemo, useState } from 'react';
 
+import { QuestionType, TagType } from '@local-types/data';
 import { TRouter } from '@local-types/global';
 
-import { getTags } from '@api/tags';
-import { getStrapiQuestions } from '@api/questions';
-import { getStrapiBiases } from '@api/biases';
 import {
   generateQuestionsSeo,
   mergeBiasesLocalization,
   mergeQuestionsLocalization,
 } from '@lib/helpers';
-import { getUXCGSeo } from '@api/mainPageSeo';
 
-import UXCGLayout from '@layouts/UXCGLayout';
+import { getStrapiBiases } from '@api/biases';
+import { getUXCGSeo } from '@api/mainPageSeo';
+import { getStrapiQuestions } from '@api/questions';
+import { getTags } from '@api/tags';
 
 import SeoGenerator from '@components/SeoGenerator';
 import Spinner from '@components/Spinner';
 
-import { QuestionType, TagType } from '@local-types/data';
+import UXCGLayout from '@layouts/UXCGLayout';
 
 interface UxcgProps {
   tags: TagType[];
@@ -51,6 +51,7 @@ const Index: FC<UxcgProps> = ({
         questionsSeo={questionsSeo}
         strapiSEO={seoData}
         ogTags={seoData.OGTags}
+        type={'CollectionPage'}
         createdDate={'2021-07-16'}
         modifiedDate={seoData?.updatedAt}
       />
