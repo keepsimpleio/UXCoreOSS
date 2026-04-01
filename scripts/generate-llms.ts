@@ -1,25 +1,18 @@
-import * as dotenv from 'dotenv';
 import * as fs from 'fs';
-import * as http from 'http';
-import * as https from 'https';
 import * as path from 'path';
 
 import { getLlmsMeta } from '../src/api/llmsMeta';
+import {
+  absoluteRoute,
+  OutputPage,
+  pickSeoDescription,
+  STRAPI_BASE,
+  strapiGet,
+  stripHtml,
+} from './generate-llms-shared';
 
-dotenv.config({ path: path.join(process.cwd(), '.env'), override: true });
-dotenv.config({ path: path.join(process.cwd(), '.env.local'), override: true });
-
-const STRAPI_BASE =
-  process.env.STRAPI_URL || process.env.NEXT_PUBLIC_STRAPI || '';
-const STRAPI_TOKEN = process.env.STRAPI_API_TOKEN || '';
-const SITE_BASE_URL = (process.env.NEXT_PUBLIC_DOMAIN || '').replace(/\/$/, '');
 const OUTPUT_FILENAME = process.env.LLMS_OUTPUT_FILE || 'uxcore_/llms.txt';
 const DYNAMIC_SLUG_LIMIT = Number(process.env.LLMS_DYNAMIC_LIMIT || '10') || 10;
-const WRITE_SLUG_MD_FILES = process.env.LLMS_WRITE_SLUG_MDS === 'true';
-const SLUG_MD_DIRNAME =
-  process.env.LLMS_SLUG_MD_DIR ||
-  OUTPUT_FILENAME.replace(/\.txt$/i, '').replace(/[^a-zA-Z0-9-_]/g, '');
-process.env.NEXT_PUBLIC_STRAPI = process.env.NEXT_PUBLIC_STRAPI || STRAPI_BASE;
 
 if (!STRAPI_BASE) {
   console.error('[error] STRAPI_URL or NEXT_PUBLIC_STRAPI must be set in .env');
@@ -28,65 +21,6 @@ if (!STRAPI_BASE) {
 
 const PAGES_DIR = path.join(process.cwd(), 'src', 'pages');
 const OUTPUT_FILE = path.join(process.cwd(), 'public', OUTPUT_FILENAME);
-
-// ─────────────────────────────────────────────
-// Helpers
-// ─────────────────────────────────────────────
-
-function stripHtml(html: string): string {
-  return html
-    .replace(/<[^>]*>/g, '')
-    .replace(/&nbsp;/g, ' ')
-    .replace(/&amp;/g, '&')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&quot;/g, '"')
-    .replace(/\s+/g, ' ')
-    .trim();
-}
-
-function strapiHeaders(): Record<string, string> {
-  return STRAPI_TOKEN ? { Authorization: `Bearer ${STRAPI_TOKEN}` } : {};
-}
-
-function getJson(
-  url: string,
-  headers: Record<string, string> = {},
-): Promise<any> {
-  return new Promise((resolve, reject) => {
-    const client = url.startsWith('https://') ? https : http;
-    const req = client.request(url, { method: 'GET', headers }, res => {
-      const status = res.statusCode ?? 0;
-      let raw = '';
-      res.setEncoding('utf8');
-      res.on('data', chunk => {
-        raw += chunk;
-      });
-      res.on('end', () => {
-        if (status < 200 || status >= 300) {
-          reject(new Error(`HTTP ${status} for ${url}`));
-          return;
-        }
-        try {
-          resolve(JSON.parse(raw));
-        } catch (err) {
-          reject(
-            new Error(
-              `Invalid JSON for ${url}: ${(err as Error).message || 'unknown error'}`,
-            ),
-          );
-        }
-      });
-    });
-    req.on('error', reject);
-    req.end();
-  });
-}
-
-async function strapiGet(endpoint: string): Promise<any> {
-  const url = `${STRAPI_BASE}/api/${endpoint}`;
-  return getJson(url, strapiHeaders());
-}
 
 // ─────────────────────────────────────────────
 // Step 1 — Site meta from /api/llms-meta
@@ -130,13 +64,6 @@ interface PageEntry {
   route: string;
   name: string;
   isDynamic: boolean;
-}
-
-interface OutputPage {
-  route: string;
-  name: string;
-  seoDescription: string | null;
-  slugSection?: 'uxcore' | 'uxcg';
 }
 
 /** Convert a path relative to src/pages into a URL route. */
@@ -249,15 +176,6 @@ async function fetchPageSeoDescription(route: string): Promise<string | null> {
   }
 }
 
-function pickSeoDescription(attrs: any): string | null {
-  const raw =
-    attrs?.seoDescription ??
-    attrs?.OGTags?.ogDescription ??
-    attrs?.ogDescription ??
-    null;
-  return raw ? stripHtml(String(raw)) : null;
-}
-
 async function fetchTopUxcoreSlugPages(limit = 10): Promise<OutputPage[]> {
   try {
     const data = await strapiGet(
@@ -324,42 +242,6 @@ async function fetchUxcatSeoDescription(): Promise<string | null> {
       `[seo]  skipping /uxcat description — fetch failed: ${(err as Error).message}`,
     );
     return null;
-  }
-}
-
-function absoluteRoute(route: string): string {
-  if (!SITE_BASE_URL) return route;
-  if (route === '/') return SITE_BASE_URL;
-  return `${SITE_BASE_URL}${route}`;
-}
-
-function routeSlug(route: string): string | null {
-  const normalized = route.replace(/\/+$/, '');
-  const parts = normalized.split('/');
-  return parts[parts.length - 1] || null;
-}
-
-function writeSlugMarkdownFiles(pages: OutputPage[]): void {
-  if (!WRITE_SLUG_MD_FILES) return;
-
-  const baseDir = path.join(process.cwd(), 'public', SLUG_MD_DIRNAME);
-  for (const page of pages) {
-    if (!page.slugSection) continue;
-    const slug = routeSlug(page.route);
-    if (!slug) continue;
-
-    const sectionDir = path.join(baseDir, page.slugSection);
-    fs.mkdirSync(sectionDir, { recursive: true });
-
-    const content = [
-      `# ${page.name}`,
-      '',
-      `- URL: ${absoluteRoute(page.route)}`,
-      `- Description: ${page.seoDescription ?? ''}`,
-      '',
-    ].join('\n');
-
-    fs.writeFileSync(path.join(sectionDir, `${slug}.md`), content, 'utf-8');
   }
 }
 
@@ -491,7 +373,6 @@ async function main(): Promise<void> {
 
   fs.mkdirSync(path.dirname(OUTPUT_FILE), { recursive: true });
   fs.writeFileSync(OUTPUT_FILE, content, 'utf-8');
-  writeSlugMarkdownFiles(pages);
 
   console.log(
     `\nSuccessfully mapped ${pages.length} routes to /public/${OUTPUT_FILENAME}`,

@@ -16,8 +16,9 @@
     "test:edge": "cypress run --browser edge",
     "test:all": "npm run test:chrome && npm run test:firefox && npm run test:edge",
     "prepare": "husky install",
-    "generate:llms": "tsx --tsconfig scripts/tsconfig.json scripts/generate-llms.ts",
-    "generate:llms:full": "tsx --tsconfig scripts/tsconfig.json scripts/generate-llms-full.ts"
+    "generate:llms": "cross-env LLMS_MODE=curated ts-node --compiler-options '{\"module\":\"commonjs\",\"target\":\"es2020\"}' scripts/generate-llms.ts",
+    "generate:llms:full": "ts-node --compiler-options '{\"module\":\"commonjs\",\"target\":\"es2020\"}' scripts/generate-llms-full.ts",
+    "generate:llms:pages": "ts-node --compiler-options '{\"module\":\"commonjs\",\"target\":\"es2020\"}' scripts/generate-llms-pages.ts"
   },
   "lint-staged": {
     "**/*.{ts,tsx}": [
