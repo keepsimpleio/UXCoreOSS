@@ -1,14 +1,15 @@
-import { FC } from 'react';
 import cn from 'classnames';
-
-import ContentParser from '@components/ContentParser';
-import biasPopupIntl from '@data/biasPopup';
+import Link from 'next/link';
+import { FC } from 'react';
 
 import useMobile from '@hooks/useMobile';
 
-import styles from './BiasPopupContent.module.scss';
+import biasPopupIntl from '@data/biasPopup';
+
+import ContentParser from '@components/ContentParser';
+
 import UxCoreStyle from '../../UXCoreModal/UXCoreModal.module.scss';
-import Link from 'next/link';
+import styles from './BiasPopupContent.module.scss';
 
 interface BiasPopupContentProps {
   title?: string;

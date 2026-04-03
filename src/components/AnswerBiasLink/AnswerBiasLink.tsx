@@ -1,9 +1,11 @@
 import type { FC } from 'react';
+
 import type { StrapiBiasType } from '@local-types/data';
+
+import useMobile from '@hooks/useMobile';
 
 import Desktop from './Desktop';
 import Mobile from './Mobile';
-import useMobile from '@hooks/useMobile';
 
 interface AnswerBiasLinkProps {
   locale: 'en' | 'ru' | 'hy';

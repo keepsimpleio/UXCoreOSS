@@ -39,6 +39,7 @@ The test is free, as everything around here, always.`,
   rank: 'Rank',
   unlockAt: 'Unlock at level 2',
   nextUpdateIn: 'Next update in',
+  certificate: 'Completion Certificate',
 };
 
 export default hy;

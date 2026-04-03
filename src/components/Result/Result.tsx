@@ -1,15 +1,15 @@
-import { FC, useState } from 'react';
-import { useRouter } from 'next/router';
-import dynamic from 'next/dynamic';
 import cn from 'classnames';
+import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
+import { FC, useState } from 'react';
 
 import type { TRouter } from '@local-types/global';
 
 import { getBiasNumber } from '@lib/uxcat-helpers';
 
-import Tooltip from '@components/Tooltip';
-
 import BobIcon from '@icons/BobIcon';
+
+import Tooltip from '@components/Tooltip';
 
 import styles from './Result.module.scss';
 

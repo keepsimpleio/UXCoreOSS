@@ -1,12 +1,12 @@
-import { FC } from 'react';
-import { useRouter } from 'next/router';
 import cn from 'classnames';
+import { useRouter } from 'next/router';
+import { FC } from 'react';
 
-import Button from '@components/Button';
+import { TRouter } from '@local-types/global';
 
 import cookieData from '@data/cookies';
 
-import { TRouter } from '@local-types/global';
+import Button from '@components/Button';
 
 import styles from './Box.module.scss';
 

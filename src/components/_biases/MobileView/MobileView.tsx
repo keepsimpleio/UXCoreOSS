@@ -1,3 +1,7 @@
+import cn from 'classnames';
+import dynamic from 'next/dynamic';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
 import React, {
   FC,
   Fragment,
@@ -8,38 +12,34 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import dynamic from 'next/dynamic';
 
-import { useRouter } from 'next/router';
-import cn from 'classnames';
-import Image from 'next/image';
-
-import type { TRouter } from '@local-types/global';
 import type { StrapiBiasType } from '@local-types/data';
+import type { TRouter } from '@local-types/global';
 import { UserTypes } from '@local-types/uxcat-types/types';
-
-import { groupFilteredData } from '@lib/helpers';
-
-import toolHeaderData from '@data/toolHeader';
-import biasesMetadata from '@data/biases';
-import biasesCategories from '@data/biasesCategories';
 
 import useBiasSearch from '@hooks/useBiasSearch';
 
-import PageSwitcher from '@components/PageSwitcher';
+import { groupFilteredData } from '@lib/helpers';
+
+import biasesMetadata from '@data/biases';
+import biasesCategories from '@data/biasesCategories';
+import toolHeaderData from '@data/toolHeader';
+
+import DiamondIcon from '@icons/DiamondIcon';
+import { HRIconBlue } from '@icons/HRIconBlue';
+import { HRIconGrey } from '@icons/HRIconGrey';
+import { PMIcon } from '@icons/PMIcon';
+import { PMIconGrey } from '@icons/PMIconGrey';
+
 import MobileHeader from '@components/_biases/MobileHeader';
-import Search from '../Search';
+import { GlobalContext } from '@components/Context/GlobalContext';
 import Logos from '@components/Logos';
 import OurProjectsModal from '@components/OurProjectsModal';
+import PageSwitcher from '@components/PageSwitcher';
 
-import { PMIconGrey } from '@icons/PMIconGrey';
-import { HRIconGrey } from '@icons/HRIconGrey';
-import { HRIconBlue } from '@icons/HRIconBlue';
-import DiamondIcon from '@icons/DiamondIcon';
-import { PMIcon } from '@icons/PMIcon';
+import Search from '../Search';
 
 import styles from './MobileView.module.scss';
-import { GlobalContext } from '@components/Context/GlobalContext';
 
 const ViewSwitcher = dynamic(() => import('@components/_biases/ViewSwitcher'), {
   ssr: false,

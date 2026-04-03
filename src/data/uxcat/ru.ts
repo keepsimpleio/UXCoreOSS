@@ -42,6 +42,7 @@ const ru = {
   rank: 'Ранг',
   unlockAt: 'Разблокируется на 2 уровне',
   nextUpdateIn: 'Следующее обновление через',
+  certificate: 'Сертификат прохождения',
 };
 
 export default ru;

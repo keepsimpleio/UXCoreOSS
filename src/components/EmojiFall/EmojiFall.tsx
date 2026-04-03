@@ -1,6 +1,7 @@
-import { FC } from 'react';
-import styles from './EmojiFall.module.scss';
 import cn from 'classnames';
+import { FC } from 'react';
+
+import styles from './EmojiFall.module.scss';
 
 type SnowfallProps = {
   style?: React.CSSProperties;

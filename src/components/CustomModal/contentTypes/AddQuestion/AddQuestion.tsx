@@ -1,19 +1,24 @@
-import { FC, useState, useCallback } from 'react';
 import { useRouter } from 'next/router';
+import { FC, useCallback, useState } from 'react';
 
-import Input from '@components/Input';
-import Textarea from '@components/Textarea';
-import Button from '@components/Button';
-import Tag from '@components/Tag';
-import { validateEmail } from '@lib/helpers';
+import type { TagType } from '@local-types/data';
 import type { TRouter } from '@local-types/global';
-import addQuestionData from '@data/addQuestion';
-import { addQuestionRequest } from '@api/addQuestion';
-import useSpinner from '@hooks/useSpinner';
+
 import useFormPopup from '@hooks/useFormPopup';
+import useSpinner from '@hooks/useSpinner';
+
+import { validateEmail } from '@lib/helpers';
+
+import { addQuestionRequest } from '@api/addQuestion';
+
+import addQuestionData from '@data/addQuestion';
+
+import Button from '@components/Button';
+import Input from '@components/Input';
+import Tag from '@components/Tag';
+import Textarea from '@components/Textarea';
 
 import styles from './AddQuestion.module.scss';
-import type { TagType } from '@local-types/data';
 
 type TAddQuestion = {
   closeModal?: () => void;

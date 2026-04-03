@@ -1,20 +1,20 @@
-import { useCallback, useEffect, useRef, useState, memo, useMemo } from 'react';
-import { useRouter } from 'next/router';
+import cn from 'classnames';
 import debounce from 'lodash.debounce';
+import { useRouter } from 'next/router';
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import Search from './Search';
 import { StrapiBiasType } from '@local-types/data';
-
-import FolderItem from '@components/_biases/FolderItem';
-import ContentGenerator from '@components/ContentGenerator';
+import { TRouter } from '@local-types/global';
 
 import biasesCategoriesIntl from '@data/biasesCategories';
 import biasesFolderViewIntl from '@data/biasesFolderView';
 
-import { TRouter } from '@local-types/global';
+import FolderItem from '@components/_biases/FolderItem';
+import ContentGenerator from '@components/ContentGenerator';
+
+import Search from './Search';
 
 import styles from './FolderViewLayout.module.scss';
-import cn from 'classnames';
 
 const categoryColorClassNames = [
   '',

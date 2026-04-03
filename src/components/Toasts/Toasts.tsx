@@ -1,15 +1,15 @@
+import { useRouter } from 'next/router';
 import { FC } from 'react';
 import React, { useEffect, useState } from 'react';
 import { Slide, toast, ToastContainer } from 'react-toastify';
-import { useRouter } from 'next/router';
 
 import { TRouter } from '@local-types/global';
-
-import BadgeBox from '@components/BadgeBox';
 
 import { SendNotification } from '@api/uxcat/notification';
 
 import testResult from '@data/uxcat/testResult';
+
+import BadgeBox from '@components/BadgeBox';
 
 import 'react-toastify/dist/ReactToastify.css';
 

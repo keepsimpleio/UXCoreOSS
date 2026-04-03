@@ -1,18 +1,18 @@
-import { FC, SetStateAction, useCallback, useMemo } from 'react';
-import { useRouter } from 'next/router';
 // import Link from '@components/NextLink';
 import cn from 'classnames';
-
-import Tooltip from '@components/Tooltip';
-import BiasPopupContent from '@components/AnswerBiasLink/BiasPopupContent';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { FC, SetStateAction, useCallback, useMemo } from 'react';
 
 import type { StrapiBiasType } from '@local-types/data';
 import type { TRouter } from '@local-types/global';
 
 import uxcpLocalization from '@data/uxcp';
 
+import BiasPopupContent from '@components/AnswerBiasLink/BiasPopupContent';
+import Tooltip from '@components/Tooltip';
+
 import styles from './BiasActionCell.module.scss';
-import Link from 'next/link';
 
 type TBiasActionCell = {
   bias: StrapiBiasType;

@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 
+import uxcoreApi from '@data/uxcoreApi/uxcoreapi';
+
 import BorderedContainer from '@components/BorderedContainer';
 import CodeSnippet from '@components/CodeSnippet';
 import ToolFooter from '@components/ToolFooter';
-
-import uxcoreApi from '@data/uxcoreApi/uxcoreapi';
 
 import styles from './ApiLayout.module.scss';
 

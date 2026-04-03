@@ -1,11 +1,15 @@
-import React, { FC } from 'react';
-import Modal from '@components/Modal';
-import styles from './PersonaExistsModal.module.scss';
-import Button from '@components/Button';
-import { useRouter } from 'next/router';
-import { TRouter } from '@local-types/global';
-import personaModals from '@data/personaModals';
 import cn from 'classnames';
+import { useRouter } from 'next/router';
+import React, { FC } from 'react';
+
+import { TRouter } from '@local-types/global';
+
+import personaModals from '@data/personaModals';
+
+import Button from '@components/Button';
+import Modal from '@components/Modal';
+
+import styles from './PersonaExistsModal.module.scss';
 
 interface PersonaExistsModalProps {
   setPersonaExistWarning: (value: boolean) => void;

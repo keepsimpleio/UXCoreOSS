@@ -1,17 +1,18 @@
-import { FC, useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import cn from 'classnames';
+import { useRouter } from 'next/router';
+import { FC, useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
 
-import Modal from '@components/Modal';
-import ModalBody from '@components/Timer/ModalBody';
+import type { TRouter } from '@local-types/global';
 
 import useMobile from '@hooks/useMobile';
 
+import { getForceStop } from '@api/uxcat/force-stop';
+
 import timerData from '@data/uxcat/timeIsUp';
 
-import type { TRouter } from '@local-types/global';
-import { getForceStop } from '@api/uxcat/force-stop';
+import Modal from '@components/Modal';
+import ModalBody from '@components/Timer/ModalBody';
 
 import styles from './Timer.module.scss';
 

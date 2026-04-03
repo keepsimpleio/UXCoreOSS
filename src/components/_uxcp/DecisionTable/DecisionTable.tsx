@@ -1,3 +1,7 @@
+import cn from 'classnames';
+import html2canvas from 'html2canvas';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
 import React, {
   FC,
   Fragment,
@@ -7,36 +11,33 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
-import html2canvas from 'html2canvas';
 
-import Pagination from '@components/_uxcp/Pagination';
-import Button from '@components/Button';
-import TabHeader from '@components/_uxcp/TabHeader/TabHeader';
-import DecisionTableModal from '@components/_uxcp/DecisionTableModal/DecisionTableModal';
-import Tooltip from '@components/Tooltip';
-import { GlobalContext } from '@components/Context/GlobalContext';
-import LogInModal from '@components/_uxcp/LogInModal';
-import Modal from '@components/Modal';
-import Table from '@components/_uxcp/Table/Table';
-import ContentParser from '@components/ContentParser';
-
-import FullScreenIcon from '@icons/FullScreenIcon';
-import ExportIcon from '@icons/ExportIcon';
-import InfoIcon from '@icons/InfoIcon';
-import PictureIcon from '@icons/PictureIcon';
-import Checkmark from '@icons/Checkmark';
 import { TRouter } from '@local-types/global';
-import PersonaListIsFullModal from '@components/_uxcp/PersonaListIsFullModal';
+
+import useMobile from '@hooks/useMobile';
 
 import decisionTable from '@data/decisionTable';
 import placeholderText from '@data/decisionTable/placeholder';
 
-import useMobile from '@hooks/useMobile';
+import Checkmark from '@icons/Checkmark';
+import ExportIcon from '@icons/ExportIcon';
+import FullScreenIcon from '@icons/FullScreenIcon';
+import InfoIcon from '@icons/InfoIcon';
+import PictureIcon from '@icons/PictureIcon';
+
+import DecisionTableModal from '@components/_uxcp/DecisionTableModal/DecisionTableModal';
+import LogInModal from '@components/_uxcp/LogInModal';
+import Pagination from '@components/_uxcp/Pagination';
+import PersonaListIsFullModal from '@components/_uxcp/PersonaListIsFullModal';
+import TabHeader from '@components/_uxcp/TabHeader/TabHeader';
+import Table from '@components/_uxcp/Table/Table';
+import Button from '@components/Button';
+import ContentParser from '@components/ContentParser';
+import { GlobalContext } from '@components/Context/GlobalContext';
+import Modal from '@components/Modal';
+import Tooltip from '@components/Tooltip';
 
 import styles from './DecisionTable.module.scss';
-import cn from 'classnames';
 
 type LoadFromLocalFunction = (key: string) => string | null;
 

@@ -1,15 +1,15 @@
-import { FC, useCallback, useEffect, useMemo } from 'react';
 import cn from 'classnames';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
-
-import Tooltip from '@components/Tooltip';
-import BiasPopupContent from '@components/AnswerBiasLink/BiasPopupContent';
+import { useRouter } from 'next/router';
+import { FC, useCallback, useEffect, useMemo } from 'react';
 
 import type { StrapiBiasType } from '@local-types/data';
 import type { TRouter } from '@local-types/global';
 
 import uxcpLocalization from '@data/uxcp';
+
+import BiasPopupContent from '@components/AnswerBiasLink/BiasPopupContent';
+import Tooltip from '@components/Tooltip';
 
 import styles from './BiasItem.module.scss';
 

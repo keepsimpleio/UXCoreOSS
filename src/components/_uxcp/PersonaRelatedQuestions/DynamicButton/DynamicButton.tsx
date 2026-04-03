@@ -1,9 +1,10 @@
-import { FC } from 'react';
 import cn from 'classnames';
 import { useRouter } from 'next/router';
+import { FC } from 'react';
 
-import type { TRouter } from '@local-types/global';
 import type { TagType } from '@local-types/data';
+import type { TRouter } from '@local-types/global';
+
 import uxcpLocalization from '@data/uxcp';
 
 import styles from './DynamicButton.module.scss';

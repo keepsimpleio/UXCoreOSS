@@ -1,6 +1,6 @@
-import { memo, useCallback } from 'react';
 import cn from 'classnames';
 import { useRouter } from 'next/router';
+import { memo, useCallback } from 'react';
 
 import { TRouter } from '@local-types/global';
 

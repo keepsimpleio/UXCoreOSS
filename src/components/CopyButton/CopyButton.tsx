@@ -1,10 +1,13 @@
-import { FC, useCallback, useState, useRef } from 'react';
 import cn from 'classnames';
 import { useRouter } from 'next/router';
+import { FC, useCallback, useRef, useState } from 'react';
+
+import type { TRouter } from '@local-types/global';
 
 import { copyToClipboard } from '@lib/helpers';
-import type { TRouter } from '@local-types/global';
+
 import copyButtonData from '@data/copyButton';
+
 import styles from './CopyButton.module.scss';
 
 type TCopyButton = {

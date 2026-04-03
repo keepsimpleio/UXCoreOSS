@@ -1,12 +1,12 @@
-import { FC, useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
+import { FC, useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
+
+import type { TRouter } from '@local-types/global';
 
 import Button from '@components/Button';
 import UXCatPageTitle from '@components/UXCatPageTitle';
-
-import type { TRouter } from '@local-types/global';
 
 import styles from './AchievementContainer.module.scss';
 

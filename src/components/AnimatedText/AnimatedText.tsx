@@ -1,4 +1,5 @@
 import React, { FC, useEffect } from 'react';
+
 import styles from './AnimatedText.module.scss';
 
 type AnimatedTextProps = {

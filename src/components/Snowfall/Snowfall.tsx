@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+
 import styles from './Snowfall.module.scss';
 
 type SnowfallProps = {

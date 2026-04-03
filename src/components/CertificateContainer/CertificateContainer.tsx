@@ -1,7 +1,7 @@
+import Image from 'next/image';
 import { FC } from 'react';
 
 import styles from './CertificateContainer.module.scss';
-import Image from 'next/image';
 
 export type CertificateProps = {
   name: string;

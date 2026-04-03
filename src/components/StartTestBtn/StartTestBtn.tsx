@@ -1,11 +1,11 @@
-import { FC, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { FC, useEffect, useState } from 'react';
 
-import Button from '@components/Button';
+import { TRouter } from '@local-types/global';
 
 import uxcatData from '@data/uxcat';
 
-import { TRouter } from '@local-types/global';
+import Button from '@components/Button';
 
 type StartTestBtnProps = {
   ongoingTest: boolean;

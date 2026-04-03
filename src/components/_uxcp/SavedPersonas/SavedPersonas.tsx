@@ -1,19 +1,19 @@
-import React, { FC, Fragment, useContext, useState } from 'react';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
 import { format } from 'date-fns';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React, { FC, Fragment, useContext, useState } from 'react';
 
-import Modal from '@components/Modal';
-import Button from '@components/Button';
-import PersonaDeleteModal from '@components/_uxcp/PersonaDeleteModal';
-import { GlobalContext } from '@components/Context/GlobalContext';
+import { TRouter } from '@local-types/global';
 
 import { deletePersona } from '@api/personas';
 
 import decisionTable from '@data/decisionTable';
 
-import { TRouter } from '@local-types/global';
+import PersonaDeleteModal from '@components/_uxcp/PersonaDeleteModal';
+import Button from '@components/Button';
+import { GlobalContext } from '@components/Context/GlobalContext';
+import Modal from '@components/Modal';
 
 import styles from './SavedPersonas.module.scss';
 

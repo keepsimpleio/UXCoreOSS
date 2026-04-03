@@ -1,3 +1,7 @@
+import cn from 'classnames';
+import dynamic from 'next/dynamic';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
 import React, {
   FC,
   useCallback,
@@ -7,38 +11,34 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { useRouter } from 'next/router';
-import Image from 'next/image';
-import cn from 'classnames';
-import dynamic from 'next/dynamic';
 
 import type { TRouter } from '@local-types/global';
 import { UserTypes } from '@local-types/uxcat-types/types';
 
-import Link from '@components/NextLink';
-import PageSwitcher from '@components/PageSwitcher';
-import UserDropdown from '@components/UserDropdown';
-import MobileHeader from '@components/_biases/MobileHeader';
-import { GlobalContext } from '@components/Context/GlobalContext';
-import OurProjectsModal from '@components/OurProjectsModal';
-import LanguageSwitcher from '@components/LanguageSwitcher';
-
-import { navItems } from './navItems';
-
 import useMobile from '@hooks/useMobile';
 import useUXCoreGlobals from '@hooks/useUXCoreGlobals';
 
+import { isLevelMilestone } from '@lib/uxcat-helpers';
+
+import { getMyInfo } from '@api/strapi';
 import { userInfoUpdate } from '@api/uxcat/settings';
 import { getUserInfo } from '@api/uxcat/users-me';
-import { getMyInfo } from '@api/strapi';
 
 import toolHeaderData from '@data/toolHeader';
 
-import PodcastIcon from '@icons/PodcastIcon';
-import DiamondIcon from '@icons/DiamondIcon';
 import CloseIcon from '@icons/CloseIcon';
+import DiamondIcon from '@icons/DiamondIcon';
+import PodcastIcon from '@icons/PodcastIcon';
 
-import { isLevelMilestone } from '@lib/uxcat-helpers';
+import MobileHeader from '@components/_biases/MobileHeader';
+import { GlobalContext } from '@components/Context/GlobalContext';
+import LanguageSwitcher from '@components/LanguageSwitcher';
+import Link from '@components/NextLink';
+import OurProjectsModal from '@components/OurProjectsModal';
+import PageSwitcher from '@components/PageSwitcher';
+import UserDropdown from '@components/UserDropdown';
+
+import { navItems } from './navItems';
 
 import styles from './ToolHeader.module.scss';
 

@@ -1,15 +1,15 @@
-import React, { useCallback } from 'react';
-import { useRouter } from 'next/router';
 import cn from 'classnames';
+import { useRouter } from 'next/router';
+import React, { useCallback } from 'react';
 
+import { StrapiBiasType } from '@local-types/data';
 import { TRouter } from '@local-types/global';
-
-import ContentParser from '@components/ContentParser';
 
 import biasesFolderViewIntl from '@data/biasesFolderView';
 
+import ContentParser from '@components/ContentParser';
+
 import styles from './FolderItem.module.scss';
-import { StrapiBiasType } from '@local-types/data';
 
 type FolderItemProps = {
   margin: number;

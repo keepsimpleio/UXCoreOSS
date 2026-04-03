@@ -1,35 +1,35 @@
-import React, { FC, useCallback, useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import Skeleton from 'react-loading-skeleton';
+import React, { FC, useCallback, useContext, useEffect, useState } from 'react';
 import ConfettiExplosion from 'react-confetti-explosion';
+import Skeleton from 'react-loading-skeleton';
 
-import Accordion from '@components/Accordion';
-import UXCatFooter from '@components/UXCatFooter';
-
-import UserProfile from '@components/UserProfile';
-import CompletionBar from '@components/CompletionBar';
-import LogInModal from '@components/_uxcp/LogInModal';
-import AchievementContainer from '@components/AchievementContainer';
-import ContentParser from '@components/ContentParser';
-import useKonamiCode from '@hooks/useKonamiCode';
-import Toasts from '@components/Toasts';
-import GenderModal from '@components/GenderModal';
-import { GlobalContext } from '@components/Context/GlobalContext';
-
+import type { TRouter } from '@local-types/global';
 import {
   LevelDetailsTypes,
   userLevels,
   UserTypes,
   uxCatLevels,
 } from '@local-types/uxcat-types/types';
-import type { TRouter } from '@local-types/global';
+
+import useKonamiCode from '@hooks/useKonamiCode';
 
 import { isLevelMilestone } from '@lib/uxcat-helpers';
 
 import uxcatData from '@data/uxcat';
 
-import styles from './UXCatLayout.module.scss';
+import LogInModal from '@components/_uxcp/LogInModal';
+import Accordion from '@components/Accordion';
+import AchievementContainer from '@components/AchievementContainer';
+import CompletionBar from '@components/CompletionBar';
+import ContentParser from '@components/ContentParser';
+import { GlobalContext } from '@components/Context/GlobalContext';
+import GenderModal from '@components/GenderModal';
+import Toasts from '@components/Toasts';
+import UserProfile from '@components/UserProfile';
+import UXCatFooter from '@components/UXCatFooter';
+
 import 'react-toastify/dist/ReactToastify.css';
+import styles from './UXCatLayout.module.scss';
 
 type UXCGLayoutProps = {
   userInfo?: UserTypes['user'];

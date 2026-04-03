@@ -1,15 +1,15 @@
-import React, { FC, MouseEvent, useEffect, useRef, useState } from 'react';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
 import cn from 'classnames';
-
-import { BiasLabelProps } from './BiasLabel.types';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React, { FC, MouseEvent, useEffect, useRef, useState } from 'react';
 
 import type { TRouter } from '@local-types/global';
 
 import { generateLabelsData, isMobileDevice } from '@lib/helpers';
 
 import ZoomBox from '@components/_biases/ZoomBox';
+
+import { BiasLabelProps } from './BiasLabel.types';
 
 import styles from './BiasLabel.module.scss';
 

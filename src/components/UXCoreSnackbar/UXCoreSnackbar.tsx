@@ -1,6 +1,6 @@
+import cn from 'classnames';
 import React, { FC } from 'react';
 import { createPortal } from 'react-dom';
-import cn from 'classnames';
 
 import styles from './UXCoreSnackbar.module.scss';
 

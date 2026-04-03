@@ -1,10 +1,11 @@
-import { FC } from 'react';
 import cn from 'classnames';
-import { useRouter } from 'next/router';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { FC } from 'react';
+
+import { TRouter } from '@local-types/global';
 
 import uxcatData from '@data/uxcat';
-import { TRouter } from '@local-types/global';
 
 import styles from './UXCatTooltip.module.scss';
 

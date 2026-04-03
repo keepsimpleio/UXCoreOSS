@@ -1,3 +1,6 @@
+import cn from 'classnames';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
 import {
   ChangeEvent,
   FC,
@@ -6,16 +9,14 @@ import {
   useRef,
   useState,
 } from 'react';
-import cn from 'classnames';
-import { useRouter } from 'next/router';
-import Image from 'next/image';
-
-import { getSearchResults } from '@lib/helpers';
 
 import type { StrapiBiasType } from '@local-types/data';
 import type { TRouter } from '@local-types/global';
+
 import useBiasSearch from '@hooks/useBiasSearch';
 import useMobile from '@hooks/useMobile';
+
+import { getSearchResults } from '@lib/helpers';
 
 import biasesSearchData from '@data/biasesSearch';
 

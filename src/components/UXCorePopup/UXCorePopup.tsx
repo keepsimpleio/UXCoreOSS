@@ -1,11 +1,12 @@
-import React, { FC } from 'react';
 import { useRouter } from 'next/router';
+import React, { FC } from 'react';
 import { Player } from 'react-simple-player/lib/components/Player';
 
 import type { TRouter } from '@local-types/global';
 
-import styles from './UXCorePopup.module.scss';
 import podcast from '@data/podcast';
+
+import styles from './UXCorePopup.module.scss';
 
 type UXCorePopupTypes = {
   setOpenPodcast?: {

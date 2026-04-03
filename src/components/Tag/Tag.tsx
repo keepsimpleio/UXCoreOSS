@@ -1,12 +1,12 @@
-import React, { FC, Fragment } from 'react';
-import { useRouter } from 'next/router';
 import cn from 'classnames';
-
-import Tooltip from '../Tooltip';
+import { useRouter } from 'next/router';
+import React, { FC, Fragment } from 'react';
 
 import { TitlesType } from '@local-types/data';
 
 import useMobile from '@hooks/useMobile';
+
+import Tooltip from '../Tooltip';
 
 import styles from './Tag.module.scss';
 

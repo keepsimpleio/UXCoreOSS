@@ -1,24 +1,24 @@
-import { FC, memo, useState } from 'react';
-import { useRouter } from 'next/router';
-import { Tooltip as ReactTooltip } from 'react-tooltip';
 import cn from 'classnames';
+import { useRouter } from 'next/router';
+import { FC, memo, useState } from 'react';
+import { Tooltip as ReactTooltip } from 'react-tooltip';
 
 import type { StrapiBiasType } from '@local-types/data';
 import type { TRouter } from '@local-types/global';
 
 import useBiasSearch from '@hooks/useBiasSearch';
+import { useBrowserScale } from '@hooks/useBrowserScale';
 
 import { copyToClipboard } from '@lib/helpers';
 
 import biasesLocalization from '@data/biases';
 import copyButtonData from '@data/copyButton';
 
+import BiasEnvironment from '@components/_biases/BiasEnvironment/BiasEnvironment';
 import BiasLabel from '@components/_biases/BiasLabel';
 import UXCoreLines from '@components/_biases/UXCoreLines/UXCoreLines';
-import BiasEnvironment from '@components/_biases/BiasEnvironment/BiasEnvironment';
 
 import styles from './CoreViewLayout.module.scss';
-import { useBrowserScale } from '@hooks/useBrowserScale';
 
 type TDesktopView = {
   biases: StrapiBiasType[];

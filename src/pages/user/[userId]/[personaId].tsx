@@ -1,23 +1,24 @@
-import React, { FC, Fragment, useMemo } from 'react';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
-
-import { getStrapiQuestions } from '@api/questions';
-import { getStrapiBiases } from '@api/biases';
-import { getTags } from '@api/tags';
-import { getUXCPSeo } from '@api/mainPageSeo';
-import { getPersona } from '@api/personas';
-
-import pageNotFoundData from '@data/404';
-
-import UXCPLayout from '@layouts/UXCPLayout';
-
-import SeoGenerator from '@components/SeoGenerator';
-import Spinner from '@components/Spinner';
-import NotFoundPage from '../../404';
+import React, { FC, Fragment, useMemo } from 'react';
 
 import type { QuestionType, StrapiBiasType, TagType } from '@local-types/data';
 import { TRouter } from '@local-types/global';
+
+import { getStrapiBiases } from '@api/biases';
+import { getUXCPSeo } from '@api/mainPageSeo';
+import { getPersona } from '@api/personas';
+import { getStrapiQuestions } from '@api/questions';
+import { getTags } from '@api/tags';
+
+import pageNotFoundData from '@data/404';
+
+import SeoGenerator from '@components/SeoGenerator';
+import Spinner from '@components/Spinner';
+
+import UXCPLayout from '@layouts/UXCPLayout';
+
+import NotFoundPage from '../../404';
 
 interface UXCPProps {
   questions: QuestionType[];

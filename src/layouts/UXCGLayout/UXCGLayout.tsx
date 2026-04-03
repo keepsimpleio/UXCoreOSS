@@ -1,18 +1,25 @@
-import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
-import { useRouter } from 'next/router';
 import cn from 'classnames';
-
-import ToolFooter from '@components/ToolFooter';
-import Table from '@components/Table';
-import PanelHeader from '@components/uxcg/PanelHeader';
-import TagContainer from '@components/uxcg/TagContainer';
+import { useRouter } from 'next/router';
+import React, {
+  FC,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 
 import { QuestionType, TagType } from '@local-types/data';
 import { TRouter } from '@local-types/global';
 
+import useSpinner from '@hooks/useSpinner';
+
 import uxcgDescriptionData from '@data/uxcgDescriptionData';
 
-import useSpinner from '@hooks/useSpinner';
+import Table from '@components/Table';
+import ToolFooter from '@components/ToolFooter';
+import PanelHeader from '@components/uxcg/PanelHeader';
+import TagContainer from '@components/uxcg/TagContainer';
 
 import styles from './UXCGLayout.module.scss';
 
@@ -40,9 +47,29 @@ const UXCGLayout: FC<UXCGLayoutProps> = ({
   const { description, defaultStage, selectStageTxt, relevantQuestionsTxt } =
     uxcgDescriptionData[locale];
 
+  const SESSION_STORAGE_KEY = 'uxcgLayoutState:v1';
+  const SESSION_SCROLL_KEY = 'uxcgLayoutScrollY:v1';
+  const getSessionState = useCallback(() => {
+    if (typeof window === 'undefined') return null;
+    try {
+      const raw = window.sessionStorage.getItem(SESSION_STORAGE_KEY);
+      if (!raw) return null;
+      return JSON.parse(raw) as {
+        activeFilter?: string;
+        stageName?: any;
+        isAciveSearch?: boolean;
+        searchValue?: string;
+      };
+    } catch {
+      return null;
+    }
+  }, []);
+
+  const [isSessionHydrated, setIsSessionHydrated] = useState(false);
+
   const [isAciveSearch, setIsActiveSearch] = useState<boolean>(false);
   const [searchResults, setSearchResults] = useState<QuestionType[]>([]);
-  const [stageName, setStageName] = useState<string>('');
+  const [stageName, setStageName] = useState<any>('');
   const [activeFilter, setActiveFilter] = useState<string>('1');
   const stageText = stageName[locale] || defaultStage;
 
@@ -87,6 +114,80 @@ const UXCGLayout: FC<UXCGLayoutProps> = ({
     );
   };
 
+  useLayoutEffect(() => {
+    // Hydrate session after the first client render to avoid SSR/client markup mismatches.
+    const sessionState = getSessionState();
+    if (!sessionState) {
+      setIsSessionHydrated(true);
+      return;
+    }
+
+    if (typeof sessionState.activeFilter === 'string') {
+      setActiveFilter(sessionState.activeFilter);
+    }
+
+    if (typeof sessionState.stageName !== 'undefined') {
+      setStageName(sessionState.stageName || '');
+    }
+
+    if (sessionState.isAciveSearch && sessionState.searchValue) {
+      const newSearchResults: QuestionType[] = filterQuestionsBySearchTerm(
+        sessionState.searchValue,
+        allQuestions,
+        locale,
+      );
+      setIsActiveSearch(true);
+      setSearchResults(newSearchResults);
+      setSearchValue?.(sessionState.searchValue);
+    } else {
+      setIsActiveSearch(false);
+      setSearchResults([]);
+    }
+
+    setIsSessionHydrated(true);
+  }, [getSessionState, allQuestions, locale, setSearchValue]);
+
+  useLayoutEffect(() => {
+    // When opening /uxcg/[slug], keep the background at the position
+    // where the user clicked from the table.
+    if (typeof window === 'undefined') return;
+    if (!router.asPath.includes('/uxcg')) return;
+    try {
+      const savedY = window.sessionStorage.getItem(SESSION_SCROLL_KEY);
+      if (!savedY) return;
+      const y = Number(savedY);
+      if (Number.isNaN(y)) return;
+
+      // Double-rAF waits for route content + modal mount before restoring.
+      window.requestAnimationFrame(() => {
+        window.requestAnimationFrame(() => {
+          window.scrollTo(0, y);
+        });
+      });
+    } catch {
+      // Ignore storage read issues.
+    }
+  }, [router.asPath]);
+
+  useEffect(() => {
+    // Persist background selection until the tab/window is closed.
+    if (typeof window === 'undefined') return;
+    if (!isSessionHydrated) return;
+    try {
+      window.sessionStorage.setItem(
+        SESSION_STORAGE_KEY,
+        JSON.stringify({
+          activeFilter,
+          stageName,
+          isAciveSearch,
+          searchValue: typeof searchValue === 'string' ? searchValue : '',
+        }),
+      );
+    } catch {
+      // Ignore storage quota/disabled scenarios.
+    }
+  }, [activeFilter, stageName, isAciveSearch, searchValue, isSessionHydrated]);
+
   const handleSearch = useCallback(
     (value: string) => {
       clearTimeout(searchDebounce.current);
@@ -104,7 +205,7 @@ const UXCGLayout: FC<UXCGLayoutProps> = ({
               scroll: false,
               shallow: true,
             });
-          } catch (err) {
+          } catch {
             setIsVisible(false);
             setIsActiveSearch(false);
             setSearchResults([]);
@@ -122,7 +223,7 @@ const UXCGLayout: FC<UXCGLayoutProps> = ({
         });
       }
     },
-    [setIsVisible, questions],
+    [setIsVisible, allQuestions, locale, router],
   );
 
   const searchResultTags = searchResults.map(
@@ -133,41 +234,42 @@ const UXCGLayout: FC<UXCGLayoutProps> = ({
   );
 
   useEffect(() => {
-    window.addEventListener('popstate', handlePopState);
-
-    return () => {
-      window.removeEventListener('popstate', handlePopState);
-    };
-  }, []);
-
-  const handlePopState = () => {
-    setSearchValue(initialSearchValue);
-  };
-
-  useEffect(() => {
-    setSearchValue(initialSearchValue);
+    // Do not wipe session UI when modal routes are opened (they don't carry `?search=`).
+    if (!initialSearchValue) return;
+    setSearchValue?.(initialSearchValue);
     if (initialSearchValue) {
       const newSearchResults = filterQuestionsBySearchTerm(
         initialSearchValue,
         allQuestions,
         locale,
       );
+      setIsActiveSearch(true);
       setSearchResults(newSearchResults);
-      setSearchValue(initialSearchValue as string);
     }
     return () => {
       clearTimeout(searchDebounce.current);
     };
-  }, [initialSearchValue, router.asPath, locale]);
+  }, [initialSearchValue, router.asPath, locale, allQuestions, setSearchValue]);
 
+  const prevIsActiveSearchRef = useRef<boolean>(isAciveSearch);
+
+  // Maintain tag highlight:
+  // - when search becomes active: clear highlight (we show results instead)
+  // - when search becomes inactive (true -> false): restore last selected tag
   useEffect(() => {
-    if (isAciveSearch) {
+    const prev = prevIsActiveSearchRef.current;
+
+    if (isAciveSearch && !prev) {
       prevFilterRef.current = activeFilter;
       setActiveFilter('');
-    } else {
+    }
+
+    if (!isAciveSearch && prev) {
       setActiveFilter(prevFilterRef.current);
     }
-  }, [isAciveSearch]);
+
+    prevIsActiveSearchRef.current = isAciveSearch;
+  }, [isAciveSearch, activeFilter]);
 
   return (
     <div className={styles.body}>

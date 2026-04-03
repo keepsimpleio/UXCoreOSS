@@ -43,6 +43,18 @@ module.exports = async () => {
           source: '/robots.txt',
           destination: '/uxcore_/robots.txt',
         },
+        {
+          source: '/llms.txt',
+          destination: '/uxcore_/llms.txt',
+        },
+        {
+          source: '/llms-full.txt',
+          destination: '/uxcore_/llms-full.txt',
+        },
+        {
+          source: '/llms-full-pages/:path*',
+          destination: '/uxcore_/llms-full-pages/:path*',
+        },
       ];
     },
     experimental: {

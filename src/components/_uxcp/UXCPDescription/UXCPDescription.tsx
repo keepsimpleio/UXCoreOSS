@@ -1,7 +1,8 @@
-import type { FC } from 'react';
 import { useRouter } from 'next/router';
+import type { FC } from 'react';
 
 import type { TRouter } from '@local-types/global';
+
 import uxcpLocalization from '@data/uxcp';
 
 import styles from './UXCPDescription.module.scss';

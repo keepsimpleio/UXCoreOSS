@@ -1,10 +1,13 @@
-import React, { useEffect, KeyboardEvent, useCallback, useState } from 'react';
-import { createPortal } from 'react-dom';
 import { useRouter } from 'next/router';
+import React, { KeyboardEvent, useCallback, useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 import type { TRouter } from '@local-types/global';
+
 import useFormPopup from '@hooks/useFormPopup';
+
 import formPopupIntl from '@data/formPopup';
+
 import Button from '@components/Button';
 
 import styles from './FormPopup.module.scss';

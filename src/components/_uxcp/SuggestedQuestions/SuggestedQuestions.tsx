@@ -1,15 +1,16 @@
-import { FC, useMemo } from 'react';
 import { useRouter } from 'next/router';
+import { FC, useMemo } from 'react';
 
-import Section from '@components/Section';
-import Question from './Question';
+import { SuggestedQuestionType } from '@local-types/data';
+import type { TRouter } from '@local-types/global';
 
 import useMobile from '@hooks/useMobile';
 
-import type { TRouter } from '@local-types/global';
-import { SuggestedQuestionType } from '@local-types/data';
-
 import uxcpLocalization from '@data/uxcp';
+
+import Section from '@components/Section';
+
+import Question from './Question';
 
 import styles from './SuggestedQuestions.module.scss';
 

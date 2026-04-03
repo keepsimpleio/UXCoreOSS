@@ -1,6 +1,6 @@
-import { FC, useMemo, useEffect, useRef, useState } from 'react';
-import { createPortal } from 'react-dom';
 import cn from 'classnames';
+import { FC, useEffect, useMemo, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 import styles from './PieTooltip.module.scss';
 
