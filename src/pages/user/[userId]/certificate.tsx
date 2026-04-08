@@ -17,10 +17,10 @@ import NotFoundPage from '../../404';
 const Certificate = ({ userId, certificate }) => {
   const router = useRouter();
   const { locale } = router as TRouter;
-  const { accountData } = useContext(GlobalContext);
+  const { uxcatUserInfo } = useContext(GlobalContext);
 
   const name =
-    accountData?.id === 1034
+    uxcatUserInfo.user.id === 1034
       ? 'Кузнецов Тимофей Юрьевич'
       : `${certificate?.name} ${certificate?.surname}`;
   const date = new Date(certificate?.certificatedAt);
