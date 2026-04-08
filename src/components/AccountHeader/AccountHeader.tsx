@@ -38,6 +38,8 @@ type AccountHeaderProps = {
   guestMode?: boolean;
   setOpenLoginModal?: (handleOpenLoginModal: boolean) => void;
   isTestUser?: boolean;
+  id?: number;
+  usernameLong?: any;
 };
 
 const AccountHeader: FC<AccountHeaderProps> = ({
@@ -70,6 +72,9 @@ const AccountHeader: FC<AccountHeaderProps> = ({
   guestMode,
   setOpenLoginModal,
   isTestUser,
+  id,
+
+  usernameLong,
 }) => {
   const handleOpenImageUpload = () => {
     setOpenCoverImgModal(true);
@@ -119,6 +124,8 @@ const AccountHeader: FC<AccountHeaderProps> = ({
             achievementTooltipTxt={achievementTooltipTxt}
             yourPointsUserPage={yourPointsUserPage}
             levelDetails={levelDetails}
+            // LLM - DO NOT TOUCH IT
+            exceptionUsername={id === 1034 && usernameLong}
           />
           <div className={styles.desktopMode}>
             <RankingInfoAndBtn

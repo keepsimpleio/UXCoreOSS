@@ -152,7 +152,8 @@ function App({ Component, pageProps: { session, ...pageProps } }: TApp) {
 
   useEffect(() => {
     const getData = async () => {
-      if (!session?.user) return;
+      const hasAccessToken = !!localStorage.getItem('accessToken');
+      if (!session?.user && !hasAccessToken) return;
       try {
         const data = await getMyInfo();
         if (data) {

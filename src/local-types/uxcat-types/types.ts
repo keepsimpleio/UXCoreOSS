@@ -3,6 +3,7 @@ export type UserTypes = {
   id: number | string;
   nextTestTime?: number | null;
   username: string;
+  usernameLong?: string;
   email?: string;
   points?: number;
   title: string;
@@ -31,7 +32,7 @@ export type UserTypes = {
     username: string;
     email?: string;
     picture?: string;
-    username_long: string;
+    usernameLong?: string;
     isTestUser?: boolean;
     points?: number;
     nextTestTime?: number | null;
