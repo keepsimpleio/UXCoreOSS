@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useContext } from 'react';
 
 import type { TRouter } from '@local-types/global';
 
@@ -7,6 +7,7 @@ import { getCertificate } from '@api/uxcat/certificate';
 
 import pageNotFoundData from '@data/404';
 
+import { GlobalContext } from '@components/Context/GlobalContext';
 import Spinner from '@components/Spinner';
 
 import CertificateLayout from '@layouts/CertificateLayout';
@@ -16,8 +17,12 @@ import NotFoundPage from '../../404';
 const Certificate = ({ userId, certificate }) => {
   const router = useRouter();
   const { locale } = router as TRouter;
+  const { accountData } = useContext(GlobalContext);
 
-  const name = `${certificate?.name} ${certificate?.surname}`;
+  const name =
+    accountData?.id === 1034
+      ? 'Кузнецов Тимофей Юрьевич'
+      : `${certificate?.name} ${certificate?.surname}`;
   const date = new Date(certificate?.certificatedAt);
   const day = date.getUTCDate();
   const month = date.getUTCMonth() + 1;

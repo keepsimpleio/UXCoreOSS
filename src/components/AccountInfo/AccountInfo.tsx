@@ -30,6 +30,7 @@ type AccountInfoProps = {
   achievementTooltipTxt?: string;
   yourPointsUserPage?: string;
   levelDetails?: any;
+  exceptionUsername?: string;
 };
 
 const AccountInfo: FC<AccountInfoProps> = ({
@@ -47,6 +48,7 @@ const AccountInfo: FC<AccountInfoProps> = ({
   achievementTooltipTxt,
   yourPointsUserPage,
   levelDetails,
+  exceptionUsername,
 }) => {
   const router = useRouter();
   const { locale } = router as TRouter;
@@ -102,7 +104,9 @@ const AccountInfo: FC<AccountInfoProps> = ({
           })}
         >
           <span className={styles.title}> {title} </span>
-          {!!username ? (
+          {!!exceptionUsername ? (
+            <h1 className={styles.username}> {exceptionUsername}</h1>
+          ) : !!username ? (
             <h1 className={styles.username}> {username}</h1>
           ) : (
             <Skeleton width={150} height={22} />

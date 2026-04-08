@@ -218,6 +218,9 @@ const UXCatLayout: FC<UXCGLayoutProps> = ({
                 guestLevel={guestLevel}
                 userLevel={level}
                 userName={!userInfo ? guestUsername : username}
+                exceptionUsername={
+                  userInfo?.id === 1034 && userInfo?.usernameLong
+                }
                 title={userInfo?.title}
                 openLoginModal={openLoginModal}
                 loggedIn={!!accessToken}
