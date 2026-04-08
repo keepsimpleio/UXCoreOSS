@@ -38,6 +38,7 @@ type UserProfileProps = {
   disableStartTest?: boolean;
   matchingLevelDetails?: any;
   isTestUser?: boolean;
+  exceptionUsername?: string;
 };
 const UserProfile: FC<UserProfileProps> = ({
   userName = 'Guest User',
@@ -61,6 +62,7 @@ const UserProfile: FC<UserProfileProps> = ({
   title,
   matchingLevelDetails,
   isTestUser,
+  exceptionUsername,
 }) => {
   const router = useRouter();
   const { isMobile } = useMobile()[1];
@@ -131,7 +133,9 @@ const UserProfile: FC<UserProfileProps> = ({
           <div className={styles.userInfo}>
             <div className={styles.nameAndTitle}>
               {!!title && <span className={styles.title}> {title}</span>}
-              <h2 className={styles.userName}>{userName}</h2>
+              <h2 className={styles.userName}>
+                {exceptionUsername ? exceptionUsername : userName}
+              </h2>
             </div>
             <span className={styles.level}>
               {`${
