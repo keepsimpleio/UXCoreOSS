@@ -1,26 +1,25 @@
 import { useRouter } from 'next/router';
-import React, { useContext } from 'react';
+import React from 'react';
 
 import type { TRouter } from '@local-types/global';
 
 import { getCertificate } from '@api/uxcat/certificate';
+import { getPublicUserInfo } from '@api/uxcat/getUser';
 
 import pageNotFoundData from '@data/404';
 
-import { GlobalContext } from '@components/Context/GlobalContext';
 import Spinner from '@components/Spinner';
 
 import CertificateLayout from '@layouts/CertificateLayout';
 
 import NotFoundPage from '../../404';
 
-const Certificate = ({ userId, certificate }) => {
+const Certificate = ({ userId, certificate, publicUserInfo }) => {
   const router = useRouter();
   const { locale } = router as TRouter;
-  const { uxcatUserInfo } = useContext(GlobalContext);
 
   const name =
-    uxcatUserInfo.user.id === 1034
+    publicUserInfo?.id === 1034
       ? 'Кузнецов Тимофей Юрьевич'
       : `${certificate?.name} ${certificate?.surname}`;
   const date = new Date(certificate?.certificatedAt);
@@ -52,11 +51,15 @@ export default Certificate;
 
 export async function getServerSideProps(context) {
   const userId = context.params.userId;
-  const certificate = await getCertificate(userId);
+  const [certificate, publicUserInfo] = await Promise.all([
+    getCertificate(userId),
+    getPublicUserInfo(userId),
+  ]);
   return {
     props: {
       certificate,
       userId,
+      publicUserInfo,
     },
   };
 }
