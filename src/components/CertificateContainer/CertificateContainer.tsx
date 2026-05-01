@@ -60,7 +60,6 @@ const CertificateContainer: FC<CertificateProps> = ({
             />
             <span className={styles.authorName}> Author of UX Core</span>
           </div>
-          <span className={styles.userId}> User id: {userId}</span>
         </div>
       </div>
     </div>
