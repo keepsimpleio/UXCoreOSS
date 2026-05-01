@@ -1,3 +1,4 @@
+// SHARED with keepsimpleio/KeepSimpleOSS at the same path — sync edits to both repos.
 export const setRedirectCookie = (url: string) => {
   document.cookie = `redirectAfterLogin=${encodeURIComponent(url)}; path=/; max-age=600`;
 };
