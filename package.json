@@ -22,7 +22,10 @@
     "prepare": "husky install",
     "generate:llms": "cross-env LLMS_MODE=curated ts-node --compiler-options '{\"module\":\"commonjs\",\"target\":\"es2020\"}' scripts/generate-llms.ts",
     "generate:llms:full": "ts-node --compiler-options '{\"module\":\"commonjs\",\"target\":\"es2020\"}' scripts/generate-llms-full.ts",
-    "generate:llms:pages": "ts-node --compiler-options '{\"module\":\"commonjs\",\"target\":\"es2020\"}' scripts/generate-llms-pages.ts"
+    "generate:llms:pages": "ts-node --compiler-options '{\"module\":\"commonjs\",\"target\":\"es2020\"}' scripts/generate-llms-pages.ts",
+    "check-links": "node scripts/run-linkinator.mjs https://keepsimple.io",
+    "check-links:summary": "node scripts/run-linkinator.mjs https://keepsimple.io --no-write",
+    "render-links": "node render-links-report.js"
   },
   "lint-staged": {
     "**/*.{ts,tsx}": [
@@ -95,6 +98,7 @@
     "eslint": "^9.32.0",
     "eslint-config-next": "^15.4.5",
     "husky": "^9.1.7",
+    "linkinator": "^7.6.1",
     "sass-loader": "13.1.0",
     "start-server-and-test": "^2.0.12",
     "ts-node": "^10.9.2",
