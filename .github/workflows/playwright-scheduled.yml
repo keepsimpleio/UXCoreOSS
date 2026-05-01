@@ -2,12 +2,6 @@ name: Playwright Tests (scheduled)
 
 # Weekly scheduled run on main + on-demand via workflow_dispatch.
 # Does NOT run on PRs (by design — see QA_PLAN.md §7).
-#
-# TODO (Mary, one-time setup): configure these repo variables at
-# Settings → Secrets and variables → Actions → Variables:
-#   - PLAYWRIGHT_STAGING_URL      (e.g. https://staging.uxcore.io)
-#   - PLAYWRIGHT_PRODUCTION_URL   (e.g. https://uxcore.io)
-# Never hardcode URLs or credentials in this file.
 
 on:
   schedule:
