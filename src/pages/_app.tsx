@@ -28,6 +28,7 @@ import Layout from '@layouts/Layout';
 import Box from 'src/components/Box';
 
 import '../styles/globals.scss';
+import '../styles/countryBias.scss';
 
 const UXCoreFeedbackModal = dynamic(
   () => import('@components/UXCoreFeedbackModal'),
