@@ -141,3 +141,7 @@ build/
 # Personal dev utility, not part of repo history
 /scripts/import-repo.sh
 
+# Personal QA planning notes — kept locally, not for the public repo
+/QA_PLAN.md
+/QA_RECON.md
+
