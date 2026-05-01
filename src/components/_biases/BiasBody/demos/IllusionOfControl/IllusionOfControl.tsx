@@ -13,7 +13,7 @@ export function Before() {
   const c = useContent();
   return (
     <div className={styles.container}>
-      <h3 className={styles.title}>{c.before.title}</h3>
+      <h4 className={styles.title}>{c.before.title}</h4>
       <div className={styles.list}>
         {c.before.features.map(f => (
           <div key={f.name} className={styles.featureRow}>
@@ -37,7 +37,7 @@ export function After() {
         <span className={styles.bannerIcon}>🗳</span>
         <span className={styles.bannerText}>{c.after.bannerText}</span>
       </div>
-      <h3 className={styles.title}>{c.after.title}</h3>
+      <h4 className={styles.title}>{c.after.title}</h4>
       <div className={styles.list}>
         {c.after.features.map(f => (
           <div key={f.name} className={styles.featureRow}>

@@ -13,7 +13,7 @@ export function Before() {
   const c = useContent();
   return (
     <div className={styles.container}>
-      <h3 className={styles.title}>{c.title}</h3>
+      <h4 className={styles.title}>{c.title}</h4>
       <div className={styles.aggregate}>
         {c.before.stats.map(s => (
           <div key={s.label}>
@@ -36,7 +36,7 @@ export function After() {
   const c = useContent();
   return (
     <div className={styles.container}>
-      <h3 className={styles.title}>{c.title}</h3>
+      <h4 className={styles.title}>{c.title}</h4>
       <div className={styles.testimonialCard}>
         <div className={styles.quoteIcon}>&ldquo;</div>
         <p className={styles.quote}>{c.after.quote}</p>

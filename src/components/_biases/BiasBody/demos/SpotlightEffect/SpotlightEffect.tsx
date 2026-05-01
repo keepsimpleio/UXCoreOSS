@@ -15,7 +15,7 @@ export function Before() {
     <div className={styles.container}>
       <div className={styles.card}>
         <div className={styles.cardIcon}>{c.before.icon}</div>
-        <h3 className={styles.title}>{c.title}</h3>
+        <h4 className={styles.title}>{c.title}</h4>
         <p className={styles.body}>
           {c.before.bodyPrefix} <strong>{c.before.bodyMembers}</strong>{' '}
           {c.before.bodySuffix}
@@ -35,7 +35,7 @@ export function After() {
     <div className={styles.container}>
       <div className={styles.card}>
         <div className={styles.cardIcon}>{c.after.icon}</div>
-        <h3 className={styles.title}>{c.title}</h3>
+        <h4 className={styles.title}>{c.title}</h4>
         <div className={styles.statRow}>
           <div className={styles.stat}>
             <div className={styles.statValue}>{c.after.stats[0].value}</div>

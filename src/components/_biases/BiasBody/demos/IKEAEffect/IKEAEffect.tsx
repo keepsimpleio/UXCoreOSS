@@ -14,7 +14,7 @@ export function Before() {
   const c = useContent();
   return (
     <div className={styles.container}>
-      <h3 className={styles.title}>{c.before.title}</h3>
+      <h4 className={styles.title}>{c.before.title}</h4>
       <p className={styles.sub}>{c.before.sub}</p>
       <div className={styles.templateGrid}>
         {c.before.templates.map(t => (

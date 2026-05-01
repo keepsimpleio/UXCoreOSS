@@ -13,7 +13,7 @@ export function Before() {
   const c = useContent();
   return (
     <div className={styles.container}>
-      <h3 className={styles.title}>{c.title}</h3>
+      <h4 className={styles.title}>{c.title}</h4>
       <div className={styles.tableHeader}>
         {c.tableHeaders.map(h => (
           <span key={h}>{h}</span>
@@ -41,7 +41,7 @@ export function After() {
   const c = useContent();
   return (
     <div className={styles.container}>
-      <h3 className={styles.title}>{c.title}</h3>
+      <h4 className={styles.title}>{c.title}</h4>
       <div className={styles.tableHeader}>
         {c.tableHeaders.map(h => (
           <span key={h}>{h}</span>

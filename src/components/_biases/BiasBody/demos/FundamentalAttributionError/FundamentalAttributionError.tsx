@@ -18,7 +18,7 @@ export function Before() {
           <div className={styles.logo}>{c.logo}</div>
           <div className={styles.badge}>{c.badge}</div>
         </div>
-        <h3 className={styles.headline}>{c.before.headline}</h3>
+        <h4 className={styles.headline}>{c.before.headline}</h4>
         <p className={styles.body}>
           {c.before.bodyStart} <strong>{c.before.bodyBold}</strong>{' '}
           {c.before.bodyEnd}
@@ -42,7 +42,7 @@ export function After() {
           <div className={styles.logo}>{c.logo}</div>
           <div className={styles.badge}>{c.badge}</div>
         </div>
-        <h3 className={styles.headline}>{c.after.headline}</h3>
+        <h4 className={styles.headline}>{c.after.headline}</h4>
         <p className={styles.body}>
           {c.after.bodyStart} <strong>{c.after.bodyBold}</strong>{' '}
           {c.after.bodyEnd}

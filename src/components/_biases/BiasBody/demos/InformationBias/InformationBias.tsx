@@ -13,7 +13,7 @@ export function Before() {
   const c = useContent();
   return (
     <div className={styles.container}>
-      <h3 className={styles.productName}>{c.productName}</h3>
+      <h4 className={styles.productName}>{c.productName}</h4>
       <div className={styles.priceRow}>
         <span className={styles.price}>{c.price}</span>
         <span className={styles.rating}>{c.rating}</span>
@@ -37,7 +37,7 @@ export function After() {
   const c = useContent();
   return (
     <div className={styles.container}>
-      <h3 className={styles.productName}>{c.productName}</h3>
+      <h4 className={styles.productName}>{c.productName}</h4>
       <div className={styles.priceRow}>
         <span className={styles.price}>{c.price}</span>
         <span className={styles.rating}>{c.rating}</span>

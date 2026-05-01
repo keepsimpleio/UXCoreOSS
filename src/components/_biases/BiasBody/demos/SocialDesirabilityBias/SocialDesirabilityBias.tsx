@@ -18,7 +18,7 @@ export function Before() {
           <div className={styles.avatar}>{c.before.avatar}</div>
           <div className={styles.userName}>{c.before.user}</div>
         </div>
-        <h3 className={styles.question}>{c.before.question}</h3>
+        <h4 className={styles.question}>{c.before.question}</h4>
         <div className={styles.stars}>
           {[1, 2, 3, 4, 5].map(n => (
             <button
@@ -47,7 +47,7 @@ export function After() {
     <div className={styles.container}>
       <div className={styles.card}>
         <div className={styles.anonBadge}>{c.after.anonBadge}</div>
-        <h3 className={styles.question}>{c.after.question}</h3>
+        <h4 className={styles.question}>{c.after.question}</h4>
         <div className={styles.optionList}>
           {c.after.options.map(opt => (
             <label key={opt} className={styles.option}>

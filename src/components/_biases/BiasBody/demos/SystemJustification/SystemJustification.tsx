@@ -15,7 +15,7 @@ export function Before() {
     <div className={styles.container}>
       <div className={styles.blogCard}>
         <div className={styles.category}>{c.before.category}</div>
-        <h3 className={styles.title}>{c.before.title}</h3>
+        <h4 className={styles.title}>{c.before.title}</h4>
         <p className={styles.excerpt}>{c.before.excerpt}</p>
         <div className={styles.cta}>
           <button className={styles.btn}>{c.before.cta}</button>
@@ -39,7 +39,7 @@ export function After() {
     <div className={styles.container}>
       <div className={styles.blogCard}>
         <div className={styles.category}>{c.after.category}</div>
-        <h3 className={styles.title}>{c.after.title}</h3>
+        <h4 className={styles.title}>{c.after.title}</h4>
         <p className={styles.excerpt}>{c.after.excerpt}</p>
         <div className={styles.cta}>
           <button className={`${styles.btn} ${styles.btnPrimary}`}>

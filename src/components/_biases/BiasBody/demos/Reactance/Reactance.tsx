@@ -16,7 +16,7 @@ export function Before() {
       <div className={styles.overlay}>
         <div className={styles.modal}>
           <div className={styles.lockIcon}>{c.before.lockIcon}</div>
-          <h3 className={styles.title}>{c.before.title}</h3>
+          <h4 className={styles.title}>{c.before.title}</h4>
           <p className={styles.body}>
             {c.before.bodyStart}
             <strong>{c.before.bodyBold}</strong>

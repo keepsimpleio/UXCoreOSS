@@ -15,7 +15,7 @@ export function Before() {
     <div className={styles.container}>
       <div className={styles.card}>
         <div className={styles.headerRow}>
-          <h3 className={styles.title}>{c.title}</h3>
+          <h4 className={styles.title}>{c.title}</h4>
           <span className={styles.count}>{c.before.count}</span>
         </div>
         <div className={styles.list}>
@@ -42,7 +42,7 @@ export function After() {
     <div className={styles.container}>
       <div className={styles.card}>
         <div className={styles.headerRow}>
-          <h3 className={styles.title}>{c.title}</h3>
+          <h4 className={styles.title}>{c.title}</h4>
           <span className={styles.pageLabel}>{c.after.pageLabel}</span>
         </div>
         <div className={styles.progressBar}>

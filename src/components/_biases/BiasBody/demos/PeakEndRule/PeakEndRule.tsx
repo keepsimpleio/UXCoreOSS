@@ -15,7 +15,7 @@ export function Before() {
     <div className={styles.container}>
       <div className={styles.card}>
         <div className={styles.checkIcon}>{c.before.checkIcon}</div>
-        <h3 className={styles.title}>{c.before.title}</h3>
+        <h4 className={styles.title}>{c.before.title}</h4>
         <p className={styles.body}>{c.before.body}</p>
         <div className={styles.orderNum}>{c.before.orderNum}</div>
       </div>
@@ -29,7 +29,7 @@ export function After() {
     <div className={styles.container}>
       <div className={styles.card}>
         <div className={styles.checkIconBig}>{c.after.checkIcon}</div>
-        <h3 className={styles.title}>{c.after.title}</h3>
+        <h4 className={styles.title}>{c.after.title}</h4>
         <div className={styles.deliveryEta}>
           <span className={styles.etaLabel}>{c.after.etaLabel}</span>
           <span className={styles.etaDate}>{c.after.etaDate}</span>

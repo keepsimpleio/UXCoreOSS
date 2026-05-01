@@ -14,7 +14,7 @@ export function Before() {
   return (
     <div className={styles.container}>
       <div className={styles.iconWrap}>&#128218;</div>
-      <h3 className={styles.title}>{c.before.title}</h3>
+      <h4 className={styles.title}>{c.before.title}</h4>
       <p className={styles.sub}>{c.before.sub}</p>
       <div className={styles.actions}>
         <button className={styles.btnDanger}>{c.before.cancel}</button>
@@ -29,7 +29,7 @@ export function After() {
   return (
     <div className={styles.container}>
       <div className={styles.iconWrap}>&#127942;</div>
-      <h3 className={styles.title}>{c.after.title}</h3>
+      <h4 className={styles.title}>{c.after.title}</h4>
       <div className={styles.statRow}>
         {c.after.stats.map(s => (
           <div key={s.label} className={styles.stat}>

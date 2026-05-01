@@ -13,7 +13,7 @@ export function Before() {
   const c = useContent();
   return (
     <div className={styles.container}>
-      <h3 className={styles.pageTitle}>{c.before.pageTitle}</h3>
+      <h4 className={styles.pageTitle}>{c.before.pageTitle}</h4>
       <div className={styles.settingsList}>
         {c.before.settings.map(setting => (
           <div key={setting.label} className={styles.settingRow}>

@@ -17,7 +17,7 @@ export function Before() {
         <div className={styles.iconWrap}>
           <span className={styles.iconWarning}>{c.before.iconWarning}</span>
         </div>
-        <h3 className={styles.title}>{c.title}</h3>
+        <h4 className={styles.title}>{c.title}</h4>
         <p className={styles.body}>{c.body}</p>
         <div className={styles.riskBox}>
           <span className={styles.riskLabel}>{c.before.riskLabel}</span>
@@ -44,7 +44,7 @@ export function After() {
         <div className={styles.iconWrap}>
           <span className={styles.iconSuccess}>{c.after.iconSuccess}</span>
         </div>
-        <h3 className={styles.title}>{c.title}</h3>
+        <h4 className={styles.title}>{c.title}</h4>
         <p className={styles.body}>{c.body}</p>
         <div className={styles.successBox}>
           <span className={styles.successLabel}>{c.after.successLabel}</span>

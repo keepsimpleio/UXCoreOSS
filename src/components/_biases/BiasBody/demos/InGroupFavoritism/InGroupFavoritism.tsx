@@ -13,7 +13,7 @@ export function Before() {
   const c = useContent();
   return (
     <div className={styles.container}>
-      <h3 className={styles.feedTitle}>{c.feedTitle}</h3>
+      <h4 className={styles.feedTitle}>{c.feedTitle}</h4>
       {c.posts.map(p => (
         <div key={p.user} className={styles.post}>
           <div className={styles.avatar}>{p.user[0]}</div>
@@ -37,7 +37,7 @@ export function After() {
   );
   return (
     <div className={styles.container}>
-      <h3 className={styles.feedTitle}>{c.feedTitle}</h3>
+      <h4 className={styles.feedTitle}>{c.feedTitle}</h4>
       {sorted.map((p, i) => (
         <div
           key={p.user}

@@ -13,7 +13,7 @@ export function Before() {
   const c = useContent();
   return (
     <div className={styles.container}>
-      <h3 className={styles.title}>{c.title}</h3>
+      <h4 className={styles.title}>{c.title}</h4>
       <div className={styles.reviewList}>
         {c.negativeReviews.map(r => (
           <div key={r.author} className={styles.review}>
@@ -35,7 +35,7 @@ export function After() {
   const c = useContent();
   return (
     <div className={styles.container}>
-      <h3 className={styles.title}>{c.title}</h3>
+      <h4 className={styles.title}>{c.title}</h4>
       <div className={styles.summary}>
         <div className={styles.summaryScore}>{c.after.summaryScore}</div>
         <div className={styles.summaryRight}>

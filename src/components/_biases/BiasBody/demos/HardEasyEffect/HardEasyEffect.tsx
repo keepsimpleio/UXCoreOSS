@@ -15,7 +15,7 @@ export function Before() {
   const f = c.before.fields;
   return (
     <div className={styles.container}>
-      <h3 className={styles.title}>{c.title}</h3>
+      <h4 className={styles.title}>{c.title}</h4>
       <div className={styles.form}>
         <div className={styles.row2}>
           <div className={styles.field}>
@@ -107,7 +107,7 @@ export function After() {
   const c = useContent();
   return (
     <div className={styles.container}>
-      <h3 className={styles.title}>{c.title}</h3>
+      <h4 className={styles.title}>{c.title}</h4>
       <div className={styles.progress}>
         {c.after.steps.map((step, i) => (
           <Fragment key={step.label}>

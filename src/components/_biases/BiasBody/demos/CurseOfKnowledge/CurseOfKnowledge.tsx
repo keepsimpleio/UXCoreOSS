@@ -13,7 +13,7 @@ export function Before() {
   const c = useContent();
   return (
     <div className={styles.container}>
-      <h3 className={styles.title}>{c.before.title}</h3>
+      <h4 className={styles.title}>{c.before.title}</h4>
       <p className={styles.sub}>{c.before.sub}</p>
       <div className={styles.codeBlock}>
         {c.before.code.map(line => (
@@ -39,7 +39,7 @@ export function After() {
   const c = useContent();
   return (
     <div className={styles.container}>
-      <h3 className={styles.title}>{c.after.title}</h3>
+      <h4 className={styles.title}>{c.after.title}</h4>
       <p className={styles.sub}>{c.after.sub}</p>
       <div className={styles.optionList}>
         <label className={`${styles.option} ${styles.optionSelected}`}>

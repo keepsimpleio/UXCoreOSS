@@ -14,7 +14,7 @@ export function Before() {
   return (
     <div className={styles.container}>
       <div className={styles.hero}>
-        <h2 className={styles.headline}>{c.before.headline}</h2>
+        <h4 className={styles.headline}>{c.before.headline}</h4>
         <p className={styles.sub}>{c.before.sub}</p>
         <button className={styles.cta}>{c.before.cta}</button>
       </div>
@@ -32,7 +32,7 @@ export function After() {
     <div className={styles.container}>
       <div className={styles.hero}>
         <div className={styles.badge}>{c.after.badge}</div>
-        <h2 className={styles.headline}>{c.after.headline}</h2>
+        <h4 className={styles.headline}>{c.after.headline}</h4>
         <p className={styles.sub}>{c.after.sub}</p>
         <button className={styles.cta}>{c.after.cta}</button>
       </div>

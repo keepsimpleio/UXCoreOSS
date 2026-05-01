@@ -19,7 +19,7 @@ export function Before() {
           <span className={styles.statusText}>{c.status}</span>
           <span className={styles.duration}>{c.duration}</span>
         </div>
-        <h3 className={styles.title}>{c.title}</h3>
+        <h4 className={styles.title}>{c.title}</h4>
         {c.before.sections.map(section => (
           <div key={section.label} className={styles.section}>
             <div className={styles.sectionLabel}>{section.label}</div>
@@ -41,7 +41,7 @@ export function After() {
           <span className={styles.statusText}>{c.status}</span>
           <span className={styles.duration}>{c.duration}</span>
         </div>
-        <h3 className={styles.title}>{c.title}</h3>
+        <h4 className={styles.title}>{c.title}</h4>
         <div className={styles.timeline}>
           <div className={styles.timelineLabel}>{c.after.timelineLabel}</div>
           {c.after.events.map(e => (

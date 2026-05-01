@@ -15,7 +15,7 @@ export function Before() {
     <div className={styles.container}>
       <div className={styles.card}>
         <div className={styles.alertIcon}>⚠️</div>
-        <h3 className={styles.heading}>{c.before.heading}</h3>
+        <h4 className={styles.heading}>{c.before.heading}</h4>
         <p className={styles.blunt}>{c.before.blunt}</p>
         {c.before.plans.map(p => (
           <div key={p.label} className={styles.priceRow}>
@@ -35,7 +35,7 @@ export function After() {
     <div className={styles.container}>
       <div className={styles.card}>
         <div className={styles.badge}>{c.after.badge}</div>
-        <h3 className={styles.heading}>{c.after.heading}</h3>
+        <h4 className={styles.heading}>{c.after.heading}</h4>
         <p className={styles.body}>{c.after.body}</p>
         <p className={styles.subtext}>{c.after.subtext}</p>
         <div className={styles.breakdown}>

@@ -15,7 +15,7 @@ export function Before() {
     <div className={styles.container}>
       <div className={styles.hero}>
         <div className={styles.heroIcon}>&#9889;</div>
-        <h3 className={styles.heroTitle}>{c.before.heroTitle}</h3>
+        <h4 className={styles.heroTitle}>{c.before.heroTitle}</h4>
         <p className={styles.heroSub}>{c.before.heroSub}</p>
       </div>
       <div className={styles.stepList}>
@@ -38,7 +38,7 @@ export function After() {
       <div className={styles.welcomeBadge}>
         <span className={styles.badgeIcon}>&#10003;</span> {c.after.badgeText}
       </div>
-      <h3 className={styles.title}>{c.after.title}</h3>
+      <h4 className={styles.title}>{c.after.title}</h4>
       <p className={styles.sub}>{c.after.sub}</p>
       <div className={styles.featureRow}>
         {c.after.features.map(f => (

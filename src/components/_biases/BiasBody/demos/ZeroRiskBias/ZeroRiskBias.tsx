@@ -14,7 +14,7 @@ export function Before() {
   return (
     <div className={styles.container}>
       <div className={styles.card}>
-        <h3 className={styles.heading}>{c.heading}</h3>
+        <h4 className={styles.heading}>{c.heading}</h4>
         <div className={styles.orderSummary}>
           <div className={styles.orderRow}>
             <span>{c.order.productLabel}</span>
@@ -44,7 +44,7 @@ export function After() {
   return (
     <div className={styles.container}>
       <div className={styles.card}>
-        <h3 className={styles.heading}>{c.heading}</h3>
+        <h4 className={styles.heading}>{c.heading}</h4>
         <div className={styles.orderSummary}>
           <div className={styles.orderRow}>
             <span>{c.order.productLabel}</span>

@@ -15,7 +15,7 @@ export function Before() {
     <div className={styles.container}>
       <div className={styles.commercialHero}>
         <div className={styles.urgencyBadge}>{c.before.urgencyBadge}</div>
-        <h3 className={styles.headline}>{c.before.headline}</h3>
+        <h4 className={styles.headline}>{c.before.headline}</h4>
         <p className={styles.sub}>{c.before.sub}</p>
         <div className={styles.amounts}>
           {c.amounts.map(a => (
@@ -36,7 +36,7 @@ export function After() {
     <div className={styles.container}>
       <div className={styles.natureHero}>
         <div className={styles.leafDecor}>{c.after.leafDecor}</div>
-        <h3 className={styles.headlineNature}>{c.after.headline}</h3>
+        <h4 className={styles.headlineNature}>{c.after.headline}</h4>
         <p className={styles.subNature}>{c.after.sub}</p>
         <div className={styles.amounts}>
           {c.amounts.map(a => (

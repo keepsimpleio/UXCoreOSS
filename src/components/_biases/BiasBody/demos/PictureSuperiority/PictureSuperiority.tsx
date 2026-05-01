@@ -43,7 +43,7 @@ export function Before() {
   const c = useContent();
   return (
     <div className={styles.container}>
-      <h3 className={styles.title}>{c.title}</h3>
+      <h4 className={styles.title}>{c.title}</h4>
       <ul className={styles.textList}>
         {c.before.items.map(item => (
           <li key={item}>{item}</li>
@@ -57,7 +57,7 @@ export function After() {
   const c = useContent();
   return (
     <div className={styles.container}>
-      <h3 className={styles.title}>{c.title}</h3>
+      <h4 className={styles.title}>{c.title}</h4>
       <div className={styles.iconGrid}>
         {c.after.features.map(f => (
           <div key={f.label} className={styles.featureCard}>

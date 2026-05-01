@@ -15,7 +15,7 @@ export function Before() {
     <div className={styles.container}>
       <div className={styles.card}>
         <div className={styles.trialBadge}>{c.before.trialBadge}</div>
-        <h3 className={styles.heading}>{c.before.heading}</h3>
+        <h4 className={styles.heading}>{c.before.heading}</h4>
         <p className={styles.subtext}>{c.before.subtext}</p>
         <ul className={styles.gains}>
           {c.before.gains.map(g => (
@@ -41,7 +41,7 @@ export function After() {
     <div className={styles.container}>
       <div className={styles.card}>
         <div className={styles.trialBadge}>{c.after.trialBadge}</div>
-        <h3 className={styles.headingLoss}>{c.after.heading}</h3>
+        <h4 className={styles.headingLoss}>{c.after.heading}</h4>
         <ul className={styles.losses}>
           {c.after.losses.map(l => (
             <li key={l}>

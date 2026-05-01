@@ -14,7 +14,7 @@ export function Before() {
   return (
     <div className={styles.container}>
       <div className={styles.logo}>{c.before.logo}</div>
-      <h3 className={styles.title}>{c.before.title}</h3>
+      <h4 className={styles.title}>{c.before.title}</h4>
       <ul className={styles.featureList}>
         {c.before.features.map(f => (
           <li key={f}>{f}</li>
@@ -33,7 +33,7 @@ export function After() {
         <div className={styles.avatar}>{c.after.avatar}</div>
         <div className={styles.avatarLabel}>{c.after.avatarLabel}</div>
       </div>
-      <h3 className={styles.title}>{c.after.title}</h3>
+      <h4 className={styles.title}>{c.after.title}</h4>
       <p className={styles.hook}>
         {c.after.hookStart}
         <strong>{c.after.hookBold}</strong>

@@ -14,7 +14,7 @@ export function Before() {
   return (
     <div className={styles.container}>
       <div className={styles.errorCode}>{c.before.errorCode}</div>
-      <h2 className={styles.title}>{c.before.title}</h2>
+      <h4 className={styles.title}>{c.before.title}</h4>
       <p className={styles.body}>{c.before.body}</p>
       <a className={styles.linkBtn} href="#">
         {c.before.link}
@@ -31,7 +31,7 @@ export function After() {
         <div className={styles.character}>&#128123;</div>
         <div className={styles.trail}>&#183;&#183;&#183;</div>
       </div>
-      <h2 className={styles.title}>{c.after.title}</h2>
+      <h4 className={styles.title}>{c.after.title}</h4>
       <p className={styles.body}>{c.after.body}</p>
       <div className={styles.suggestions}>
         {c.after.suggestions.map(s => (

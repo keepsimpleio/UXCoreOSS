@@ -15,7 +15,7 @@ export function Before() {
     <div className={styles.container}>
       <div className={styles.card}>
         <div className={styles.icon}>{c.before.icon}</div>
-        <h3 className={styles.heading}>{c.before.heading}</h3>
+        <h4 className={styles.heading}>{c.before.heading}</h4>
         <p className={styles.subtext}>{c.before.subtext}</p>
         <div className={styles.comparison}>
           <div className={styles.option}>
@@ -46,7 +46,7 @@ export function After() {
           <span className={styles.countdown}>{c.after.countdown}</span>
         </div>
         <div className={styles.icon}>{c.after.icon}</div>
-        <h3 className={styles.headingBold}>{c.after.heading}</h3>
+        <h4 className={styles.headingBold}>{c.after.heading}</h4>
         <p className={styles.subtext}>{c.after.subtext}</p>
         <div className={styles.freeMonth}>
           <div className={styles.freeTag}>{c.after.freeTag}</div>

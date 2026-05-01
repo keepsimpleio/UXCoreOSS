@@ -16,7 +16,7 @@ export function Before() {
     <div className={styles.container}>
       <div className={styles.modal}>
         <div className={styles.icon}>!</div>
-        <h3 className={styles.heading}>{c.before.heading}</h3>
+        <h4 className={styles.heading}>{c.before.heading}</h4>
         <p className={styles.body}>{c.before.body}</p>
         <div className={styles.actions}>
           <button className={styles.btn}>{c.before.cancel}</button>
@@ -38,7 +38,7 @@ export function After() {
     <div className={styles.container}>
       <div className={styles.modal}>
         <div className={styles.iconDanger}>&#9888;</div>
-        <h3 className={styles.heading}>{c.after.heading}</h3>
+        <h4 className={styles.heading}>{c.after.heading}</h4>
         <div className={styles.impactBox}>
           {c.after.impact.map(row => (
             <div key={row.label} className={styles.impactRow}>

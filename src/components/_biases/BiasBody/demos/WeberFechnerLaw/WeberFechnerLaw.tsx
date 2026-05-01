@@ -14,7 +14,7 @@ export function Before() {
   const c = useContent();
   return (
     <div className={styles.container}>
-      <h3 className={styles.title}>{c.title}</h3>
+      <h4 className={styles.title}>{c.title}</h4>
       <div className={styles.items}>
         {c.items.map((item, i) => (
           <Fragment key={item.name}>
@@ -40,7 +40,7 @@ export function After() {
   const c = useContent();
   return (
     <div className={styles.container}>
-      <h3 className={styles.title}>{c.title}</h3>
+      <h4 className={styles.title}>{c.title}</h4>
       <div className={styles.items}>
         {c.items.map((item, i) => (
           <Fragment key={item.name}>
@@ -52,8 +52,16 @@ export function After() {
                 <span className={styles.oldPrice}>{item.oldPrice}</span>
                 <span className={styles.newPrice}>{item.newPrice}</span>
               </div>
-              <div className={`${styles.discount} ${item.afterHot ? styles.discountBig : styles.discountSmall}`}>{item.afterDiscount}</div>
-              <button className={`${styles.btn} ${item.afterHot ? styles.btnHot : ''}`}>{c.addToCart}</button>
+              <div
+                className={`${styles.discount} ${item.afterHot ? styles.discountBig : styles.discountSmall}`}
+              >
+                {item.afterDiscount}
+              </div>
+              <button
+                className={`${styles.btn} ${item.afterHot ? styles.btnHot : ''}`}
+              >
+                {c.addToCart}
+              </button>
             </div>
           </Fragment>
         ))}

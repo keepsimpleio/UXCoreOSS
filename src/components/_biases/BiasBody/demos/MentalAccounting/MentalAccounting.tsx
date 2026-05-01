@@ -14,7 +14,7 @@ export function Before() {
   return (
     <div className={styles.container}>
       <div className={styles.card}>
-        <h3 className={styles.heading}>{c.heading}</h3>
+        <h4 className={styles.heading}>{c.heading}</h4>
         <div className={styles.invoiceRow}>
           <span className={styles.invoiceLabel}>{c.planLabel}</span>
           <span className={styles.invoiceAmount}>{c.planAmount}</span>
@@ -35,7 +35,7 @@ export function After() {
   return (
     <div className={styles.container}>
       <div className={styles.card}>
-        <h3 className={styles.heading}>{c.heading}</h3>
+        <h4 className={styles.heading}>{c.heading}</h4>
         <p className={styles.subtext}>{c.after.subtext}</p>
         <div className={styles.breakdown}>
           {c.after.breakdown.map(row => (
