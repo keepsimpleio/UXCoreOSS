@@ -69,7 +69,6 @@ const UXCoreModal: FC<UXCoreModalProps> = ({
   const [isCopyTooltipVisible, setIsCopyTooltipVisible] = useState(false);
   const [isQuestionHovered, setIsQuestionHovered] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
   const tooltipTimer: { current: any } = useRef();
   const modalBodyRef = useRef(null);
   const shareUrl = typeof window !== 'undefined' ? window.location.href : '';
