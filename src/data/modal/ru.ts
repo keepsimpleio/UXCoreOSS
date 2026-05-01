@@ -15,6 +15,7 @@ const ru = {
   relatedQuestionsLabel: 'Связанные вопросы',
   uxeducationButtonLabel: 'Использование UXCG в образовании',
   downloadButtonLabel: 'Скачать PDF',
+  visualExample: 'Визуальный пример',
 };
 
 export default ru;

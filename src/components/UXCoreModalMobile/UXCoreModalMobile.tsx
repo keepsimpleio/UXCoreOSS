@@ -16,6 +16,7 @@ import HrIcon from '@icons/HrIcon';
 import ProductIcon from '@icons/ProductIcon';
 import ThreeLineArrow from '@icons/ThreeLineArrow';
 
+import BiasBody from '@components/_biases/BiasBody';
 import ContentParser from '@components/ContentParser';
 import ModalRaiting from '@components/ModalRaiting';
 import Spinner from '@components/Spinner';
@@ -381,6 +382,9 @@ const UXCoreModalMobile: FC<UXCoreModalMobileProps> = ({
                     styles={styles}
                   />
                 </div>
+                {bias.title && (
+                  <BiasBody biasNumber={Number(bias.number)} locale={locale} />
+                )}
                 {questions.length > 0 && (
                   <>
                     <div

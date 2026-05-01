@@ -19,6 +19,7 @@ import modalIntl from '@data/modal';
 import HrIcon from '@icons/HrIcon';
 import ProductIcon from '@icons/ProductIcon';
 
+import BiasBody from '@components/_biases/BiasBody';
 import ContentParser from '@components/ContentParser';
 import ModalRaiting from '@components/ModalRaiting';
 import Spinner from '@components/Spinner';
@@ -245,6 +246,7 @@ const UXCoreModal: FC<UXCoreModalProps> = ({
               styles={styles}
             />
           </div>
+          {data.title && <BiasBody biasNumber={biasNumber} locale={locale} />}
           {questions.length > 0 && (
             <>
               <div

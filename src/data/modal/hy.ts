@@ -15,5 +15,6 @@ const hy = {
   relatedQuestionsLabel: 'Առնչվող հարցեր',
   uxeducationButtonLabel: 'Using UXCG in Education',
   downloadButtonLabel: 'Ներբեռնել PDF', //TODO Add to sheet
+  visualExample: 'Տեսողական օրինակ',
 };
 export default hy;
