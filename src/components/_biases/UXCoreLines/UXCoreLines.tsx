@@ -175,6 +175,10 @@ const UXCoreLines: FC<UXCoreLinesProps> = ({
 
               [styles.searchedPathPurple]:
                 startPurple >= index && searchedBiasLine.includes(cssIndex),
+
+              [styles.fadedPath]:
+                searchResults.length > 0 &&
+                !searchedBiasLine.includes(cssIndex),
             })}
           />
         );

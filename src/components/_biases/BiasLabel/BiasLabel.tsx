@@ -111,6 +111,9 @@ const BiasLabel: FC<BiasLabelProps> = ({
           [styles.searched]:
             searchResults.length > 0 &&
             searchResults.includes(Number(biasNumber)),
+          [styles.faded]:
+            searchResults.length > 0 &&
+            !searchResults.includes(Number(biasNumber)),
           [styles.isLeftSection]: isLeftSection,
           [styles.biasLabelHy]: locale === 'hy',
           // These are exceptional positions for left-top section labels
