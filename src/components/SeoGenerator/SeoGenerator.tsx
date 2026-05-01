@@ -190,11 +190,10 @@ const SeoGenerator: FC<SeoGeneratorProps> = ({
     ? hrDescriptionRandom[0]
     : stripHTML(description);
   const favIcon = `${process.env.NEXT_PUBLIC_DOMAIN}${favIconPath}`;
-  const pageUrl = `${process.env.NEXT_PUBLIC_DOMAIN}${router.asPath}`;
   const schema = generateSchema(
     title,
     metaDescription,
-    pageUrl,
+    originalUrl,
     favIcon,
     createdDate,
     modifiedDate,
