@@ -1,0 +1,69 @@
+# QA agent configuration
+# Read by .claude/skills/keepsimple-qa/SKILL.md
+
+environment:
+  production: https://keepsimple.io
+  staging: # leave empty for now, fill in when we have one
+
+# Locales to test. hy falls back to en at runtime, so test it anyway.
+locales:
+  - en
+  - ru
+  - hy
+
+# Viewports
+viewports:
+  desktop: { width: 1440, height: 900 }
+  mobile: { width: 390, height: 844 }
+
+# Routes per tool. Routes are locale-prefixed at runtime
+# (e.g., /en/uxcore, /ru/uxcore). The agent should prepend the locale.
+tools:
+  uxcore:
+    routes:
+      - /uxcore
+      - /uxcore/96-conjunction-fallacy
+      - /uxcore/75-barnum-effect
+  uxcg:
+    routes:
+      - /uxcg
+      - /uxcg/what-causes-users-to-make-mistakes-when-using-our-product
+      - /uxcg/what-to-consider-when-adding-new-functionality-into-product
+      - /uxcg/how-to-involve-users-into-product-testing
+      - /uxcg/involving-users-in-product-development
+      - /uxcg/what-if-our-team-members-dont-share-their-opinion
+  uxcp:
+    routes:
+      - /uxcp
+  uxcat:
+    routes:
+      - /uxcat
+      - /uxcat/ongoing
+      - /uxcat/start-test
+      - /uxcat/test-result
+  uxcore-api:
+    routes:
+      - /uxcore-api
+  longevity-protocol:
+    routes:
+      - /tools/longevity-protocol/about-project
+      - /tools/longevity-protocol/environment
+      - /tools/longevity-protocol/habits/diet
+      - /tools/longevity-protocol/habits/lifestyle
+      - /tools/longevity-protocol/habits/sleep
+      - /tools/longevity-protocol/habits/study
+      - /tools/longevity-protocol/habits/supplements
+      - /tools/longevity-protocol/habits/workout
+      - /tools/longevity-protocol/results
+  site:
+    routes:
+      - /
+      - /tools
+      - /articles
+      - /contributors
+      - /company-management
+      - /auth
+
+
+# Maximum wall-clock time per tool during exploratory pass
+exploratory_budget_minutes: 10

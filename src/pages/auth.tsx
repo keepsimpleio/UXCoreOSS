@@ -1,3 +1,4 @@
+// SHARED with keepsimpleio/KeepSimpleOSS at the same path — sync edits to both repos.
 import { useRouter } from 'next/router';
 import { signIn, useSession } from 'next-auth/react';
 import { FC, useContext, useEffect } from 'react';

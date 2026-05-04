@@ -92,8 +92,7 @@ const ModalRaiting: FC<ModalRaitingProps> = ({ id, type }) => {
                 onMouseOut={handleRangeItemMouseOut}
                 onClick={handleRate}
               >
-                <div className={styles.Block}></div>
-                <div className={styles.Number}>{i}</div>
+                <span className={styles.Number}>{i}</span>
               </div>
             ))}
           </div>

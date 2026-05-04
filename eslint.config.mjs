@@ -79,4 +79,14 @@ export default [
       'import/newline-after-import': 'error',
     },
   },
+
+  // Playwright fixtures use a `use()` callback as a fixture-setup pattern
+  // (the eponymous React hook is unrelated). The lint plugin can't tell
+  // them apart, so disable the React-hooks rule under tests/.
+  {
+    files: ['tests/**/*.{ts,tsx}'],
+    rules: {
+      'react-hooks/rules-of-hooks': 'off',
+    },
+  },
 ];

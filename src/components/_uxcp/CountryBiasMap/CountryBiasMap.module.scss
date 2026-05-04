@@ -1,0 +1,120 @@
+.Root {
+  background: #ffffff;
+}
+
+.Header {
+  padding: 48px 24px 24px;
+  text-align: center;
+}
+
+.Eyebrow {
+  margin: 0 0 4px;
+  font-size: 32px;
+  font-weight: 700;
+  color: #1a1a2e;
+
+  @media (min-width: 640px) {
+    font-size: 38px;
+  }
+}
+
+.SubtitleSlot {
+  margin: 0 0 16px;
+  font-size: 28px;
+
+  @media (min-width: 640px) {
+    font-size: 34px;
+  }
+}
+
+.CyclingWord {
+  display: inline-block;
+  transition: all 0.3s;
+}
+
+.Tagline {
+  max-width: 600px;
+  margin: 0 auto;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #64748b;
+}
+
+.SubTagline {
+  max-width: 560px;
+  margin: 16px auto 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #94a3b8;
+}
+
+.SubTaglineLead {
+  color: #1a1a2e;
+}
+
+.Stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 16px 24px;
+}
+
+.StatBox {
+  flex: 1;
+  min-width: 240px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #fafbfc;
+  padding: 16px 24px;
+  text-align: center;
+}
+
+.StatNumber {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 24px;
+  font-weight: 700;
+  color: #337ab7;
+}
+
+.StatLabel {
+  margin-top: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #475569;
+}
+
+.CalloutBox {
+  flex: 1;
+  min-width: 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(51, 122, 183, 0.2);
+  border-radius: 12px;
+  background: rgba(51, 122, 183, 0.05);
+  padding: 16px 24px;
+  text-align: center;
+}
+
+.CalloutText {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  color: #337ab7;
+}
+
+.Divider {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 8px 16px;
+
+  hr {
+    border: 0;
+    border-top: 1px solid #f1f5f9;
+  }
+}

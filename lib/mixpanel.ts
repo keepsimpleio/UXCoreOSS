@@ -2,8 +2,11 @@ import mixpanel from 'mixpanel-browser';
 
 const MIXPANEL_TOKEN = process.env.NEXT_PUBLIC_MIXPANEL_TOKEN;
 
+export const isMixpanelEnabled = () =>
+  typeof window !== 'undefined' && !!MIXPANEL_TOKEN;
+
 export const initMixpanel = () => {
-  if (typeof window !== 'undefined' && MIXPANEL_TOKEN) {
+  if (isMixpanelEnabled()) {
     mixpanel.init(MIXPANEL_TOKEN, {
       debug: process.env.NODE_ENV !== 'production',
       ignore_dnt: true,
@@ -20,6 +23,7 @@ export const handleMixpanelClick = (
   location: string,
   element: string,
 ) => {
+  if (!isMixpanelEnabled()) return;
   mixpanel.track(eventName, {
     path: path,
     location: location,
@@ -28,6 +32,7 @@ export const handleMixpanelClick = (
 };
 
 export const handleMixpanelSignUp = (source: string) => {
+  if (!isMixpanelEnabled()) return;
   mixpanel.track('Sign Up', {
     source: source,
   });
@@ -36,6 +41,8 @@ export const handleMixpanelSignUp = (source: string) => {
 let bounceTimer: ReturnType<typeof setTimeout> | null = null;
 
 export const trackPageView = (url: string) => {
+  if (!isMixpanelEnabled()) return;
+
   if (bounceTimer) {
     clearTimeout(bounceTimer);
     bounceTimer = null;
@@ -79,6 +86,7 @@ export const trackPageView = (url: string) => {
 };
 
 export const trackLogInSource = (source: string) => {
+  if (!isMixpanelEnabled()) return;
   mixpanel.track('Log in Source', {
     signup_source: source,
   });

@@ -25,6 +25,7 @@ import decisionTable from '@data/decisionTable';
 import uxcpLocalization from '@data/uxcp';
 
 import BiasSearch from '@components/_uxcp/BiasSearch';
+import CountryBiasMap from '@components/_uxcp/CountryBiasMap';
 import DecisionTable from '@components/_uxcp/DecisionTable';
 import LogInModal from '@components/_uxcp/LogInModal';
 import MobileDisclimer from '@components/_uxcp/MobileDisclimer';
@@ -446,6 +447,15 @@ const UXCPLayout: FC<UXCPLayoutProps> = ({
         <h2 className={styles.ShortName}>(UXCP)</h2>
         <section className={styles.ShiftedContent}>
           <UXCPDescription />
+          <CountryBiasMap
+            biases={biases}
+            onUseBiases={biasNumbers => {
+              const matched = biases.filter(b =>
+                biasNumbers.includes(b.number),
+              );
+              setSelectedBiases(matched);
+            }}
+          />
           {isMobile && <MobileDisclimer />}
           {!isMobile && <h2 className={styles.Heading}>{title}</h2>}
           <Section style={isMobile ? {} : { padding: 12 }} noStyles={isMobile}>

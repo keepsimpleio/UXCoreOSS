@@ -1,3 +1,4 @@
+// SHARED with keepsimpleio/KeepSimpleOSS at the same path — sync edits to both repos.
 import { NextApiRequest, NextApiResponse } from 'next';
 import { encode } from 'next-auth/jwt';
 
