@@ -398,26 +398,30 @@ function App({ Component, pageProps: { session, ...pageProps } }: TApp) {
   useEffect(() => {
     if (!accountData?.id || !accountData?.createdAt) return;
 
-    import('../../lib/mixpanel').then(({ default: mixpanel }) => {
-      mixpanel.identify(accountData.id);
+    import('../../lib/mixpanel').then(
+      ({ default: mixpanel, isMixpanelEnabled }) => {
+        if (!isMixpanelEnabled()) return;
 
-      const isNewUser =
-        new Date(accountData.createdAt) >= new Date('2025-06-01');
+        mixpanel.identify(accountData.id);
 
-      if (isNewUser) {
-        mixpanel.track('New User', {
-          id: accountData.id,
-          username: accountData.username,
-          createdAt: accountData.createdAt,
-        });
+        const isNewUser =
+          new Date(accountData.createdAt) >= new Date('2025-06-01');
 
-        mixpanel.people.set({
-          $name: accountData.username,
-          $created: accountData.createdAt,
-          id: accountData.id,
-        });
-      }
-    });
+        if (isNewUser) {
+          mixpanel.track('New User', {
+            id: accountData.id,
+            username: accountData.username,
+            createdAt: accountData.createdAt,
+          });
+
+          mixpanel.people.set({
+            $name: accountData.username,
+            $created: accountData.createdAt,
+            id: accountData.id,
+          });
+        }
+      },
+    );
   }, [accountData?.id, accountData?.createdAt]);
 
   return (

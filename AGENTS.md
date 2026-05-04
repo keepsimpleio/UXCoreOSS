@@ -301,9 +301,9 @@ Edit the generator scripts, not the output.
 
 ## Environment variables
 
-`.env.example` lists 16 variables with no documentation. Ask before assuming.
+`.env.example` is the contributor-facing template (with inline comments). Copy to `.env.local` before running `yarn dev`.
 
-**Client-side (`NEXT_PUBLIC_*`):** `NEXT_PUBLIC_ENV`, `NEXT_PUBLIC_INDEXING`, `NEXT_PUBLIC_MIXPANEL_TOKEN`, `NEXT_PUBLIC_DOMAIN`, `NEXT_PUBLIC_API_KEY`, `NEXT_PUBLIC_STRAPI`, `NEXT_PUBLIC_UXCAT_API`.
+**Client-side (`NEXT_PUBLIC_*`):** `NEXT_PUBLIC_ENV`, `NEXT_PUBLIC_INDEXING`, `NEXT_PUBLIC_MIXPANEL_TOKEN`, `NEXT_PUBLIC_GA_MEASUREMENT_ID`, `NEXT_PUBLIC_AHREFS_ANALYTICS_KEY`, `NEXT_PUBLIC_DOMAIN`, `NEXT_PUBLIC_STRAPI`, `NEXT_PUBLIC_UXCAT_API`.
 
 **Server-only:** `NEXTAUTH_SECRET`, `NEXTAUTH_URL`, `STRAPI_URL`, `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `LINKEDIN_CLIENT_ID`, `LINKEDIN_CLIENT_SECRET`, `DISCORD_CLIENT_ID`, `DISCORD_CLIENT_SECRET`.
 
