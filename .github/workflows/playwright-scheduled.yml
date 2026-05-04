@@ -103,15 +103,15 @@ jobs:
         run: |
           env="${{ inputs.environment || 'staging' }}"
           case "$env" in
-            production) echo "base=${{ vars.PLAYWRIGHT_PRODUCTION_URL }}" >> "$GITHUB_OUTPUT" ;;
-            *)          echo "base=${{ vars.PLAYWRIGHT_STAGING_URL }}"    >> "$GITHUB_OUTPUT" ;;
+            production) echo "base=${{ secrets.PLAYWRIGHT_PRODUCTION_URL }}" >> "$GITHUB_OUTPUT" ;;
+            *)          echo "base=${{ secrets.PLAYWRIGHT_STAGING_URL }}"    >> "$GITHUB_OUTPUT" ;;
           esac
 
       - name: Verify base URL is configured
         shell: bash
         run: |
           if [ -z "${{ steps.url.outputs.base }}" ]; then
-            echo "::error::Base URL is empty. Configure PLAYWRIGHT_STAGING_URL / PLAYWRIGHT_PRODUCTION_URL as repo variables." >&2
+            echo "::error::Base URL is empty. Configure PLAYWRIGHT_STAGING_URL / PLAYWRIGHT_PRODUCTION_URL as repo secrets." >&2
             exit 1
           fi
 
