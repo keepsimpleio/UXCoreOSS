@@ -716,7 +716,6 @@ export const en: CountryBiasLocale = {
     chooseYour: 'Choose your',
     cyclingWords: ['Persona', 'Opponent', 'Target Audience', 'Rival'],
     cyclingBoldWord: 'Persona',
-    tagline: 'The only place where you see the future of your business.',
     subTaglineLead: 'You asked — We built. ',
     subTagline:
       'Select a country to auto-fill a cognitive bias profile. Each template highlights 10–15 biases with higher cultural prevalence — ready to use in the Persona builder.',
@@ -734,7 +733,7 @@ export const en: CountryBiasLocale = {
       'This is an approximate score reflecting how closely the bias template aligns with documented behavioral patterns for this country.',
     hofstedeNote:
       'Based on Hofstede cultural dimensions and behavioral research coverage.',
-    useInPersonaBuilder: 'Use in Persona Builder →',
+    useInPersonaBuilder: 'Persona fill {country}',
     emptyStateLead: 'Select the country and ',
     emptyStateLink: 'see the future of your business',
     emptyStateHint: 'Click to load bias template',
