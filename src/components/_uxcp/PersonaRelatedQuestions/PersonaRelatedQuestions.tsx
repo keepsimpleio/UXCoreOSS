@@ -45,6 +45,35 @@ const PersonaRelatedQuestions: FC<PersonaRelatedQuestionsProps> = ({
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedPriority, setSelectedPriority] =
     useState<priorityLevel>('all');
+  const [hasUserOverridden, setHasUserOverridden] = useState(false);
+
+  const defaultPriority = useMemo<priorityLevel>(() => {
+    if (stageIndex === null) return 'all';
+
+    const counts: Record<'high' | 'medium' | 'low', number> = {
+      high: 0,
+      medium: 0,
+      low: 0,
+    };
+    relatedQuestions.forEach(({ tags, relevancyTitle }) => {
+      if (tags.includes(stageIndex + 1)) counts[relevancyTitle] += 1;
+    });
+
+    if (counts.high + counts.medium + counts.low === 0) return 'all';
+    if (counts.high >= counts.medium && counts.high >= counts.low)
+      return 'high';
+    if (counts.medium >= counts.low) return 'medium';
+    return 'low';
+  }, [relatedQuestions, stageIndex]);
+
+  useEffect(() => {
+    if (!hasUserOverridden) setSelectedPriority(defaultPriority);
+  }, [defaultPriority, hasUserOverridden]);
+
+  const handlePriorityChange = (priority: priorityLevel) => {
+    setHasUserOverridden(true);
+    setSelectedPriority(priority);
+  };
 
   const filteredQuestions = useMemo(() => {
     if (stageIndex === null) return [];
@@ -99,7 +128,7 @@ const PersonaRelatedQuestions: FC<PersonaRelatedQuestionsProps> = ({
       </div>
       <PriorityFilter
         selectedPriority={selectedPriority}
-        onChange={setSelectedPriority}
+        onChange={handlePriorityChange}
       />
       {stageIndex !== null && (
         <>

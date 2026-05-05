@@ -24,7 +24,6 @@ export interface CountryUI {
   chooseYour: string;
   cyclingWords: string[];
   cyclingBoldWord: string;
-  tagline: string;
   subTaglineLead: string;
   subTagline: string;
   statTemplates: string;

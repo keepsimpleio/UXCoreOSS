@@ -222,7 +222,7 @@ const BiasPanel = forwardRef<HTMLDivElement, BiasPanelProps>(
               onClick={handleUse}
               className={styles.UseButton}
             >
-              {ui.useInPersonaBuilder}
+              {ui.useInPersonaBuilder.replace('{country}', country.name)}
             </button>
           </div>
         </div>

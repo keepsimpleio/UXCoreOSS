@@ -6,6 +6,15 @@ const baseURL = process.env.PLAYWRIGHT_BASE_URL || 'http://localhost:3005';
 // CI sets PLAYWRIGHT_NO_SERVER=1 to skip the local webServer and target a deployed URL.
 const skipWebServer = process.env.PLAYWRIGHT_NO_SERVER === '1';
 
+// Staging sits behind HTTP Basic Auth; production and local dev don't.
+const httpCredentials =
+  process.env.PLAYWRIGHT_HTTP_USERNAME && process.env.PLAYWRIGHT_HTTP_PASSWORD
+    ? {
+        username: process.env.PLAYWRIGHT_HTTP_USERNAME,
+        password: process.env.PLAYWRIGHT_HTTP_PASSWORD,
+      }
+    : undefined;
+
 export default defineConfig({
   testDir: './tests',
   globalSetup: './tests/global-setup.ts',
@@ -22,6 +31,7 @@ export default defineConfig({
 
   use: {
     baseURL,
+    httpCredentials,
     testIdAttribute: 'data-testid',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',

@@ -43,6 +43,9 @@ on:
           - webkit
           - all
 
+permissions:
+  contents: read
+
 jobs:
   playwright:
     runs-on: ubuntu-latest
@@ -118,6 +121,9 @@ jobs:
       - name: Run Playwright tests
         env:
           PLAYWRIGHT_BASE_URL: ${{ steps.url.outputs.base }}
+          # Staging is behind HTTP Basic Auth; production is public.
+          PLAYWRIGHT_HTTP_USERNAME: ${{ (inputs.environment || 'staging') != 'production' && secrets.PLAYWRIGHT_STAGING_USERNAME || '' }}
+          PLAYWRIGHT_HTTP_PASSWORD: ${{ (inputs.environment || 'staging') != 'production' && secrets.PLAYWRIGHT_STAGING_PASSWORD || '' }}
           PLAYWRIGHT_NO_SERVER: '1'
           CI: 'true'
         run: yarn playwright test ${{ steps.scope.outputs.path }} ${{ steps.browser.outputs.flag }}
