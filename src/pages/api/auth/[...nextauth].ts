@@ -1,3 +1,4 @@
+// SHARED with keepsimpleio/KeepSimpleOSS at the same path — sync edits to both repos.
 import NextAuth from 'next-auth';
 import DiscordProvider from 'next-auth/providers/discord';
 import GoogleProvider from 'next-auth/providers/google';

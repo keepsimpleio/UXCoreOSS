@@ -50,6 +50,26 @@ yarn dev
 
 ---
 
+## 🔐 Environment variables
+
+Copy the example file before your first run:
+
+```bash
+cp .env.example .env.local
+```
+
+The defaults in `.env.example` point at our public staging Strapi and UX Cat APIs, so most UI and feature work runs without any extra setup. Optional integrations (Mixpanel, Google Analytics, Ahrefs, OAuth providers) are left empty — the app no-ops when their keys aren't set.
+
+If you want to work on **authentication**, you'll need your own OAuth apps and a real `NEXTAUTH_SECRET` (the example ships a clearly-labelled dev placeholder). Setup links for each provider are in the comments inside `.env.example`; generate a secret with:
+
+```bash
+openssl rand -base64 32
+```
+
+Never commit `.env.local` — it's gitignored on purpose.
+
+---
+
 ## ✍️ Commit Rules & Branch Naming
 
 We use <a href="https://www.conventionalcommits.org/en/v1.0.0/">Conventional Commits</a> to keep our history clean and readable.

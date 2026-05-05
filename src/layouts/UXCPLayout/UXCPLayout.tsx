@@ -8,6 +8,7 @@ import React, {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from 'react';
 
@@ -25,6 +26,7 @@ import decisionTable from '@data/decisionTable';
 import uxcpLocalization from '@data/uxcp';
 
 import BiasSearch from '@components/_uxcp/BiasSearch';
+import CountryBiasMap from '@components/_uxcp/CountryBiasMap';
 import DecisionTable from '@components/_uxcp/DecisionTable';
 import LogInModal from '@components/_uxcp/LogInModal';
 import MobileDisclimer from '@components/_uxcp/MobileDisclimer';
@@ -107,6 +109,7 @@ const UXCPLayout: FC<UXCPLayoutProps> = ({
     null,
   );
   const [temporarySavedBiases, setTemporarySavedBiases] = useState(null);
+  const personaSectionRef = useRef<HTMLDivElement>(null);
   const { title, subSectionTitle, copyURL, copied } = uxcpLocalization[locale];
   const { overWriteText, cancelBtn, pleaseInputName } = decisionTable[locale];
   const { accountData } = useContext(GlobalContext);
@@ -114,6 +117,21 @@ const UXCPLayout: FC<UXCPLayoutProps> = ({
     () => calculateData(questions, selectedBiases),
     [questions, biases, selectedBiases],
   );
+
+  const prevHasRelevantDataRef = useRef(false);
+  useEffect(() => {
+    const entries = Object.entries(tagRelevancy);
+    const hasData = entries.some(([, count]) => count > 0);
+
+    if (hasData && !prevHasRelevantDataRef.current) {
+      const [bestKey] = entries.reduce((best, current) =>
+        current[1] > best[1] ? current : best,
+      );
+      setSelectedStage(Number(bestKey) - 1);
+    }
+
+    prevHasRelevantDataRef.current = hasData;
+  }, [tagRelevancy]);
 
   const insightList = useMemo(
     () => selectedBiases.filter(({ m }) => m),
@@ -446,7 +464,23 @@ const UXCPLayout: FC<UXCPLayoutProps> = ({
         <h2 className={styles.ShortName}>(UXCP)</h2>
         <section className={styles.ShiftedContent}>
           <UXCPDescription />
+          <CountryBiasMap
+            biases={biases}
+            onUseBiases={biasNumbers => {
+              const matched = biases.filter(b =>
+                biasNumbers.includes(b.number),
+              );
+              setSelectedBiases(matched);
+              requestAnimationFrame(() => {
+                personaSectionRef.current?.scrollIntoView({
+                  behavior: 'smooth',
+                  block: 'start',
+                });
+              });
+            }}
+          />
           {isMobile && <MobileDisclimer />}
+          <div ref={personaSectionRef} style={{ scrollMarginTop: 16 }} />
           {!isMobile && <h2 className={styles.Heading}>{title}</h2>}
           <Section style={isMobile ? {} : { padding: 12 }} noStyles={isMobile}>
             {!isMobile && (

@@ -16,7 +16,7 @@
     color: #000;
     position: relative;
     background: #fff;
-    width: 650px;
+    width: 900px;
     border: 1px solid #cbcbcb;
     box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.15);
     border-radius: 4px;
@@ -78,6 +78,7 @@
             IBM Plex Mono,
             sans-serif;
           text-align: center;
+          border-radius: 4px;
         }
 
         &.mentionedIn {
@@ -104,40 +105,62 @@
 
       .ModalBodyContent {
         .switcher {
+          position: relative;
           display: flex;
           margin-bottom: 10px;
+          border: 1px solid #e0e0e0;
+          border-radius: 8px;
+          background-color: #fff;
+          isolation: isolate;
+
+          &::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            bottom: -1px;
+            left: -1px;
+            width: calc(50% + 1px);
+            background-color: #e8f0fb;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            transform: translateX(0);
+            transition: transform 450ms cubic-bezier(0.22, 0.95, 0.35, 1);
+            will-change: transform;
+            pointer-events: none;
+            z-index: 0;
+          }
+
+          &:has(.activeHr)::before {
+            transform: translateX(calc(100% - 2px));
+          }
 
           .switcherItem {
+            position: relative;
+            z-index: 1;
             width: 50%;
             text-align: center;
             height: 100%;
-            border: 1px solid #c4c4c4;
             padding: 8px 0;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 4px;
+            color: #000000a6;
+            transition: color 300ms ease;
+
+            svg {
+              transition: fill 300ms ease;
+            }
           }
 
           .activeProduct,
           .activeHr {
-            border: 1px solid #5b88bd;
-            color: #5b88bd;
+            color: #1e56a0;
 
             svg {
-              fill: #5b88bd;
+              fill: #1e56a0;
             }
-          }
-
-          .activeProduct {
-            border-top-left-radius: 5px;
-            border-bottom-left-radius: 5px;
-          }
-
-          .activeHr {
-            border-top-right-radius: 5px;
-            border-bottom-right-radius: 5px;
           }
         }
       }
@@ -178,6 +201,7 @@
     font-family: 'NotoSansArmenian-Regular', sans-serif;
   }
 }
+
 .a {
   color: #252626 !important;
   font-weight: 700;
@@ -351,6 +375,7 @@ ol {
       font-size: 14px;
     }
   }
+
   .ul {
     & .li {
       font-size: 14px !important;
@@ -370,6 +395,7 @@ ol {
       font-size: 16px;
     }
   }
+
   .ul {
     & .li {
       font-size: 16px !important;

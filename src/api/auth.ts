@@ -1,3 +1,4 @@
+// SHARED with keepsimpleio/KeepSimpleOSS at the same path — sync edits to both repos.
 import { signOut } from 'next-auth/react';
 
 export const logout = async (): Promise<void> => {

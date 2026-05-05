@@ -15,5 +15,6 @@ const en = {
   relatedQuestionsLabel: 'Related questions',
   uxeducationButtonLabel: 'Using UXCG in Education',
   downloadButtonLabel: 'Download PDF',
+  visualExample: 'Visual Example',
 };
 export default en;
