@@ -61,7 +61,7 @@ const SpinningGlobe: FC = () => {
 interface BiasPanelProps {
   selectedId: string | null;
   biases: StrapiBiasType[];
-  onUseBiases: (biasNumbers: number[]) => void;
+  onUseBiases: (biasNumbers: number[], countryName: string) => void;
 }
 
 const BiasPanel = forwardRef<HTMLDivElement, BiasPanelProps>(
@@ -115,7 +115,7 @@ const BiasPanel = forwardRef<HTMLDivElement, BiasPanelProps>(
           : '#991B1B';
 
     const handleUse = () => {
-      onUseBiases(country.biases);
+      onUseBiases(country.biases, country.name);
     };
 
     return (

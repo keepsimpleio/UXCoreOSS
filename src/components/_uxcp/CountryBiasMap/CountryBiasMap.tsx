@@ -4,7 +4,7 @@ import { type FC, useEffect, useRef, useState } from 'react';
 import type { StrapiBiasType } from '@local-types/data';
 import type { TRouter } from '@local-types/global';
 
-import { type Country,countryBiasByLocale } from '@data/countryBias';
+import { type Country, countryBiasByLocale } from '@data/countryBias';
 
 import BiasPanel from './BiasPanel';
 import CountryList from './CountryList';
@@ -251,7 +251,7 @@ const CyclingSubtitleWord: FC<CyclingSubtitleWordProps> = ({
 
 interface CountryBiasMapProps {
   biases: StrapiBiasType[];
-  onUseBiases: (biasNumbers: number[]) => void;
+  onUseBiases: (biasNumbers: number[], countryName: string) => void;
 }
 
 const CountryBiasMap: FC<CountryBiasMapProps> = ({ biases, onUseBiases }) => {
@@ -273,8 +273,8 @@ const CountryBiasMap: FC<CountryBiasMapProps> = ({ biases, onUseBiases }) => {
     setSelected(prev => (prev === id ? null : id));
   };
 
-  const handleUseBiases = (biasNumbers: number[]) => {
-    onUseBiases(biasNumbers);
+  const handleUseBiases = (biasNumbers: number[], countryName: string) => {
+    onUseBiases(biasNumbers, countryName);
   };
 
   return (
@@ -293,16 +293,6 @@ const CountryBiasMap: FC<CountryBiasMapProps> = ({ biases, onUseBiases }) => {
           {ui.subTagline}
         </p>
       </header>
-
-      <div className={styles.Stats}>
-        <div className={styles.StatBox}>
-          <div className={styles.StatNumber}>{countries.length}</div>
-          <div className={styles.StatLabel}>{ui.statTemplates}</div>
-        </div>
-        <div className={styles.CalloutBox}>
-          <div className={styles.CalloutText}>{ui.statReady}</div>
-        </div>
-      </div>
 
       <CountryMap
         selected={selected}
