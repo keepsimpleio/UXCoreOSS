@@ -44,62 +44,6 @@
   color: #1a1a2e;
 }
 
-.Stats {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 0 16px 24px;
-}
-
-.StatBox {
-  flex: 1;
-  min-width: 240px;
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  background: #fafbfc;
-  padding: 16px 24px;
-  text-align: center;
-}
-
-.StatNumber {
-  font-family: var(--font-geist-mono), ui-monospace, monospace;
-  font-size: 24px;
-  font-weight: 700;
-  color: #337ab7;
-}
-
-.StatLabel {
-  margin-top: 4px;
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: #475569;
-}
-
-.CalloutBox {
-  flex: 1;
-  min-width: 240px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid rgba(51, 122, 183, 0.2);
-  border-radius: 12px;
-  background: rgba(51, 122, 183, 0.05);
-  padding: 16px 24px;
-  text-align: center;
-}
-
-.CalloutText {
-  font-size: 13px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.025em;
-  color: #337ab7;
-}
-
 .Divider {
   max-width: 900px;
   margin: 0 auto;

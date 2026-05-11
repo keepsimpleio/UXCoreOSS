@@ -466,11 +466,12 @@ const UXCPLayout: FC<UXCPLayoutProps> = ({
           <UXCPDescription />
           <CountryBiasMap
             biases={biases}
-            onUseBiases={biasNumbers => {
+            onUseBiases={(biasNumbers, countryName) => {
               const matched = biases.filter(b =>
                 biasNumbers.includes(b.number),
               );
               setSelectedBiases(matched);
+              setPersonaName(countryName);
               requestAnimationFrame(() => {
                 personaSectionRef.current?.scrollIntoView({
                   behavior: 'smooth',
