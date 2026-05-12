@@ -86,7 +86,7 @@ const UserDropdown: FC<UserDropdownProps> = ({
     if (!isLoggedIn && isAccessTokenExist) {
       return '/assets/images/userProfile.svg';
     }
-    return userImage;
+    return userImage || '/assets/images/userProfile.svg';
   };
 
   useEffect(() => {

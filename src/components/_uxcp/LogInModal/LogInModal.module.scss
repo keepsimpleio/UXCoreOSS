@@ -3,8 +3,7 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  gap: 20px;
-  height: 350px;
+  gap: 16px;
 
   .title {
     font-style: normal;
@@ -45,10 +44,11 @@
 }
 
 .loginWrapper {
-  width: 600px !important;
+  width: 420px !important;
+  max-width: 92vw !important;
 }
 .loginBody {
-  padding: 0 28px 50px 28px !important;
+  padding: 0 28px 32px 28px !important;
   & h1 {
     line-height: 10px !important;
   }
