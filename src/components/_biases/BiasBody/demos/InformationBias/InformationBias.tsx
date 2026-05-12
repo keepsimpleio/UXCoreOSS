@@ -1,5 +1,7 @@
 import { useRouter } from 'next/router';
 
+import { sanitizeHtml } from '@lib/sanitizeHtml';
+
 import rawContent from './InformationBias.content';
 
 import styles from './InformationBias.module.scss';
@@ -45,8 +47,8 @@ export function After() {
       <div className={styles.specTable}>
         {c.after.specs.map(([k, v]) => (
           <div key={k} className={styles.specRow}>
-            <span dangerouslySetInnerHTML={{ __html: k }} />
-            <strong dangerouslySetInnerHTML={{ __html: v }} />
+            <span dangerouslySetInnerHTML={{ __html: sanitizeHtml(k) }} />
+            <strong dangerouslySetInnerHTML={{ __html: sanitizeHtml(v) }} />
           </div>
         ))}
       </div>

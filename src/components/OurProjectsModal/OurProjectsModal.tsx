@@ -7,6 +7,8 @@ import { Tooltip as ReactTooltip } from 'react-tooltip';
 
 import { TRouter } from '@local-types/global';
 
+import { sanitizeHtml } from '@lib/sanitizeHtml';
+
 import ourProjectsData from '@data/ourProjects';
 
 import Button from '@components/Button';
@@ -93,7 +95,9 @@ const OurProjectsModal: FC<OurProjectsModalProps> = ({
             </div>
 
             <div
-              dangerouslySetInnerHTML={{ __html: project.description }}
+              dangerouslySetInnerHTML={{
+                __html: sanitizeHtml(project.description),
+              }}
               className={styles.description}
             />
 
