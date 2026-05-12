@@ -11,6 +11,9 @@ import decisionTable from '@data/decisionTable';
 import DiscordIcon from '@icons/DiscordIcon';
 import GoogleIcon from '@icons/GoogleIcon';
 import LinkedInIcon from '@icons/LinkedInIcon';
+import MailRuIcon from '@icons/MailRuIcon';
+import XIcon from '@icons/XIcon';
+import YandexIcon from '@icons/YandexIcon';
 
 import Button from '@components/Button';
 import { GlobalContext } from '@components/Context/GlobalContext';
@@ -37,6 +40,9 @@ const LogInModal: FC<LoginModalProps> = ({ setShowModal, source }) => {
     singInWithGoogle,
     signInWithLinkedIn,
     signInWithDiscord,
+    signInWithTwitter,
+    signInWithMailRu,
+    signInWithYandex,
     loginText,
     cancelBtn,
     login,
@@ -101,6 +107,24 @@ const LogInModal: FC<LoginModalProps> = ({ setShowModal, source }) => {
             className={styles.link}
           >
             <DiscordIcon /> <span>{signInWithDiscord}</span>
+          </a>
+          <a
+            onClick={() => handleProviderSignIn('twitter', source)}
+            className={styles.link}
+          >
+            <XIcon /> <span>{signInWithTwitter}</span>
+          </a>
+          <a
+            onClick={() => handleProviderSignIn('mailru', source)}
+            className={styles.link}
+          >
+            <MailRuIcon /> <span>{signInWithMailRu}</span>
+          </a>
+          <a
+            onClick={() => handleProviderSignIn('yandex', source)}
+            className={styles.link}
+          >
+            <YandexIcon /> <span>{signInWithYandex}</span>
           </a>
           <Button
             label={cancelBtn}
