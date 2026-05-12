@@ -13,6 +13,8 @@ import {
 import type { StrapiBiasType } from '@local-types/data';
 import type { TRouter } from '@local-types/global';
 
+import { sanitizeHtml } from '@lib/sanitizeHtml';
+
 import { countryBiasByLocale, REGION_COLORS } from '@data/countryBias';
 
 import FlagImage from '../FlagImage';
@@ -204,7 +206,7 @@ const BiasPanel = forwardRef<HTMLDivElement, BiasPanelProps>(
                   <div
                     className={styles.BiasShort}
                     dangerouslySetInnerHTML={{
-                      __html: bias.description ?? '',
+                      __html: sanitizeHtml(bias.description),
                     }}
                   />
                 </Link>

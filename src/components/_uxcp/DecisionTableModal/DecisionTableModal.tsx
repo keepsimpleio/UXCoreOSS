@@ -4,6 +4,8 @@ import { Tooltip as ReactTooltip } from 'react-tooltip';
 
 import { TRouter } from '@local-types/global';
 
+import { sanitizeHtml } from '@lib/sanitizeHtml';
+
 import decisionTable from '@data/decisionTable';
 
 import Button from '@components/Button';
@@ -105,7 +107,9 @@ const DecisionTableModal = (props: DecisionTableModalProps) => {
               place={'top'}
             >
               <span
-                dangerouslySetInnerHTML={{ __html: props.descriptionOfBias }}
+                dangerouslySetInnerHTML={{
+                  __html: sanitizeHtml(props.descriptionOfBias),
+                }}
               />
             </ReactTooltip>
           </div>
