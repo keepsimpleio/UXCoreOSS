@@ -141,6 +141,17 @@ const initUseGlobals = (articleRef: HTMLElement) => {
   window.addEventListener('resize', handleSidebarChanges);
 };
 
+// Article-ref-free init for pages without an article surface (e.g. /uxcore).
+// Reads persisted darkTheme flag and applies it to <body> + state.
+const initDarkTheme = () => {
+  if (typeof window === 'undefined') return;
+  const isDarkTheme = localStorage.getItem('darkTheme') === 'true';
+  if (isDarkTheme) {
+    document.body.classList.add('darkTheme');
+    reducer({ isDarkTheme: true });
+  }
+};
+
 const unmountUseGlobals = () => {
   window.removeEventListener('resize', handleSidebarChanges);
 };
@@ -164,6 +175,7 @@ const useGlobals = (): CustomHookType => {
   return [
     {
       initUseGlobals,
+      initDarkTheme,
       unmountUseGlobals,
       toggleIsDarkTheme: handleToggleTheme,
       toggleSidebar,

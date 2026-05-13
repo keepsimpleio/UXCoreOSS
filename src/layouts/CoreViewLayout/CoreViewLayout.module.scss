@@ -134,6 +134,31 @@
   transform: translate(21%, 61%);
 }
 
+// Dark theme: repaint hexagon chrome only. Bias cards keep their category
+// colors (set by BiasLabel) — we never touch those here.
+:global(body.darkTheme) .coreView {
+  .hexagonWrapper .hexagon {
+    background: #151a26;
+
+    &:after {
+      background: #303338;
+    }
+
+    .heading {
+      color: #dadada;
+    }
+
+    .description {
+      color: rgba(218, 218, 218, 0.7);
+    }
+
+    .moto,
+    .link {
+      color: #9aa0aa;
+    }
+  }
+}
+
 @media (max-width: 1550px) {
   .coreView {
     .hexagonWrapper {

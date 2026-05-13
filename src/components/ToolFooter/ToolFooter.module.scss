@@ -166,3 +166,19 @@
     display: none;
   }
 }
+
+// Dark theme: keep brand-blue accents but lift contrast for the muted release
+// label so it stays legible against the dark page.
+:global(body.darkTheme) .ToolFooter {
+  & .AdvancedLinks > * {
+    color: #7fb3d5;
+  }
+
+  & .Motto {
+    color: #7fb3d5;
+  }
+
+  & .Release {
+    color: #9aa0aa;
+  }
+}

@@ -338,3 +338,29 @@
     opacity: 1;
   }
 }
+
+// Dark theme: repaint the folder-view chrome. Category color lines and labels
+// (Blue/Green/Red/Purple inside .LineContainer) intentionally preserved.
+:global(body.darkTheme) {
+  .Left {
+    background: #151a26;
+
+    .HeadlineContainer {
+      h1 {
+        color: #dadada;
+      }
+
+      span {
+        color: #9aa0aa;
+      }
+    }
+
+    p {
+      color: rgba(218, 218, 218, 0.85);
+    }
+  }
+
+  .Right .Mask {
+    background: #1b1e26;
+  }
+}

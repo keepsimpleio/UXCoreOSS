@@ -88,7 +88,12 @@ function App({ Component, pageProps: { session, ...pageProps } }: TApp) {
   const { initUseMobile } = useMobile()[0];
   const { events } = useRouter();
   const { setIsVisible } = useSpinner()[0];
+  const { initDarkTheme } = useGlobals()[0];
   const { isDarkTheme } = useGlobals()[1];
+
+  useEffect(() => {
+    initDarkTheme();
+  }, []);
 
   useEffect(() => {
     const authenticateUser = async () => {

@@ -187,6 +187,39 @@ $headerHeight: 46px;
     z-index: 2;
     display: flex;
     align-items: center;
+    gap: 4px;
+
+    .themeToggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      padding: 0;
+      margin-right: 4px;
+      background: transparent;
+      border: 0;
+      border-radius: 50%;
+      color: #4a4a4a;
+      cursor: pointer;
+      transition:
+        background-color 0.18s ease,
+        color 0.18s ease;
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.06);
+        color: #131313;
+      }
+
+      &:focus-visible {
+        outline: 2px solid rgba(76, 140, 193, 0.6);
+        outline-offset: 2px;
+      }
+
+      svg {
+        display: block;
+      }
+    }
 
     &.authorized {
       right: 0;
@@ -456,6 +489,23 @@ $headerHeight: 46px;
   }
   .Hidden {
     display: none;
+  }
+}
+
+// Dark theme overrides — scoped to body.darkTheme. Bias-card colors preserved
+// elsewhere; this only paints the chrome (header bar + toggle hover state).
+:global(body.darkTheme) .ToolHeader {
+  background-color: #151a26;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  color: #dadada;
+
+  .themeToggle {
+    color: #dadada;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+    }
   }
 }
 

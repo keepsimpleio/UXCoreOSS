@@ -153,3 +153,40 @@ $active-bg-color: #ffffff;
     }
   }
 }
+
+// Dark theme: repaint switcher buttons. Inactive buttons sit on page bg,
+// active button mirrors header surface for clear contrast.
+:global(body.darkTheme) .ViewSwitcher {
+  .Label {
+    color: #9aa0aa;
+  }
+
+  .ViewSwitcherButtons .ViewSwitcherButton {
+    background-color: #151a26;
+    border-color: #303338;
+
+    .ViewSwitcherText {
+      color: #dadada;
+    }
+
+    > svg {
+      fill: #9aa0aa;
+    }
+
+    &:nth-child(1),
+    &:nth-child(2) {
+      background-color: #151a26;
+      border-color: #303338;
+    }
+  }
+
+  &.CoreView .ViewSwitcherButtons .ViewSwitcherButton:nth-child(2),
+  &.FolderView .ViewSwitcherButtons .ViewSwitcherButton:nth-child(1) {
+    background-color: #0e1219;
+    border-color: #dadada;
+
+    svg {
+      fill: #dadada;
+    }
+  }
+}
