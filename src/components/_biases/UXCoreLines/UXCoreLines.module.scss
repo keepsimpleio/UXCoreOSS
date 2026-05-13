@@ -78,3 +78,13 @@
     width: 17vw;
   }
 }
+
+// Dark theme: dim the connector rays so the cards pop instead of fighting them.
+:global(body.darkTheme) .svg {
+  .path,
+  .greenPath,
+  .pinkPath,
+  .purplePath {
+    opacity: 0.45;
+  }
+}

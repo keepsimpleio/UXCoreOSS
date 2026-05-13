@@ -303,7 +303,11 @@ const ToolHeader: FC<TToolHeader> = ({
             <Link href="/" locale={locale} legacyBehavior>
               <a target={homepageLinkTarget} className={styles.logo}>
                 <Image
-                  src={'/assets/logos/keepsimple.svg'}
+                  src={
+                    isDarkTheme
+                      ? '/assets/logos/keepsimpleDark.svg'
+                      : '/assets/logos/keepsimple.svg'
+                  }
                   alt="keepsimple logo"
                   width={130.61}
                   height={25.87}

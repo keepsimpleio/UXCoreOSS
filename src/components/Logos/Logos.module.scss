@@ -64,3 +64,16 @@
     font-size: 1.5vh;
   }
 }
+
+// Dark theme: lift the description text, then desaturate + invert the
+// partner logos so the black-on-white marks read as soft light marks on dark.
+:global(body.darkTheme) {
+  .title {
+    color: rgba(218, 218, 218, 0.65);
+  }
+
+  .logos {
+    filter: invert(1) hue-rotate(180deg) brightness(0.95) saturate(0.85);
+    opacity: 0.85;
+  }
+}

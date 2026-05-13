@@ -507,6 +507,31 @@ $headerHeight: 46px;
       color: #ffffff;
     }
   }
+
+  .MenuItem {
+    color: #dadada;
+
+    & svg {
+      filter: invert(0.85) brightness(1.5);
+    }
+
+    .bob {
+      filter: invert(0.85) brightness(1.1);
+    }
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+
+      svg {
+        filter: invert(0.95) brightness(1.6);
+      }
+    }
+  }
+
+  .openLink {
+    filter: invert(0.85) brightness(1.4);
+  }
 }
 
 @media (max-width: 920px) {

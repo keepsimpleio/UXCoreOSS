@@ -241,3 +241,58 @@ $purple-border: #8073ff;
     }
   }
 }
+
+// Dark theme: invert bias cards. The colored fill (::after) becomes a dark
+// surface; the category accent shifts to the text. The border ring (::before)
+// keeps its accent so each card still reads as its category at a glance.
+:global(body.darkTheme) {
+  .label {
+    .txt {
+      color: #dadada;
+    }
+
+    &::after {
+      background: #1f2533;
+    }
+  }
+
+  .blue {
+    background: #1f2533;
+    .txt {
+      color: #bbe4f2;
+    }
+    &::after {
+      background: #1f2533;
+    }
+  }
+
+  .green {
+    background: #1f2533;
+    .txt {
+      color: #c5eadd;
+    }
+    &::after {
+      background: #1f2533;
+    }
+  }
+
+  .pink {
+    background: #1f2533;
+    .txt {
+      color: #dbcad1;
+    }
+    &::after {
+      background: #1f2533;
+    }
+  }
+
+  .purple {
+    background: #1f2533;
+    .txt {
+      color: #cdc8fc;
+    }
+    &::after {
+      background: #1f2533;
+    }
+  }
+}
