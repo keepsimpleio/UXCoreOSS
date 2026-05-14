@@ -482,10 +482,13 @@ ol {
         }
 
         & .ModalBodyTitle {
+          // Match the rest of the dark theme: section badges are dark
+          // chips with a translucent accent fill and white text — same
+          // pattern as the folder-view DESCRIPTION/USAGE badges.
           & span,
           .metaTitle {
-            color: #1b1e26;
-            background-color: #dadada;
+            color: #ffffff;
+            background-color: rgba(127, 179, 213, 0.32);
           }
 
           &.mentionedIn {
