@@ -1,5 +1,16 @@
 @import '@styles/_variables.scss';
 
+@keyframes viewFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 .coreView {
   width: 100vw;
   height: 100vh;
@@ -9,6 +20,7 @@
   align-items: center;
   overflow: hidden;
   padding-top: 15px;
+  animation: viewFadeIn 0.28s ease-out both;
 
   .hexagonWrapper {
     position: relative;
