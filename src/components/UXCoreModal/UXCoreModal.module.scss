@@ -456,3 +456,109 @@ ol {
     width: 13px;
   }
 }
+
+// Dark theme: bias modal repaints to the dark palette. Body badges
+// (DESCRIPTION / EXAMPLE OF USE BY TEAM / VISUAL EXAMPLE) keep their
+// "small chip" identity but on the dark surface. Strapi raw inline
+// styles get neutralized like in folder view.
+:global(body.darkTheme) {
+  .ModalOverlay {
+    background-color: rgba(0, 0, 0, 0.6);
+
+    & .Modal {
+      background: #1b1e26;
+      color: #dadada;
+      border-color: #303338;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.6);
+
+      & .ModalBody {
+        &::-webkit-scrollbar {
+          border-left-color: #1b1e26;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background: rgba(127, 179, 213, 0.5);
+          border-left-color: #1b1e26;
+        }
+
+        & .ModalBodyTitle {
+          & span,
+          .metaTitle {
+            color: #1b1e26;
+            background-color: #dadada;
+          }
+
+          &.mentionedIn {
+            background-color: #151a26;
+            opacity: 0.85;
+
+            span {
+              color: rgba(218, 218, 218, 0.7);
+              background-color: unset;
+            }
+          }
+        }
+
+        // Strapi description / usage body text — strip stray inline
+        // backgrounds, light text.
+        .ModalBodyContent {
+          p,
+          li,
+          span:not(.switcherItemText) {
+            background: transparent !important;
+            background-color: transparent !important;
+            color: rgba(218, 218, 218, 0.92) !important;
+          }
+
+          a {
+            color: #7fb3d5 !important;
+          }
+
+          .switcher {
+            background-color: #151a26;
+            border-color: #303338;
+
+            &::before {
+              background-color: #0e1219;
+              border-color: #4c8cc1;
+            }
+
+            .switcherItem {
+              color: rgba(218, 218, 218, 0.7) !important;
+
+              svg {
+                fill: rgba(218, 218, 218, 0.7);
+              }
+
+              .switcherItemText {
+                color: inherit !important;
+              }
+            }
+
+            .activeProduct,
+            .activeHr {
+              color: #bbe4f2 !important;
+
+              svg {
+                fill: #bbe4f2;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .h1 {
+    color: #dadada;
+  }
+
+  .a,
+  .quote a {
+    color: #7fb3d5 !important;
+  }
+
+  .span {
+    border-left-color: #4d5566;
+  }
+}
