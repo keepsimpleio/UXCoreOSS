@@ -40,3 +40,10 @@
     width: 90%;
   }
 }
+
+// Dark theme: dark pill matching the chrome.
+:global(body.darkTheme) .snackBar {
+  background-color: #151a26;
+  border-color: #303338;
+  color: #dadada;
+}
