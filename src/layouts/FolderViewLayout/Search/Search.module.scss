@@ -164,3 +164,45 @@
     }
   }
 }
+
+// Dark theme: dark search dock at the bottom of the Left panel.
+:global(body.darkTheme) {
+  .SearchBoxWrapper {
+    background-color: #151a26;
+    border-top-color: #303338;
+  }
+
+  .Search {
+    background: #151a26;
+
+    input {
+      background: #1b1e26;
+      border-color: #303338;
+      color: #dadada;
+
+      &::placeholder {
+        color: rgba(218, 218, 218, 0.45);
+      }
+
+      &:focus {
+        border-color: #4c8cc1;
+      }
+    }
+  }
+
+  .Popup {
+    background: #1b1e26;
+    border-color: #303338;
+    color: #dadada;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+
+    &:after {
+      background: #1b1e26;
+      border-color: #303338;
+    }
+  }
+
+  .SearchResults {
+    color: #9aa0aa;
+  }
+}

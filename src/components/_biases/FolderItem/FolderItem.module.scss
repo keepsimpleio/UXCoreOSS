@@ -250,3 +250,111 @@
     }
   }
 }
+
+// Dark theme: invert FolderItem rows. The colored title tab becomes a dark
+// surface with the category accent as text + tab outline; the content panel
+// and the "Click for more" gradient also flip to dark.
+:global(body.darkTheme) .FolderItem {
+  .Content {
+    background-color: #1f2533;
+
+    p {
+      color: rgba(218, 218, 218, 0.92);
+    }
+
+    span {
+      background: rgba(127, 179, 213, 0.32);
+
+      p {
+        color: #ffffff;
+      }
+    }
+  }
+
+  .Bottom {
+    background: linear-gradient(
+      to top,
+      #1f2533,
+      #1f2533,
+      #1f2533,
+      rgba(31, 37, 51, 1),
+      rgba(31, 37, 51, 0)
+    );
+
+    .ClickText {
+      color: #7fb3d5;
+    }
+  }
+
+  &.Type-0 {
+    & > .FolderItemTitle {
+      background-color: #1f2533;
+      color: #bbe4f2;
+      border-bottom-color: #4c8cc1;
+
+      &:after {
+        border-left-color: #1f2533;
+        border-bottom-color: #1f2533;
+        color: #1f2533;
+      }
+    }
+
+    & > .Content {
+      border-color: #4c8cc1;
+    }
+  }
+
+  &.Type-1 {
+    & > .FolderItemTitle {
+      background-color: #1f2533;
+      color: #c5eadd;
+      border-bottom-color: #75b3b3;
+
+      &:after {
+        border-left-color: #1f2533;
+        border-bottom-color: #1f2533;
+        color: #1f2533;
+      }
+    }
+
+    & > .Content {
+      border-color: #75b3b3;
+    }
+  }
+
+  &.Type-2 {
+    & > .FolderItemTitle {
+      background-color: #1f2533;
+      color: #dbcad1;
+      border-bottom-color: #80739b;
+
+      &:after {
+        border-left-color: #1f2533;
+        border-bottom-color: #1f2533;
+        color: #1f2533;
+      }
+    }
+
+    & > .Content {
+      border-color: #80739b;
+    }
+  }
+
+  &.Type-3 {
+    & > .FolderItemTitle {
+      background-color: #1f2533;
+      color: #cdc8fc;
+      border-bottom-color: #8073ff;
+
+      &:after {
+        border-left-color: #1f2533;
+        border-bottom-color: #1f2533;
+        color: #1f2533;
+      }
+    }
+
+    & > .Content {
+      border-color: #8073ff;
+    }
+  }
+}

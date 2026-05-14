@@ -339,8 +339,9 @@
   }
 }
 
-// Dark theme: repaint the folder-view chrome. Category color lines and labels
-// (Blue/Green/Red/Purple inside .LineContainer) intentionally preserved.
+// Dark theme: repaint the folder-view chrome and lift the four category
+// "section" labels (Blue / Green / Red / Purple) from their light-mode
+// deep accents to brighter pastels so they read against the dark page.
 :global(body.darkTheme) {
   .Left {
     background: #151a26;
@@ -362,5 +363,23 @@
 
   .Right .Mask {
     background: #1b1e26;
+  }
+
+  .Right .LineContainer {
+    .Blue .Label {
+      color: #bbe4f2;
+    }
+
+    .Green .Label {
+      color: #c5eadd;
+    }
+
+    .Red .Label {
+      color: #dbcad1;
+    }
+
+    .Purple .Label {
+      color: #cdc8fc;
+    }
   }
 }
