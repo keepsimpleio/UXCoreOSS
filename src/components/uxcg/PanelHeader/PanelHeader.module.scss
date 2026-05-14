@@ -18,3 +18,12 @@
     font-weight: 600;
   }
 }
+
+:global(body.darkTheme) .panelHeader {
+  background-color: #151a26 !important;
+  border-color: #303338 !important;
+
+  .text {
+    color: #dadada !important;
+  }
+}

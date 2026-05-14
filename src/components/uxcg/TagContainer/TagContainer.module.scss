@@ -154,3 +154,9 @@
     }
   }
 }
+
+// Dark theme: stage selector tile titles lift to light text. Category stroke
+// colors stay so each stage retains its identity.
+:global(body.darkTheme) .iconAndTitle .title {
+  color: rgba(218, 218, 218, 0.85) !important;
+}

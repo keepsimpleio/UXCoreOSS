@@ -418,3 +418,98 @@
     }
   }
 }
+
+// Dark theme: question table (UXCG main + "This bias answers to..." section).
+:global(body.darkTheme) .Table {
+  background-color: #151a26 !important;
+  border-color: #303338 !important;
+
+  .NoResults,
+  .questionTitle {
+    color: #dadada !important;
+  }
+
+  .TableBody::-webkit-scrollbar-thumb {
+    background: rgba(127, 179, 213, 0.5) !important;
+  }
+
+  .TableFilterWrapper {
+    background-color: #0e1219 !important;
+
+    .SelectionTxt {
+      color: rgba(218, 218, 218, 0.7) !important;
+    }
+  }
+
+  .TableRow {
+    background-color: transparent !important;
+    color: #dadada !important;
+
+    &:nth-of-type(even) {
+      background-color: rgba(127, 179, 213, 0.05) !important;
+    }
+
+    & + .TableRow {
+      border-top-color: #303338 !important;
+    }
+
+    .TableRowData {
+      color: #dadada !important;
+    }
+
+    &:hover {
+      background-color: rgba(76, 140, 193, 0.18) !important;
+    }
+  }
+}
+
+:global(body.darkTheme) .UXCoreModal {
+  background-color: #1b1e26 !important;
+  border-color: #303338 !important;
+
+  .NoResults,
+  .questionTitle {
+    color: #dadada !important;
+  }
+
+  .TableBody::-webkit-scrollbar-thumb {
+    background: rgba(127, 179, 213, 0.5) !important;
+  }
+
+  .UXCoreModalFilterWrapper {
+    background-color: #0e1219 !important;
+
+    .SelectionTxt {
+      color: rgba(218, 218, 218, 0.7) !important;
+    }
+  }
+
+  .TableRow {
+    background-color: #151a26 !important;
+    border-color: #303338 !important;
+    color: #dadada !important;
+
+    .TableRowData {
+      color: #dadada !important;
+    }
+
+    &:hover {
+      background-color: rgba(76, 140, 193, 0.18) !important;
+    }
+  }
+
+  .showMoreLessBtns {
+    background: #0e1219 !important;
+
+    .showMoreBtn,
+    .showLessBtn {
+      background-color: #151a26 !important;
+      color: #dadada !important;
+
+      &:hover {
+        background-color: #1b1e26 !important;
+        color: #ffffff !important;
+      }
+    }
+  }
+}

@@ -352,3 +352,82 @@
     }
   }
 }
+
+// Dark theme: UXCG modal — same palette as bias modal.
+:global(body.darkTheme) .ModalOverlay {
+  background-color: rgba(0, 0, 0, 0.6) !important;
+
+  .Modal {
+    background: #1b1e26 !important;
+    border-color: #303338 !important;
+    color: #dadada !important;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.6);
+  }
+
+  .ModalHeader {
+    border-bottom-color: #303338 !important;
+
+    .ModalHeaderTitle {
+      color: #dadada !important;
+    }
+
+    .ModalHeaderLinks {
+      .CopyText {
+        color: #7fb3d5 !important;
+
+        .Tooltip {
+          background-color: #1b1e26 !important;
+          color: #dadada !important;
+          border: 1px solid #303338 !important;
+        }
+      }
+
+      & > a,
+      & > span {
+        color: #7fb3d5 !important;
+      }
+    }
+
+    .ModalHeaderCloseButtonContainer img {
+      filter: invert(1) brightness(2) saturate(0);
+    }
+  }
+
+  .ModalBody {
+    background-color: #151a26 !important;
+
+    &::-webkit-scrollbar-thumb {
+      background: rgba(127, 179, 213, 0.5) !important;
+    }
+
+    .PossibleAnswers,
+    .RelatedQuestionTitle {
+      color: #dadada !important;
+    }
+
+    .ModalBodyContent {
+      .AnswerItem {
+        background: #1b1e26 !important;
+        border-color: #303338 !important;
+        color: #dadada !important;
+
+        .AnswerLink {
+          color: #7fb3d5 !important;
+
+          &:after {
+            background: #0e1219 !important;
+          }
+        }
+
+        &.Higlighted:after {
+          background: rgba(248, 221, 126, 0.18) !important;
+          border-color: #b58f1c !important;
+        }
+      }
+
+      .QuestionLink {
+        color: #7fb3d5 !important;
+      }
+    }
+  }
+}

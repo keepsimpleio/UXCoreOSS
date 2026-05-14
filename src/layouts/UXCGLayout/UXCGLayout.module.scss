@@ -114,3 +114,23 @@
     }
   }
 }
+
+// Dark theme: UXCG main page chrome — matches main UX Core palette.
+:global(body.darkTheme) .body {
+  background-color: #1b1e26 !important;
+}
+
+:global(body.darkTheme) .Content {
+  .Title {
+    color: #dadada !important;
+  }
+
+  .ShortName {
+    color: #9aa0aa !important;
+  }
+
+  .description,
+  .Motto {
+    color: rgba(218, 218, 218, 0.85) !important;
+  }
+}

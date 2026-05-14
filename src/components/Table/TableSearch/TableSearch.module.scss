@@ -49,3 +49,21 @@
     }
   }
 }
+
+:global(body.darkTheme) .TableSearchBox {
+  background-color: #1b1e26 !important;
+  border-color: #303338 !important;
+
+  input {
+    background-color: transparent !important;
+    color: #dadada !important;
+
+    &::placeholder {
+      color: rgba(218, 218, 218, 0.45) !important;
+    }
+  }
+
+  &Button img {
+    filter: invert(1) brightness(2) saturate(0);
+  }
+}
