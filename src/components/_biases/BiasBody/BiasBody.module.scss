@@ -98,57 +98,54 @@
   text-align: center;
 }
 
-// Dark theme: align BiasBody to the same palette as the main UX Core
-// surface — #1b1e26 page, #151a26 panel, #303338 border, brand-blue
-// accent. SCSS tokens above bake in light values, so override the
-// resulting CSS properties here.
-:global(body.darkTheme) {
-  .Body {
-    .MetaTitle {
-      color: #ffffff;
-      background-color: rgba(127, 179, 213, 0.32);
-    }
+// Dark theme: align BiasBody to the main UX Core palette. Explicit-
+// descendant form because the wrapper-only :global() pattern can drop
+// the CSS-module hashing on nested classes.
+:global(body.darkTheme) .Body {
+  .MetaTitle {
+    color: #ffffff;
+    background-color: rgba(127, 179, 213, 0.32);
+  }
 
-    .Scenario {
-      color: rgba(218, 218, 218, 0.92);
-    }
+  .Scenario {
+    color: rgba(218, 218, 218, 0.92);
+  }
 
-    .DemoPanel {
-      border-color: #303338;
-      background-color: #151a26;
-    }
+  .DemoPanel {
+    border-color: #303338;
+    background-color: #151a26;
+  }
 
-    .PanelLabel {
-      color: rgba(218, 218, 218, 0.7);
-      background-color: #0e1219;
-    }
+  .PanelLabel {
+    color: rgba(218, 218, 218, 0.7);
+    background-color: #0e1219;
+  }
 
-    .PanelContent {
-      background-color: #151a26;
-    }
+  .PanelContent {
+    background-color: #151a26;
+  }
 
-    .PanelDescription {
-      color: rgba(218, 218, 218, 0.75);
-      border-top-color: #303338;
-      background-color: #151a26;
-    }
+  .PanelDescription {
+    color: rgba(218, 218, 218, 0.75);
+    border-top-color: #303338;
+    background-color: #151a26;
+  }
 
-    .Explanation {
-      background: rgba(76, 140, 193, 0.12);
-      border-left-color: #4c8cc1;
-    }
+  .Explanation {
+    background: rgba(76, 140, 193, 0.12);
+    border-left-color: #4c8cc1;
+  }
 
-    .ExplanationLabel {
-      color: #bbe4f2;
-    }
+  .ExplanationLabel {
+    color: #bbe4f2;
+  }
 
-    .Explanation p {
-      color: rgba(218, 218, 218, 0.92);
-    }
+  .Explanation p {
+    color: rgba(218, 218, 218, 0.92);
+  }
 
-    .Loading,
-    .Missing {
-      color: rgba(218, 218, 218, 0.7);
-    }
+  .Loading,
+  .Missing {
+    color: rgba(218, 218, 218, 0.7);
   }
 }
