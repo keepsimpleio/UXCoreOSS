@@ -262,10 +262,23 @@
       color: rgba(218, 218, 218, 0.92);
     }
 
-    span {
+    // Strapi descriptions can carry raw inline styles (white highlights,
+    // light-mode backgrounds, marks) that read as garish bars on dark.
+    // Neutralize all inline element backgrounds inside the body text.
+    .TextContainer > p,
+    .TextContainer > p *,
+    .TextContainer > ul,
+    .TextContainer > ul * {
+      background: transparent !important;
+      background-color: transparent !important;
+      color: inherit;
+    }
+
+    // DESCRIPTION / USAGE badges only — direct-child spans with <p> inside.
+    > .TextContainer > span {
       background: rgba(127, 179, 213, 0.32);
 
-      p {
+      > p {
         color: #ffffff;
       }
     }
