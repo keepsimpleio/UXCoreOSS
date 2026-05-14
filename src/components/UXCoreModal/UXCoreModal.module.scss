@@ -457,88 +457,99 @@ ol {
   }
 }
 
-// Dark theme: bias modal repaints to the dark palette. Body badges
-// match the folder-view chip style (dark surface, translucent accent,
-// white text). Explicit-descendant selector form so CSS Modules scopes
-// the class names correctly (the wrapper-only :global() form was
-// dropping the inner hashing).
+// Dark theme: bias modal — same palette as main UX Core (#1b1e26
+// page / #151a26 panel / #303338 border / brand-blue accent).
+// !important on color + background-color because the base CSS for
+// the switcher and ModalBodyContent is nested 5 levels deep, which
+// out-specifics any reasonable dark selector chain.
 :global(body.darkTheme) .ModalOverlay {
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.6) !important;
 
   .Modal {
-    background: #1b1e26;
+    background: #1b1e26 !important;
     color: #dadada;
-    border-color: #303338;
+    border-color: #303338 !important;
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.6);
   }
 
-  .ModalBody {
-    &::-webkit-scrollbar {
-      border-left-color: #1b1e26;
-    }
+  .ModalBody::-webkit-scrollbar {
+    border-left-color: #1b1e26 !important;
+  }
 
-    &::-webkit-scrollbar-thumb {
-      background: rgba(127, 179, 213, 0.5);
-      border-left-color: #1b1e26;
-    }
+  .ModalBody::-webkit-scrollbar-thumb {
+    background: rgba(127, 179, 213, 0.5) !important;
+    border-left-color: #1b1e26 !important;
   }
 
   .ModalBodyTitle {
     span,
     .metaTitle {
-      color: #ffffff;
-      background-color: rgba(127, 179, 213, 0.32);
+      color: #ffffff !important;
+      background-color: rgba(127, 179, 213, 0.32) !important;
     }
 
     &.mentionedIn {
-      background-color: #151a26;
+      background-color: #151a26 !important;
       opacity: 0.85;
 
       span {
-        color: rgba(218, 218, 218, 0.7);
-        background-color: unset;
+        color: rgba(218, 218, 218, 0.7) !important;
+        background-color: transparent !important;
       }
     }
   }
 
-  .ModalBodyContent {
-    p,
-    li {
-      background: transparent !important;
-      background-color: transparent !important;
-      color: rgba(218, 218, 218, 0.92) !important;
-    }
+  // Body text (description + usage). Strapi inline HTML can carry
+  // raw backgrounds and colors — neutralize all descendants.
+  .ModalBodyContent,
+  .ModalBodyContent p,
+  .ModalBodyContent p *,
+  .ModalBodyContent li,
+  .ModalBodyContent li *,
+  .ModalBodyContent ul,
+  .ModalBodyContent ol,
+  .ModalBodyContent strong,
+  .ModalBodyContent em,
+  .ModalBodyContent span:not(.switcherItemText),
+  .ModalBodyContent mark,
+  .ModalBodyContent u {
+    background: transparent !important;
+    background-color: transparent !important;
+    color: rgba(218, 218, 218, 0.92) !important;
+  }
 
-    a {
-      color: #7fb3d5 !important;
-    }
+  .ModalBodyContent a {
+    color: #7fb3d5 !important;
+    background-color: transparent !important;
+  }
 
-    .switcher {
-      background-color: #151a26;
-      border-color: #303338;
+  // Product / People Management toggle.
+  .ModalBodyContent .switcher {
+    background-color: #151a26 !important;
+    border-color: #303338 !important;
+  }
 
-      &::before {
-        background-color: #0e1219;
-        border-color: #4c8cc1;
-      }
+  .ModalBodyContent .switcher::before {
+    background-color: #0e1219 !important;
+    border-color: #4c8cc1 !important;
+  }
 
-      .switcherItem {
-        color: rgba(218, 218, 218, 0.7);
+  .ModalBodyContent .switcher .switcherItem {
+    color: rgba(218, 218, 218, 0.7) !important;
+  }
 
-        svg {
-          fill: rgba(218, 218, 218, 0.7);
-        }
-      }
+  .ModalBodyContent .switcher .switcherItem svg {
+    fill: rgba(218, 218, 218, 0.7) !important;
+  }
 
-      .activeProduct,
-      .activeHr {
-        color: #bbe4f2;
+  .ModalBodyContent .switcher .activeProduct,
+  .ModalBodyContent .switcher .activeHr {
+    color: #bbe4f2 !important;
+  }
 
-        svg {
-          fill: #bbe4f2;
-        }
-      }
-    }
+  .ModalBodyContent .switcher .activeProduct svg,
+  .ModalBodyContent .switcher .activeHr svg {
+    fill: #bbe4f2 !important;
   }
 }
 
