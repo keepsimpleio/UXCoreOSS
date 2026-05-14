@@ -366,6 +366,15 @@
   }
 
   .Right .LineContainer {
+    // The light-mode CSS draws a 10px #fafafa stripe at the top of each
+    // category column to mask the line — on dark page that reads as a white
+    // artifact. Match the dark page bg instead.
+    .Green,
+    .Red,
+    .Purple {
+      border-top-color: #1b1e26;
+    }
+
     .Blue .Label {
       color: #bbe4f2;
     }
